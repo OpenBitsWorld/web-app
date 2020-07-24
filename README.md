@@ -1,4 +1,8 @@
-# tpaga-web
+# OpenBits Web Portal
+
+<div align="center">
+   <img align="center" src="assets/openbits-logo.svg" width="250px" alt="OpenBits logo" title="OpenBits Logo">
+</div>
 
 ## Project setup
 ```
