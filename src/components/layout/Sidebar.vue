@@ -14,9 +14,10 @@
         <h4
           class="pl-4 pt-2"
           id="sidebar-no-header-title">
-            <img id="sidebar-logo" :src="sidebarLogo" />
-            <!-- <font-awesome-icon class="text-main-color" icon="box-open" /> --> OpenBits
-          </h4>
+            <inline-svg
+            class="sidebar-logo"
+            :src="require('../../assets/openbits-logo.svg')"/> OpenBits
+        </h4>
         <div class="p-3">
           <nav class="mb-3">
             <b-nav
@@ -64,19 +65,17 @@
 </template>
 
 <script>
-import OpenBitsLogo from '@/assets/openbits-logo.svg';
+import InlineSvg from 'vue-inline-svg';
 
 export default {
   name: 'LayoutSidebar',
+  components: {
+    InlineSvg,
+  },
   methods: {
     isActivePage(page) {
       return this.$route.path === page;
     },
-  },
-  data() {
-    return {
-      sidebarLogo: OpenBitsLogo,
-    };
   },
 };
 </script>
@@ -89,8 +88,10 @@ export default {
   #sidebar-no-header-title {
     border-bottom:2px solid black;
     height: 58px;
-    #sidebar-logo {
+    .sidebar-logo {
+      width:auto;
       height:35px;
+      display:inline-block!important;
       vertical-align: text-bottom;
     }
   }

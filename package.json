@@ -22,6 +22,7 @@
     "vue": "^2.6.11",
     "vue-arweave": "https://arweave.net/UQOLIeF4M3cAOC3k5a_uHSjuK43ZTwtPE0kqSsTVnBQ",
     "vue-chartjs": "^3.5.0",
+    "vue-inline-svg": "^1.3.1",
     "vue-router": "^3.2.0",
     "vue2-dropzone": "^3.6.0",
     "vuex": "^3.4.0",

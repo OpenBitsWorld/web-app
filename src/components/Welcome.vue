@@ -13,11 +13,11 @@
       </template>
 
       <template v-slot:lead>
-        <b-img
-          v-bind="logoStyle"
-          rounded="circle"
-          alt="Circle image"
-          :src="logo"></b-img>
+        <h1>
+          <inline-svg
+            class="d-block mx-auto logo"
+            :src="require('../assets/openbits-logo.svg')"/>
+        </h1>
         <p class="mt-4">
           OpenBits is a platform based on the Arweave blockchain.
           Arweave is a network that incentivize users to create
@@ -50,22 +50,24 @@
 </template>
 
 <script>
-import OpenBitsLogo from '@/assets/openbits-logo.svg';
+import InlineSvg from 'vue-inline-svg';
 
 export default {
   name: 'Welcome',
-  data() {
-    return {
-      logo: OpenBitsLogo,
-      logoStyle: {
-        width: 200,
-        class: 'mx-auto d-block my-4',
-      },
-    };
+  components: {
+    InlineSvg,
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  .home-page{
+    .logo{
+      margin-left:auto;
+      margin-right:auto;
+      height:200px;
+      width:auto;
+    }
+  }
 </style>
