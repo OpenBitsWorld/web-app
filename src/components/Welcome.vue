@@ -13,11 +13,12 @@
       </template>
 
       <template v-slot:lead>
-        <h1>
+        <img :src="config.LOGO_URL" class="logo" />
+        <!-- <h1>
           <inline-svg
             class="d-block mx-auto logo"
             :src="require('../assets/openbits-logo.svg')"/>
-        </h1>
+        </h1> -->
         <p class="mt-4">
           OpenBits is a platform based on the Arweave blockchain.
           Arweave is a network that incentivize users to create
@@ -50,12 +51,14 @@
 </template>
 
 <script>
-import InlineSvg from 'vue-inline-svg';
+// import InlineSvg from 'vue-inline-svg';
+import config from '@/mixins/configs';
 
 export default {
   name: 'Welcome',
+  mixins: [config],
   components: {
-    InlineSvg,
+    // InlineSvg,
   },
 };
 </script>
@@ -64,6 +67,7 @@ export default {
 <style scoped lang="scss">
   .home-page{
     .logo{
+      display:block;
       margin-left:auto;
       margin-right:auto;
       height:200px;

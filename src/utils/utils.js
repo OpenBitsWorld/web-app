@@ -1,4 +1,4 @@
-import { interactWrite } from 'smartweave';
+// import { interactWrite } from 'smartweave';
 
 export const randomRgba = () => {
   const o = Math.round;
@@ -8,7 +8,13 @@ export const randomRgba = () => {
   return randomColor;
 };
 
-export const registerNodePackage = async (
+export const getImageBaseUrl = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://arweave.net/';
+  }
+  return '@/assets/';
+};
+/* export const registerNodePackage = async (
   arweave,
   wallet,
   registryAddress,
@@ -30,7 +36,7 @@ export const registerNodePackage = async (
     },
   );
   console.log(results);
-};
+}; */
 
 export const getInvestmentLevelsMargin = (targetProfit) => {
   const twentyOfTarget = (targetProfit * 20) / 100;

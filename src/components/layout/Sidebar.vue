@@ -14,9 +14,11 @@
         <h4
           class="pl-4 pt-2"
           id="sidebar-no-header-title">
-            <inline-svg
+            <img :src="config.LOGO_URL" class="sidebar-logo" />
+            <!-- <inline-svg
             class="sidebar-logo"
-            :src="require('../../assets/openbits-logo.svg')"/> OpenBits
+            :src="require('../../assets/openbits-logo.svg')"/> -->
+            <div class="brand ml-2 mt-1">OpenBits</div>
         </h4>
         <div class="p-3">
           <nav class="mb-3">
@@ -65,12 +67,14 @@
 </template>
 
 <script>
-import InlineSvg from 'vue-inline-svg';
+// import InlineSvg from 'vue-inline-svg';
+import config from '@/mixins/configs';
 
 export default {
   name: 'LayoutSidebar',
+  mixins: [config],
   components: {
-    InlineSvg,
+    // InlineSvg,
   },
   methods: {
     isActivePage(page) {
@@ -90,9 +94,11 @@ export default {
     height: 58px;
     .sidebar-logo {
       width:auto;
-      height:35px;
+      height:41px;
       display:inline-block!important;
-      vertical-align: text-bottom;
+    }
+    .brand {
+      display:inline-block;
     }
   }
   div {
