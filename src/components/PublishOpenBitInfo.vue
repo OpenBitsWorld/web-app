@@ -31,13 +31,14 @@
 </template>
 
 <script>
-import configs from '@/configs/configs';
+import config from '@/mixins/configs';
 
 export default {
   name: 'PublishOpenBitInfo',
+  mixins: [config],
   computed: {
     getFeeForPublication() {
-      return configs().FEE_FOR_PUBLICATION;
+      return this.config.FEE_FOR_PUBLICATION;
     },
   },
 };

@@ -1,7 +1,6 @@
 <template>
   <b-card
-    class="text-center m-2 w-50 "
-    header-bg-variant="main-color"
+    class="openbit-card text-center m-2"
     header-tag="header">
     <template v-slot:header>
       <h5>
@@ -9,58 +8,62 @@
       </h5>
     </template>
     <b-card-text>
-      <h6 class="text-center">
-        Available Investments
-      </h6>
-      <b-badge
-        v-for="level in getLevels"
-        :key="level.name"
-        class="ml-2"
-        :variant="level.color"
-      >
-        {{level.name.toUpperCase()}}
-      </b-badge>
-    <!--   <b-badge class="mb-1 w-100" variant="main-color">
-        <h6>OpenBit Info</h6>
-      </b-badge>
-      <b-badge class="mb-1 w-100" variant="secondary-color">
-        <p>Repository</p>
-        {{obit.obitJSON.repository.url}}
-      </b-badge>
-      <b-badge class="ml-1" variant="dark">
-        <p>Version</p>
-        {{obit.obitJSON.version}}
-      </b-badge>
-      <b-badge class="ml-1" variant="dark">
-        <p>Owner</p>
-        {{obit.obitOwner}}
-      </b-badge>
-      <b-badge class="ml-1 mr-1" variant="dark">
-        <p>Type</p>
-        {{obit.obitType}}
-      </b-badge>
-      <b-badge class="mb-1 mt-3 w-100" variant="main-color">
-        <h6>Profit Share Token (PST) Info</h6>
-      </b-badge>
-      <b-badge class="mb-1 w-100" variant="secondary-color">
-        <p>Address</p>
-        {{obit.obitPST}}
-      </b-badge>
-      <b-badge class="ml-1" variant="dark">
-        <p>Name</p>
-        {{obit.statePST.ticker}}
-      </b-badge>
-      <b-badge class="ml-1 mr-1" variant="dark">
-        <p>Total Amount</p>
-        {{obit.totalPST}}
-      </b-badge> -->
-
-      <h6>Shares Distribution</h6>
-      <!-- <shares-chart
-        :styles="chartStyles"
-        class="obit-shares-chart"
-        :chartdata="sharesChartData"
-        :chartoptions="sharesChartOptions"></shares-chart> -->
+      <b-table
+        id="profits-table"
+        striped
+        :items="[pst]"
+        :fields="tableProfits">
+        <template v-slot:cell()="data">
+          <h3
+            class="text-center">
+            <b-badge
+              variant="main-color">
+                <span
+                  v-if="data.field.key === 'targetProfit' || data.field.key === 'generatedProfit'">
+                {{data.value}}
+                </span>
+                <span
+                  v-else-if="data.field.key === 'uniqueUsers'">
+                {{Object.keys(pst.users).length}}
+                </span>
+                <span
+                  v-else-if="data.field.key === 'numberOfInstallations'">
+                {{pst.generatedProfit * 100}}
+                </span>
+                <span
+                 v-if="data.field.key === 'targetProfit' || data.field.key === 'generatedProfit'">
+                 AR
+                </span>
+            </b-badge>
+          </h3>
+        </template>
+      </b-table>
+      <h4>Shares Distribution</h4>
+      <b-progress
+        v-if="pst"
+        show-progress
+        max="100" class="mb-3">
+        <b-progress-bar
+          v-for="(b, i) in Object.entries(pst.balances)"
+          :value="b[1]"
+          :key="i"
+          :variant="getProgressVariant(i, b)">
+        </b-progress-bar>
+      </b-progress>
+      <b-table
+        id="shares-distribution-table"
+        striped
+        :items="sharesDistributionItems"
+        :fields="sharesDistributionTable">
+          <template v-slot:cell(owner)="data">
+            <b-badge
+              class="d-inline-block w-100"
+              :variant="data.item.color"
+            >
+            {{data.value}}
+          </b-badge>
+          </template>
+      </b-table>
     </b-card-text>
     <b-button href="#" variant="main-color">Buy a Share</b-button>
   </b-card>
@@ -80,69 +83,111 @@ export default {
     // get the OpenBit PST status
     const OpenBitPST = await readContract(Vue.$arweave.node, this.openbit.pstId);
     this.pst = OpenBitPST;
+    console.log(this.pst);
   },
   data() {
     return {
       pst: null,
+      tableProfits: [{
+        key: 'targetProfit',
+        label: 'Target Profit',
+      }, {
+        key: 'generatedProfit',
+        label: 'Generated Profit',
+      }, {
+        key: 'numberOfInstallations',
+        label: 'Number of Installations',
+      }, {
+        key: 'uniqueUsers',
+        label: 'Unique Users',
+      }],
+      sharesDistributionTable: [{
+        key: 'owner',
+        label: 'Owner',
+      }, {
+        key: 'shares',
+        label: 'Shares',
+      }],
     };
   },
   computed: {
     getLevels() {
       if (this.pst) {
-        const available = this.pst.sharesAvailableForInvestors.levels.map((l) => {
-          if (l.available) {
-            return l;
-          }
-          return {};
-        });
-        available[2].available = false;
-        return available;
+        return this.pst.sharesAvailableForInvestors.levels;
       }
       return [];
     },
-  },
-  /* components: {
-    SharesChart,
-  },
-  beforeMount() {
-    // console.log(this.obit.weightedBalances);
-    this.obit.weightedBalances.forEach((b, i) => {
-      this.sharesChartData.datasets[0].data.push(b.percentage);
-      if (i === 0) {
-        this.sharesChartData.datasets[0].backgroundColor.push('#343a40');
-        this.sharesChartData.labels.push('owner');
-      } else {
-        this.sharesChartData.datasets[0].backgroundColor.push(randomRgba());
-        this.sharesChartData.labels.push(b.address);
-      }
-    });
-  },
-  data() {
-    return {
-      chartStyles: {
-      },
-      sharesChartData: {
-        datasets: [{
-          data: [],
-          barPercentage: 0.5,
-          barThickness: 6,
-          maxBarThickness: 8,
-          minBarLength: 2,
-          backgroundColor: [
-          ],
-        }],
-        labels: [
-        ],
-      },
-      sharesChartOptions: {
-        responsive: true,
-      },
-    };
+    sharesDistributionItems() {
+      const adjustedShares = [];
+      Object.entries(this.pst.balances).forEach((item, index) => {
+        if (index === 0) {
+          adjustedShares.push({
+            owner: item[0],
+            shares: item[1],
+            color: 'dark',
+          });
+        } else if (index === 1) {
+          adjustedShares.push({
+            owner: item[0],
+            shares: item[1],
+            color: 'success',
+          });
+        } else if (index === 2) {
+          adjustedShares.push({
+            owner: item[0],
+            shares: item[1],
+            color: 'secondary-color',
+          });
+        } else if (index === 3) {
+          adjustedShares.push({
+            owner: item[0],
+            shares: item[1],
+            color: 'danger',
+          });
+        } else if (index === 4) {
+          adjustedShares.push({
+            owner: item[0],
+            shares: item[1],
+            color: 'fourth-color',
+          });
+        } else if (index === 5) {
+          adjustedShares.push({
+            owner: item[0],
+            shares: item[1],
+            color: 'third-color',
+          });
+        }
+      });
+      return adjustedShares;
+    },
   },
   methods: {
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    getProgressVariant(i) {
+      switch (i) {
+        case 0:
+          return 'dark';
+        case 1:
+          return 'success';
+        case 2:
+          return 'secondary-color';
+        case 3:
+          return 'danger';
+        case 4:
+          return 'fourth-color';
+        case 5:
+          return 'third-color';
+        default:
+          return 'dark';
+      }
     },
-  }, */
+  },
 };
 </script>
+
+<style lang="scss">
+  .openbit-card{
+    display: inline-block!important;
+    width:48%!important;
+    min-width:496px!important;
+  }
+</style>

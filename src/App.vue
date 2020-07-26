@@ -9,19 +9,21 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { readContract } from 'smartweave';
-import configs from '@/configs/configs';
+import config from '@/mixins/configs';
 
 import LayoutMain from '@/views/layout/Main.vue';
 
 export default {
   name: 'App',
+  mixins: [config],
   components: {
     LayoutMain,
   },
   async mounted() {
+    // console.log(config);
     // load OpenBits
     // get openbits from the registry
-    const rs = await readContract(Vue.$arweave.node, configs().OPENBITS_REGISTRY);
+    const rs = await readContract(Vue.$arweave.node, this.config.OPENBITS_REGISTRY);
 
     // get node packages
     const { OpenBits } = rs;

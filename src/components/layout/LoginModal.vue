@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-button v-b-modal.login-modal>Login</b-button>
+    <b-button
+      variant="dark"
+      v-b-modal.login-modal>
+        <b>Login</b>
+    </b-button>
     <b-modal
       id="login-modal"
       ref="login-modal"

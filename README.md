@@ -21,3 +21,11 @@ npm run serve
 npm run build
 ```
 
+### Useful Things to test
+
+BATMANISE test CBVAC PST: 
+- state address:  LURIHbocfSdwm6-v28ObYCs1IKBnspSfHb2lmj5ZoF4
+- contract address: 
+
+SUPERMANISE test CBVAC PST: 
+- state address: Ty9cxWxfbnh9vOhmjn2Jwr56HfnODpkg9Oh_ev3EokM

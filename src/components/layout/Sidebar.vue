@@ -32,7 +32,6 @@
                 <font-awesome-icon icon="user" /> Your Profile
               </b-nav-item> -->
               <b-nav-item
-                disabled
                 :active="isActivePage('/explore-openbits')"
                 class="m-1"
                 @click="$router.push('explore-openbits')">

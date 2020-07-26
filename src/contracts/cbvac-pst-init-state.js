@@ -9,7 +9,8 @@ const createCbvacPstInitState = (
     shares: 100,
     owners,
     investors: [],
-    users: [],
+    users: {},
+    MultiverseWaitingList: {},
     targetProfit,
     generatedProfit: 0,
     sharesAvailableForInvestors: {
@@ -19,6 +20,7 @@ const createCbvacPstInitState = (
     },
   };
   template.balances[owners[0]] = 100;
+  template.balances.multiverse = 0;
   return template;
 };
 

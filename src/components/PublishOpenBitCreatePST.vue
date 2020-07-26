@@ -31,6 +31,10 @@
             <b-badge
               variant="main-color">
                 {{data.value}}
+                <span
+                  v-if="data.field.key === 'targetProfit' || data.field.key === 'a'">
+                  AR
+                </span>
             </b-badge>
           </h3>
         </template>
@@ -61,7 +65,14 @@
           </b-badge>
         </template>
         <template v-slot:cell(totalPrice)="data">
-          <b>{{ Number(data.item.pricePerShare) * Number(data.item.amountOfShares) }}</b>
+          <b>{{ Number(data.item.pricePerShare) * Number(data.item.amountOfShares) }} AR</b>
+        </template>
+        <template v-slot:cell()="data">
+          {{data.value}}
+          <span
+            v-if="data.field.key !== 'amountOfShares'">
+            AR
+          </span>
         </template>
       </b-table>
   </b-form>
@@ -69,21 +80,23 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import config from '@/mixins/configs';
 import configs from '@/configs/configs';
 import { getInvestmentLevels } from '@/utils/utils';
 
 export default {
   name: 'PublishOpenBitCreatePST',
   props: ['publishingStatus'],
+  mixins: [config],
   mounted() {
     this.levels = this.getLevels;
   },
   methods: {
     updateLevelsAvailability() {
-      this.levels[0].available = !this.investments;
-      this.levels[1].available = !this.investments;
-      this.levels[2].available = !this.investments;
-      this.levels[3].available = !this.investments;
+      this.getLevels[0].available = this.investments;
+      this.getLevels[1].available = this.investments;
+      this.getLevels[2].available = this.investments;
+      this.getLevels[3].available = this.investments;
     },
   },
   computed: {
@@ -113,10 +126,10 @@ export default {
       return this.targetProfit / 100;
     },
     numberOfInstallationsForSharesDonation() {
-      return this.pricePerShare / configs().FEE_FOR_INSTALLATION;
+      return this.pricePerShare / this.config.FEE_FOR_INSTALLATION;
     },
     numberOfInstallationsForTargetProfit() {
-      return this.targetProfit / configs().FEE_FOR_INSTALLATION;
+      return this.targetProfit / this.config.FEE_FOR_INSTALLATION;
     },
   },
   data() {

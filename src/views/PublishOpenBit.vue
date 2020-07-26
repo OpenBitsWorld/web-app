@@ -119,10 +119,10 @@
                 class="d-flex justify-content-between align-items-center text-dark">
                 OpenBits fee
                 <b-badge
-                  v-if="configs.FEE_FOR_PUBLICATION"
+                  v-if="this.config.FEE_FOR_PUBLICATION"
                   variant="secondary-color"
                   pill>
-                  {{configs.FEE_FOR_PUBLICATION}}
+                  {{this.config.FEE_FOR_PUBLICATION}}
                 </b-badge>
                 <SpinningBadge
                   v-else
@@ -232,7 +232,7 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
-import configs from '@/configs/configs';
+import config from '@/mixins/configs';
 import { readContract } from 'smartweave';
 import createCbvacPstInitState from '@/contracts/cbvac-pst-init-state';
 
@@ -242,6 +242,7 @@ import SpinningBadge from '@/components/SpinningBadge.vue';
 
 export default {
   name: 'PublishOpenBit',
+  mixins: [config],
   components: {
     vueDropzone: vue2Dropzone,
     PublishOpenBitInfo,
@@ -249,27 +250,8 @@ export default {
     SpinningBadge,
   },
   async mounted() {
-    /* const allOBits = await this.$arUtilsExecArQL({
-      op: 'and',
-      expr1: {
-        op: 'equals',
-        expr1: 'from',
-        expr2: 'XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4',
-      },
-      expr2: {
-        op: 'equals',
-        expr1: 'App-Name',
-        expr2: 'SmartWeaveContractSource',
-      },
-    });
-    console.log(allOBits); */
-
     await this.$arRemoveTransactionFromQueue(this.$arGetARTransactionsQueue[0]);
     await this.$arRemoveTransactionFromQueue(this.$arGetARTransactionsQueue[1]);
-
-    // load the registry status, to be deleted
-    const rs = await readContract(Vue.$arweave.node, configs().OPENBITS_REGISTRY);
-    console.log(rs);
   },
   computed: {
     ...mapGetters({
@@ -304,7 +286,7 @@ export default {
       && this.OpenBitMinersReward) {
         const total = Number(this.PSTMinersReward)
           + Number(this.OpenBitMinersReward)
-          + Number(configs().FEE_FOR_PUBLICATION);
+          + Number(this.config.FEE_FOR_PUBLICATION);
         return total;
       }
       return 0;
@@ -339,7 +321,7 @@ export default {
         this.transactionInfo = 'preparing to publish...';
 
         // check if a contract with the same name and version already exists
-        const registryStatus = await readContract(Vue.$arweave.node, configs().OPENBITS_REGISTRY);
+        const registryStatus = await readContract(Vue.$arweave.node, this.config.OPENBITS_REGISTRY);
         if (registryStatus.OpenBits.nodePackages[packName]
           && registryStatus.OpenBits.nodePackages[packName].version === packVersion) {
           this.packageExists = true;
@@ -351,10 +333,10 @@ export default {
         const pstInitState = createCbvacPstInitState(
           `{openbit}-${packName}@${packVersion}`,
           [this.defaultARWallet.address],
-          this.$refs['openbit-economy'].targetProfit,
+          Number(this.$refs['openbit-economy'].targetProfit),
           this.$refs['openbit-economy'].getLevels,
         );
-        console.log(pstInitState);
+        // console.log(JSON.stringify(pstInitState));
 
         const PSTTags = [{
           name: 'dApp',
@@ -370,7 +352,7 @@ export default {
           value: '0.3.0',
         }, {
           name: 'Contract-Src',
-          value: configs().OPENBITS_CBVAC_PST,
+          value: this.config.OPENBITS_CBVAC_PST,
         }, {
           name: 'Content-Type',
           value: 'application/json',
@@ -383,8 +365,8 @@ export default {
         });
 
         // create transaction to publish the OpenBit
-        const amount = configs().FEE_FOR_PUBLICATION;
-        const receiverAddress = configs().OPENBITS_ARWEAVE_ADDRESS;
+        const amount = this.config.FEE_FOR_PUBLICATION;
+        const receiverAddress = this.config.OPENBITS_ARWEAVE_ADDRESS;
         const sign = true;
         const send = false;
         const data = this.fileBuffer;
@@ -402,7 +384,7 @@ export default {
           value: '0.3.0',
         }, {
           name: 'Contract',
-          value: configs().OPENBITS_REGISTRY,
+          value: this.config.OPENBITS_REGISTRY,
         }, {
           name: 'Input',
           value: JSON.stringify({
@@ -425,10 +407,9 @@ export default {
     },
     async confirmTransactionAndPublishOpenBit() {
       // await this.$arUtilsSignTransaction(this.$arGetARTransactionsQueue[0].arTransaction);
-      const res = await this.$arUtilsSendTransaction(
+      await this.$arUtilsSendTransaction(
         this.$arGetARTransactionsQueue[0].arTransaction,
       );
-      console.log(res);
       await this.$arUtilsSendTransaction(
         this.$arGetARTransactionsQueue[1].arTransaction,
       );
@@ -436,7 +417,6 @@ export default {
   },
   data() {
     return {
-      configs: configs(),
       publishingStatus: false,
       file: null,
       fileBuffer: null,

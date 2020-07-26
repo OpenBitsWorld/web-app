@@ -1,9 +1,18 @@
 <template>
   <b-container class="mt-3">
-    <OpenBitCard
-      v-for="openbit in getOpenBits"
-      :key="openbit.openbitAddress"
-      :openbit="openbit" />
+    <b-card-group
+      deck>
+      <OpenBitCard
+        v-for="openbit in getOpenBits"
+        :key="openbit.openbitAddress"
+        :openbit="openbit"
+      />
+      <OpenBitCard
+        v-for="openbit in getOpenBits"
+        :key="openbit.openbitAddress"
+        :openbit="openbit"
+      />
+    </b-card-group>
   </b-container>
 </template>
 
