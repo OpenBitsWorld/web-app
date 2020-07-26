@@ -52,6 +52,7 @@
       </b-progress>
       <b-table
         id="shares-distribution-table"
+        v-if="pst"
         striped
         :items="sharesDistributionItems"
         :fields="sharesDistributionTable">
@@ -65,7 +66,6 @@
           </template>
       </b-table>
     </b-card-text>
-    <b-button href="#" variant="main-color">Buy a Share</b-button>
   </b-card>
 </template>
 

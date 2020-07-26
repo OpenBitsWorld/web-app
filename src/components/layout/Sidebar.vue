@@ -38,7 +38,6 @@
                 <font-awesome-icon icon="search" /> Explore OpenBits
               </b-nav-item>
               <b-nav-item
-                disabled
                 :active="isActivePage('/user-obits')"
                 class="m-1"
                 @click="$router.push('user-obits')">
