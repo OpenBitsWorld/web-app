@@ -130,7 +130,7 @@ export default {
           adjustedShares.push({
             owner: item[0],
             shares: item[1],
-            color: 'success',
+            color: 'multiverse-color',
           });
         } else if (index === 2) {
           adjustedShares.push({
@@ -167,7 +167,7 @@ export default {
         case 0:
           return 'dark';
         case 1:
-          return 'success';
+          return 'multiverse-color';
         case 2:
           return 'secondary-color';
         case 3:
