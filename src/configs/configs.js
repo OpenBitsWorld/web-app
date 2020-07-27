@@ -6,6 +6,7 @@ const configs = () => {
     OPENBITS_CBVAC_PST: '0RsrMDDxyT5U1tMC5bWNsEribv_hKo38DWv5zfUQLAQ',
     FEE_FOR_INSTALLATION: 0.01,
     FEE_FOR_PUBLICATION: 0.0001,
+    SCRENSHOOT_1_URL: 'https://arweave.net/pHIsPFgBV8sGJS5H7NDjX30xjnTo5-ZEVz2GNg9S2_I',
   };
   return config;
 };

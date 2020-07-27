@@ -16,6 +16,8 @@ import {
   faFileContract,
   faSearch,
   faFolderPlus,
+  faHandSpock,
+  faAward,
 } from '@fortawesome/free-solid-svg-icons';
 
 import App from './App.vue';
@@ -30,6 +32,8 @@ library.add(faCube);
 library.add(faSearch);
 library.add(faFileContract);
 library.add(faFolderPlus);
+library.add(faHandSpock);
+library.add(faAward);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(VueArweave);

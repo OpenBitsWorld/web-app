@@ -17,7 +17,7 @@ import { mapGetters } from 'vuex';
 import OpenBitCard from '@/components/OpenBitCard.vue';
 
 export default {
-  name: 'ExploreOpenBits',
+  name: 'UserOpenBits',
   components: {
     OpenBitCard,
   },

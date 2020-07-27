@@ -26,6 +26,7 @@
     </vue-dropzone>
     <div v-if="file">
       <b-card
+        border-variant="dark"
         bg-variant="white"
         text-variant="dark"
         footer-tag="footer"
@@ -391,7 +392,7 @@ export default {
             function: 'register',
             name: packName,
             version: packVersion,
-            pstId: this.$arGetARTransactionsQueue[0].arTransaction.id,
+            pstId: '4hxzUh54i48w98dQgEg1F8GriSVRyx5QCI8NTBJxZUs', // this.$arGetARTransactionsQueue[0].arTransaction.id,
           }),
         }];
 

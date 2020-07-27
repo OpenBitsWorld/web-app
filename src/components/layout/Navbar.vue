@@ -1,10 +1,19 @@
  <template>
   <b-navbar
     id="main-navbar"
+    :class="classes"
     toggleable="lg"
     text-variant="light"
     variant="white">
-    <!--<b-navbar-brand>OpenBits</b-navbar-brand>-->
+    <b-navbar-brand
+      v-if="classes === 'landpage-navbar'">
+      <h4
+        class="pl-4 pt-2"
+        id="navbar-title">
+        <img :src="config.LOGO_URL" class="navbar-logo" />
+        <div class="brand ml-2 mt-1 text-white">OpenBits</div>
+      </h4>
+    </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
@@ -28,9 +37,8 @@
               class="text-dark">{{defaultARWallet.address}}
               <div class="d-inline-block">
                 <b-badge
-                  variant="secondary-color"
-                  pill>
-                  Balance: {{defaultARWallet.balanceAR}}
+                  variant="secondary-color">
+                  Balance: {{defaultARWallet.balanceAR}} AR
                 </b-badge>
               </div>
             </strong>
@@ -51,10 +59,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import config from '@/mixins/configs';
 import LayoutLoginModal from '@/components/layout/LoginModal.vue';
 
 export default {
   name: 'LayoutNavbar',
+  mixins: [config],
   components: {
     LayoutLoginModal,
   },
@@ -62,6 +72,12 @@ export default {
     ...mapGetters({
       defaultARWallet: 'user/getDefaultARWallet',
     }),
+    classes() {
+      if (this.defaultARWallet) {
+        return 'app-navbar';
+      }
+      return 'landpage-navbar';
+    },
   },
   methods: {
     ...mapActions({
@@ -78,7 +94,21 @@ export default {
 
 <style lang="scss">
   #main-navbar {
-    border-bottom: 2px solid black;
+    &.landpage-navbar {
+      z-index: 10000;
+      background: transparent!important;
+    }
+    &.app-navbar {
+      border-bottom: 2px solid black;
+    }
+    .navbar-logo {
+      width:auto;
+      height:41px;
+      display:inline-block!important;
+    }
+    .brand {
+      display:inline-block;
+    }
   }
   /* #main-navbar {
     z-index:3000!important;

@@ -59,8 +59,7 @@
         :fields="tableInvestorsField">
         <template v-slot:cell(name)="data">
           <b-badge
-            :variant="data.item.color"
-            pill>
+            :variant="data.item.color">
             <b>{{ data.item.name.toUpperCase() }}</b>
           </b-badge>
         </template>

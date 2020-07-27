@@ -38,9 +38,9 @@
                 <font-awesome-icon icon="search" /> Explore OpenBits
               </b-nav-item>
               <b-nav-item
-                :active="isActivePage('/user-obits')"
+                :active="isActivePage('/user-openbits')"
                 class="m-1"
-                @click="$router.push('user-obits')">
+                @click="$router.push('user-openbits')">
                 <font-awesome-icon icon="box-open" /> Your OpenBits
               </b-nav-item>
               <b-nav-item
@@ -104,12 +104,12 @@ export default {
       .nav-link {
         color: $dark;
         &:hover {
-          background-color: lighten($secondary-color, 30%)!important;
-          color:$dark!important;
+          background-color: $secondary-color!important;
+          color:$dark;
         }
         &.active{
-          background-color:  var(--warning)!important;
-          color:$dark!important;
+          background-color:  $main-color!important;
+          // color:$dark!important;
         }
         &.disabled{
           color: lighten($dark, 30%)!important;
