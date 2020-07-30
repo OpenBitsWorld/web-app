@@ -14,10 +14,7 @@
         <h4
           class="pl-4 pt-2"
           id="sidebar-no-header-title">
-            <img :src="config.LOGO_URL" class="sidebar-logo" />
-            <!-- <inline-svg
-            class="sidebar-logo"
-            :src="require('../../assets/openbits-logo.svg')"/> -->
+            <img src="../../assets/logo-icon.svg" class="sidebar-logo" />
             <div class="brand ml-2 mt-1">OpenBits</div>
         </h4>
         <div class="p-3">
@@ -25,12 +22,6 @@
             <b-nav
               vertical
               pills>
-              <!-- <b-nav-item
-                :active="isActivePage('/user-profile')"
-                class="m-1"
-                @click="$router.push('user-profile')">
-                <font-awesome-icon icon="user" /> Your Profile
-              </b-nav-item> -->
               <b-nav-item
                 :active="isActivePage('/explore-openbits')"
                 class="m-1"

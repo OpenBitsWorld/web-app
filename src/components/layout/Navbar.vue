@@ -10,7 +10,7 @@
       <h4
         class="pl-4 pt-2"
         id="navbar-title">
-        <img :src="config.LOGO_URL" class="navbar-logo" />
+        <img src="../../assets/logo-icon.svg" class="navbar-logo" />
         <div class="brand ml-2 mt-1 text-white">OpenBits</div>
       </h4>
     </b-navbar-brand>
@@ -103,7 +103,7 @@ export default {
     }
     .navbar-logo {
       width:auto;
-      height:41px;
+      height:50px;
       display:inline-block!important;
     }
     .brand {

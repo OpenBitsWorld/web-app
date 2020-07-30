@@ -8,7 +8,7 @@
     }
   }
 
-  node-packages must be objects structured as following: 
+  node-packages must be objects structured as following:
 
   {
     name: string // the name of the package
@@ -30,17 +30,13 @@ export function handle(state, action) {
       throw new ContractError(`Must provide a version of the package`);
     }
     // a package with the same name and version is already registered
-    if (state.OpenBits.nodePackages[action.input.name] && state.OpenBits.nodePackages[action.input.name][action.input.version]) {
+    if (state.OpenBits.nodePackages[action.input.name] && state.OpenBits.nodePackages[`${action.input.name}@${action.input.version}`]) {
       throw new ContractError(`A package with the same name and version is already registered`);
     }
     // the PST id is not provided
     if (typeof action.input.pstId !== 'string') {
       throw new ContractError(`Must provide an id of a pst to be associated with the package`);
     }
-    // the address of the package is not provided
-    /* if (typeof action.input.dataId !== 'string') {
-      throw new ContractError(`Must provide an id of a package to be associated with the package`);
-    } */
     // the caller has not sent the right amount of AR to the contract owner
     if (SmartWeave.transaction.quantity !== SmartWeave.arweave.ar.arToWinston('0.0001')) {
       throw new ContractError(`To register a name you should send an amount of AR equal to 0.0001`);
@@ -51,9 +47,9 @@ export function handle(state, action) {
     }
     switch (action.input.type) {
       case 'node-package':
-        state.OpenBits.nodePackages[action.input.name] = {
+        state.OpenBits.nodePackages[`${action.input.name}@${action.input.version}`] = {
           name: action.input.name,
-          ownedBy: action.caller, 
+          ownedBy: action.caller,
           version: action.input.version,
           dataId: SmartWeave.transaction.id,
           pstId: action.input.pstId,
@@ -62,7 +58,7 @@ export function handle(state, action) {
       default:
         state.OpenBits.nodePackages[action.input.name] = {
           name: action.input.name,
-          ownedBy: action.caller, 
+          ownedBy: action.caller,
           version: action.input.version,
           dataId: SmartWeave.transaction.id,
           pstId: action.input.pstId,
@@ -89,7 +85,7 @@ export function handle(state, action) {
     }
 
     state.name[action.input.name].ownedBy = action.input.target;
-    
+
     return { state }
   } */
 

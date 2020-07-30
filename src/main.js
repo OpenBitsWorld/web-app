@@ -18,10 +18,14 @@ import {
   faFolderPlus,
   faHandSpock,
   faAward,
+  faSadCry,
+  faGrinHearts,
 } from '@fortawesome/free-solid-svg-icons';
 
+import VueAnimateOnScroll from 'vue-animate-onscroll';
+import 'vue2-animate/dist/vue2-animate.min.css';
+
 import App from './App.vue';
-import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
@@ -34,11 +38,15 @@ library.add(faFileContract);
 library.add(faFolderPlus);
 library.add(faHandSpock);
 library.add(faAward);
+library.add(faSadCry);
+library.add(faGrinHearts);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(VueArweave);
+
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.use(VueAnimateOnScroll);
 
 Vue.config.productionTip = false;
 

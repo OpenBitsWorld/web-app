@@ -11,8 +11,10 @@ const createCbvacPstInitState = (
     investors: [],
     users: {},
     MultiverseWaitingList: {},
+    currentMultiverseAccount: null,
     targetProfit,
     generatedProfit: 0,
+    currentlyIsPaying: owners[0],
     sharesAvailableForInvestors: {
       levels,
     },

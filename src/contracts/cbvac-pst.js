@@ -1,6 +1,45 @@
 export function handle(state, action) {
   const { balances, sharesAvailableForInvestors } = state;
   const { input, caller } = action;
+  const installationPrice = 0.01;
+  const pricePerShare = state.targetProfit / 100;
+  const currentProfit = state.generatedProfit;
+
+  // this will be called when users install the openbit
+  if (input.function === 'install') {
+    const transactionAmountAr = SmartWeave.arweave.ar.winstonToAr(SmartWeave.transaction.amount);
+    const receiver = SmartWeave.transaction.target;
+    const owner = state.owners[0];
+    const currentlyIsPaying = state.currentlyIsPaying;
+
+    // check if the user has sent 0.01
+    if (Number(transactionAmountAr) !== installationPrice) {
+      throw new ContractError(`Function INSTALL: To install the package you have to pay ${installationPrice} AR`);
+    }
+    // check if the target is the is currently payed by the contract
+    if (receiver !== currentlyIsPaying) {
+      throw new ContractError(`Function INSTALL: To install the package you have to pay ${installationPrice} AR to ${currentlyIsPaying}`);
+    }
+
+    // update the generated profit of the OpenBit
+
+    // check if the caller is an existing user. If so, update number of installation, otherwise create the user
+
+    // check if the openbit has reached an investment level. If so, disable that level.
+
+    // check if the installation generates a share transition, if so
+      // the owner has still more than 1 share:
+        // p
+      // if the owner still has more than 1 share, move one of the owner shares to the multiverse
+      // else, if the level 4 investors has more than 0 share, move one of the investor shares to the multiverse
+      // else, if the level 3 investors has more than 0 share, move one of the investor shares to the multiverse
+      // else, if the level 2 investors has more than 0 share, move one of the investor shares to the multiverse
+      // else, if the level 1 investors has more than 0 share, move one of the investor shares to the multiverse
+      // else,
+        // put the current multiverse account in the waiting list
+        // sort another user to be to multiverse
+
+  }
 
   if (input.function === 'buy') {
     const requestedLevel = sharesAvailableForInvestors.levels[input.level];

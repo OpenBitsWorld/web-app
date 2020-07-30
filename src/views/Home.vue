@@ -1,16 +1,28 @@
 <template>
-  <div class="home">
-    <Welcome />
-  </div>
+  <main id="main" class="h-100">
+    <LandPageHeroSection />
+    <LandPageWhySection />
+    <LandPageHowSection />
+  </main>
 </template>
 
 <script>
-import Welcome from '@/components/Welcome.vue';
+import LandPageHeroSection from '@/components/landpage/HeroSection.vue';
+import LandPageWhySection from '@/components/landpage/WhySection.vue';
+import LandPageHowSection from '@/components/landpage/HowSection.vue';
 
 export default {
   name: 'Home',
   components: {
-    Welcome,
+    LandPageHeroSection,
+    LandPageWhySection,
+    LandPageHowSection,
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#main *{
+  font-family: "Poppins", sans-serif;
+}
+</style>
