@@ -102,7 +102,7 @@ for (let i = 0; i < 101; i += 1) {
   global.SmartWeave.transaction.target = capt.currentlyIsPaying;
   console.log(res);
 }
-s
+
 // console.log(captainamericanise);
 /* import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
