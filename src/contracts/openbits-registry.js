@@ -30,7 +30,7 @@ export function handle(state, action) {
       throw new ContractError(`Must provide a version of the package`);
     }
     // a package with the same name and version is already registered
-    if (state.OpenBits.nodePackages[action.input.name] && state.OpenBits.nodePackages[`${action.input.name}@${action.input.version}`]) {
+    if (state.OpenBits.nodePackages[`${action.input.name}@${action.input.version}`]) {
       throw new ContractError(`A package with the same name and version is already registered`);
     }
     // the PST id is not provided

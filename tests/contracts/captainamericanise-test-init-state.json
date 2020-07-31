@@ -76,9 +76,13 @@
         "80iVz05NeR1235p9oK9f4Iy9zQ£a9&fdn1zNOPENBITS": 0.01   
     },
     "MultiverseWaitingList": {},
-    "currentMultiverseAccount": "WbUg7wMX4UsXIN0jXANec94CR7wPGJt9KBvJ_eB5jXc",
+    "currentMultiverseAccount": {},
+    "sharesPayedToTheMultiverse": 0,
     "targetProfit": 1,
+    "installationsToReleaseShares": 1,
     "generatedProfit": 0.81,
+    "currentlyIsPaying": "rjXAMsy9nmB8ttyPfhHZhjGx_8ey9FKDMqcHDb6OAP8",
+    "sharesReleaseIn": 1,
     "sharesAvailableForInvestors": {
         "levels": [
             {

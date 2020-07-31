@@ -1580,10 +1580,13 @@
         "87sVJ09xmR1236z8zO6h4Pu6tC£2Y&fpi2eKOPENBITS": 0.01    
     },
     "MultiverseWaitingList": {},
-    "currentMultiverseAccount": "WbUg7wMX4UsXIN0jXANec94CR7wPGJt9KBvJ_eB5jXc",
+    "currentMultiverseAccount": {},
+    "sharesPayedToTheMultiverse": 0,
     "targetProfit": 675,
+    "installationsToReleaseShares": 675,
     "generatedProfit": 15.70,
     "currentlyIsPaying": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+    "sharesReleaseIn": 675,
     "sharesAvailableForInvestors": {
         "levels": [
             {

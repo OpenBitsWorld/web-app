@@ -2,19 +2,18 @@ export function handle(state, action) {
   const { balances, sharesAvailableForInvestors } = state;
   const { input, caller } = action;
   const installationPrice = 0.01;
-  const pricePerShare = state.targetProfit / 100;
-  const currentProfit = state.generatedProfit;
+  const transactionAmountAr = SmartWeave.arweave.ar.winstonToAr(SmartWeave.transaction.amount);
+  const receiver = SmartWeave.transaction.target;
+  const owner = state.owners[0];
+  const currentlyIsPaying = state.currentlyIsPaying;
+  const sharesOwners = Object.keys(balances);
 
   // this will be called when users install the openbit
   if (input.function === 'install') {
-    const transactionAmountAr = SmartWeave.arweave.ar.winstonToAr(SmartWeave.transaction.amount);
-    const receiver = SmartWeave.transaction.target;
-    const owner = state.owners[0];
-    const currentlyIsPaying = state.currentlyIsPaying;
 
     // check if the user has sent 0.01
     if (Number(transactionAmountAr) !== installationPrice) {
-      throw new ContractError(`Function INSTALL: To install the package you have to pay ${installationPrice} AR`);
+      throw new ContractError(`Function INSTALL: To install the package you have to pay ${installationPrice} AR. You sent ${Number(transactionAmountAr)}`);
     }
     // check if the target is the is currently payed by the contract
     if (receiver !== currentlyIsPaying) {
@@ -22,23 +21,116 @@ export function handle(state, action) {
     }
 
     // update the generated profit of the OpenBit
+    state.generatedProfit = state.generatedProfit + installationPrice;
 
-    // check if the caller is an existing user. If so, update number of installation, otherwise create the user
+    // check if the caller is an existing user. If so, update the number of installation, otherwise create the user
+    if (state.users[caller]) {
+      state.users[caller] = state.users[caller] + installationPrice;
+    } else {
+      state.users[caller] = installationPrice;
+    }
 
     // check if the openbit has reached an investment level. If so, disable that level.
+    sharesAvailableForInvestors.levels.forEach((l) => {
+      if (state.generatedProfit >= l.beforeProfit) {
+        l.available = false;
+      }
+    });
+
+    // decrease the amount of installations are needed for a release
+    state.sharesReleaseIn = state.sharesReleaseIn - 1;
 
     // check if the installation generates a share transition, if so
-      // the owner has still more than 1 share:
-        // p
-      // if the owner still has more than 1 share, move one of the owner shares to the multiverse
-      // else, if the level 4 investors has more than 0 share, move one of the investor shares to the multiverse
-      // else, if the level 3 investors has more than 0 share, move one of the investor shares to the multiverse
-      // else, if the level 2 investors has more than 0 share, move one of the investor shares to the multiverse
-      // else, if the level 1 investors has more than 0 share, move one of the investor shares to the multiverse
-      // else,
-        // put the current multiverse account in the waiting list
-        // sort another user to be to multiverse
+    if (state.sharesReleaseIn === 0) {
+      // a share must be released
+      // update the share release counter
+      state.sharesReleaseIn = state.installationsToReleaseShares;
 
+      // the owner has still more than 1 share:
+      if (balances[owner] > 1) {
+        // transfer a share of the owner to the multiverse
+        balances[owner] = balances[owner] - 1;
+        balances['multiverse'] = balances['multiverse'] + 1;
+        return state;
+      }
+
+      // the OpenBit is currently owned only by the creator and the multiverse
+      // so, it is the multiverse turn to be payed for shares
+      if (sharesOwners.length === 2) {
+        // if the users list is empty the game restarts
+        if (Object.entries(state.users).length === 0) {
+          state.users = state.MultiverseWaitingList;
+        }
+
+        // check if there was 99 shares releases after the OpenBit was given to the multiverse
+        if (state.sharesPayedToTheMultiverse !== 0 && state.sharesPayedToTheMultiverse % 99 === 0) {
+          // the next to be payed must be the original owner
+          state.currentlyIsPaying = owner;
+
+          return state;
+        }
+
+        // increase the number of shares payed to the multiverse
+        state.sharesPayedToTheMultiverse = state.sharesPayedToTheMultiverse + 1;
+
+        // get the user that has installed more the OpenBit
+        const nextUserForMultiverse = Object.entries(state.users).sort(function (a, b) {
+          return a[1] - b[1];
+        }).pop();
+
+        // put the current multiverse user in the waiting list
+        state.MultiverseWaitingList[Object.entries(state.currentMultiverseAccount)[0][0]] = Object.entries(state.currentMultiverseAccount)[0][1];
+
+        state.currentMultiverseAccount = {};
+        state.currentMultiverseAccount[nextUserForMultiverse[0]] = nextUserForMultiverse[1];
+        state.currentlyIsPaying = nextUserForMultiverse[0];
+
+        delete state.users[nextUserForMultiverse[0]];
+        return state;
+      }
+
+      // check if there are investors
+      if (sharesOwners.length > 2) {
+        // get the last investor
+        const currentInvestor = sharesOwners[sharesOwners.length - 1];
+
+        // remove the share from the investor
+        balances[currentInvestor] = balances[currentInvestor] - 1;
+        // give the share to the multiverse
+        balances['multiverse'] = balances['multiverse'] + 1;
+
+        // if the investor has still shares return
+        if (balances[currentInvestor] > 0) {
+          return state;
+        }
+        // else delete the investor from the array
+        delete balances[currentInvestor];
+
+        // get the owners of shares after deletion
+        const ownerOfSharesNow = Object.keys(balances)
+
+        // set the currentlyPaying to the next investor if there is one and return
+        if (ownerOfSharesNow.length > 2) {
+          state.currentlyIsPaying = ownerOfSharesNow[ownerOfSharesNow.length - 1];
+          return state;
+        }
+        // else it is the time of the first multiverse user
+        // get the user that has installed more the OpenBit
+        const nextUserForMultiverse = Object.entries(state.users).sort(function (a, b) {
+          return a[1] - b[1];
+        }).pop();
+
+        // the first multiverse user will become the first to be payed
+        state.currentMultiverseAccount[nextUserForMultiverse[0]] = nextUserForMultiverse[1];
+        state.currentlyIsPaying = nextUserForMultiverse[0];
+
+        // remove the user from the users list
+        delete state.users[nextUserForMultiverse[0]];
+        return state;
+      }
+    }
+    // a share must not be released
+    return state;
   }
 
   if (input.function === 'buy') {

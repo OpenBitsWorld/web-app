@@ -361,9 +361,13 @@
         "07cBL27MTC1237o1vV4j3Rk0rF£mX&fyn0vEOPENBITS": 0.01  
     },
     "MultiverseWaitingList": {},
-    "currentMultiverseAccount": "WbUg7wMX4UsXIN0jXANec94CR7wPGJt9KBvJ_eB5jXc",
+    "currentMultiverseAccount": {},
+    "sharesPayedToTheMultiverse": 0,
     "targetProfit": 100,
+    "installationsToReleaseShares": 100,
     "generatedProfit": 3.9,
+    "currentlyIsPaying": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+    "sharesReleaseIn": 100,
     "sharesAvailableForInvestors": {
         "levels": [
             {
