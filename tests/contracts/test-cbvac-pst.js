@@ -81,7 +81,7 @@ for (let i = 0; i < 19; i += 1) {
 
 // call 100 times and see what happens
 // the first time the user to be payd should be 78oQO22yLY1230r4pO4c8Hh6zX£i3&fgg3jVOPENBITS
-global.SmartWeave.transaction.target = '27wEy77WmA1239w8qG6k6Kl5xL£3W&fyv5jNOPENBITS';
+global.SmartWeave.transaction.target = '78oQO22yLY1230r4pO4c8Hh6zX£i3&fgg3jVOPENBITS';
 for (let i = 0; i < 101; i += 1) {
   capt = handle(capt, {
     input: {
@@ -92,6 +92,7 @@ for (let i = 0; i < 101; i += 1) {
   res = {
     currentMultiverseAccount: capt.currentMultiverseAccount,
     MultiverseWaitingList: capt.MultiverseWaitingList,
+    users: Object.keys(capt.users).length,
     sharesPayedToTheMultiverse: capt.sharesPayedToTheMultiverse,
     installationsToReleaseShares: capt.installationsToReleaseShares,
     generatedProfit: capt.generatedProfit,

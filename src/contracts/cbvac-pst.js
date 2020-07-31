@@ -24,10 +24,13 @@ export function handle(state, action) {
     state.generatedProfit = state.generatedProfit + installationPrice;
 
     // check if the caller is an existing user. If so, update the number of installation, otherwise create the user
-    if (state.users[caller]) {
-      state.users[caller] = state.users[caller] + installationPrice;
-    } else {
-      state.users[caller] = installationPrice;
+    // but only if the user is not currently in the multiverse waiting list
+    if (!state.MultiverseWaitingList[caller]) {
+      if (state.users[caller]) {
+        state.users[caller] = state.users[caller] + installationPrice;
+      } else {
+        state.users[caller] = installationPrice;
+      }
     }
 
     // check if the openbit has reached an investment level. If so, disable that level.
@@ -58,14 +61,18 @@ export function handle(state, action) {
       // so, it is the multiverse turn to be payed for shares
       if (sharesOwners.length === 2) {
         // if the users list is empty the game restarts
-        if (Object.entries(state.users).length === 0) {
+        if (Object.keys(state.users).length === 0) {
           state.users = state.MultiverseWaitingList;
+          state.MultiverseWaitingList = {};
         }
 
         // check if there was 99 shares releases after the OpenBit was given to the multiverse
         if (state.sharesPayedToTheMultiverse !== 0 && state.sharesPayedToTheMultiverse % 99 === 0) {
           // the next to be payed must be the original owner
           state.currentlyIsPaying = owner;
+
+          // increase the number of shares payed to the multiverse
+          state.sharesPayedToTheMultiverse = state.sharesPayedToTheMultiverse + 1;
 
           return state;
         }
@@ -126,6 +133,7 @@ export function handle(state, action) {
 
         // remove the user from the users list
         delete state.users[nextUserForMultiverse[0]];
+
         return state;
       }
     }
