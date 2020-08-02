@@ -14,10 +14,10 @@
         <h4
           class="pl-4 pt-2"
           id="sidebar-no-header-title">
-            <img src="../../assets/logo-icon.svg" class="sidebar-logo" />
-            <div class="brand ml-2 mt-1">OpenBits</div>
+            <img src="../../assets/logo-black.png" class="sidebar-logo" />
+            <!-- <div class="brand ml-2 mt-1">OpenBits</div> -->
         </h4>
-        <div class="p-3">
+        <div class="p-3 mt-4">
           <nav class="mb-3">
             <b-nav
               vertical
@@ -83,7 +83,7 @@ export default {
     height: 58px;
     .sidebar-logo {
       width:auto;
-      height:41px;
+      height:70px;
       display:inline-block!important;
     }
     .brand {
@@ -99,6 +99,9 @@ export default {
           color:$dark;
         }
         &.active{
+          &:hover {
+            color:white;
+          }
           background-color:  $main-color!important;
           // color:$dark!important;
         }

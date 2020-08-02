@@ -1,11 +1,13 @@
 export function handle(state, action) {
-  const { balances, sharesAvailableForInvestors } = state;
+  const {
+    balances,
+    sharesAvailableForInvestors,
+    currentlyIsPaying } = state;
   const { input, caller } = action;
   const installationPrice = 0.01;
-  const transactionAmountAr = SmartWeave.arweave.ar.winstonToAr(SmartWeave.transaction.amount);
+  const transactionAmountAr = SmartWeave.arweave.ar.winstonToAr(SmartWeave.transaction.quantity);
   const receiver = SmartWeave.transaction.target;
   const owner = state.owners[0];
-  const currentlyIsPaying = state.currentlyIsPaying;
   const sharesOwners = Object.keys(balances);
 
   // this will be called when users install the openbit
@@ -170,6 +172,8 @@ export function handle(state, action) {
     // update the investors array
     state.investors.push(caller);
 
+    // ---- TO DO ---- Levels availability must be updated
+
     // Lower the token balance of the caller
     balances[SmartWeave.transaction.target] -= requestedLevel.amountOfShares;
     if (SmartWeave.transaction.target in balances) {
@@ -182,21 +186,5 @@ export function handle(state, action) {
 
     return { state };
   }
-
-  if (input.function === 'balance') {
-    const { target } = input;
-    const { ticker } = state;
-
-    if (typeof target !== 'string') {
-      throw new ContractError('Must specify target to get balance for');
-    }
-
-    if (typeof balances[target] !== 'number') {
-      throw new ContractError('Cannot get balance, target does not exist');
-    }
-
-    return { result: { target, ticker, balance: balances[target] } };
-  }
-
   throw new ContractError(`No function supplied or function not recognized: "${input.function}"`);
 }

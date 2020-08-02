@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     updateLevelsAvailability() {
-      this.getLevels[0].available = this.investments;
+      this.getLevels[0].available = !this.investments;
       this.getLevels[1].available = this.investments;
       this.getLevels[2].available = this.investments;
       this.getLevels[3].available = this.investments;

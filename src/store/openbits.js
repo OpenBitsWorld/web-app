@@ -7,10 +7,16 @@ const StoreOpenBits = {
     ADD_OPENBIT(state, payload) {
       state.openbits.push(payload.packageInfo);
     },
+    EMPTY_OPENBITS(state) {
+      state.openbits = [];
+    },
   },
   actions: {
     addOpenBit({ commit }, packageInfo) {
       commit('ADD_OPENBIT', { packageInfo });
+    },
+    emptyOpenBits({ commit }) {
+      commit('EMPTY_OPENBITS');
     },
   },
   getters: {

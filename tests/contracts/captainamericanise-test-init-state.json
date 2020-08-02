@@ -4,12 +4,12 @@
     "owners": [
         "WbUg7wMX4UsXIN0jXANec94CR7wPGJt9KBvJ_eB5jXc"
     ],
-    "investors": {
-        "level1": "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4",
-        "level2": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
-        "level3": "11aLj-LtMzIUrlCxRltoxs84qfvBN6omNArOkoOGS90",
-        "level4": "rjXAMsy9nmB8ttyPfhHZhjGx_8ey9FKDMqcHDb6OAP8"
-    },
+    "investors": [
+        "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4",
+        "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+        "11aLj-LtMzIUrlCxRltoxs84qfvBN6omNArOkoOGS90",
+        "rjXAMsy9nmB8ttyPfhHZhjGx_8ey9FKDMqcHDb6OAP8"
+    ],
     "users": {
         "16sCO62QuJ1230h5dY0q4Bp5yE£5L&frf7gNOPENBITS": 0.01,
         "99tGV57WUJ1237q8lJ4j5Cc1nH£oR&fgl0hEOPENBITS": 0.02,

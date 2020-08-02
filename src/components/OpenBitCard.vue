@@ -103,7 +103,7 @@
             :variant="openBitStatus.headerBg">
             <b>
               THE {{openBitStatus.status.toUpperCase()}}
-              INVESTMENT WILL BE AVAILABLE FOR THIS OPENBIT FOR THE NEXT
+              INVESTMENT WILL BE AVAILABLE FOR THIS OPENBIT UNTIL THE NEXT
               {{getNumberOfInstallationsForNextLevel}}
               INSTALLATIONS
             </b>
@@ -221,8 +221,9 @@ export default {
         } = this.pst;
         if (this.pst.generatedProfit < this.pst.targetProfit) {
           const passedLevels = sharesAvailableForInvestors.levels.filter((l) => (
-            !l.available
+            l.available
           ));
+          console.log(passedLevels);
           const currentLevel = passedLevels[passedLevels.length - 1];
           return {
             status: currentLevel.name,

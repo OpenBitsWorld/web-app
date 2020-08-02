@@ -25,7 +25,7 @@ export default {
     // get openbits from the registry
     const rs = await readContract(Vue.$arweave.node, this.config.OPENBITS_REGISTRY);
 
-    // get node packages
+    // get the openbits
     const { OpenBits } = rs;
     Object.values(OpenBits.nodePackages).forEach((v) => {
       this.addOpenBit(v);

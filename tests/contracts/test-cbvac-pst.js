@@ -16,7 +16,7 @@ global.SmartWeave = {
   },
   transaction: {
     target: 'rjXAMsy9nmB8ttyPfhHZhjGx_8ey9FKDMqcHDb6OAP8',
-    amount: 1000000000,
+    quantity: 1000000000,
   },
 };
 

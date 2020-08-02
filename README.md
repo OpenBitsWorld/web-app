@@ -23,13 +23,18 @@ npm run build
 
 ### Useful Things to test
 
-BATMANISE test CBVAC PST: 
-- state address:  LURIHbocfSdwm6-v28ObYCs1IKBnspSfHb2lmj5ZoF4
-- contract address: 
+OPENBITS-CURRENT-REGISTRY
+- address: uo_I4pqYAU7eREXVIrQv0EfnZy4Vb-WH79unqiIw8lA
+
+OPENBITS CBVAC PST: 
+- state address:  Y3y5l1N7DnE1DTCyRBZhPQPU7SexhIkxzcu2IfZ37qI
+- contract address: 4p7fwtuGc1tdbsDo9ZWalUX4cKgY8xRb6fUaB7JcW8U
 
 SUPERMANISE test CBVAC PST: 
-- state address: Ty9cxWxfbnh9vOhmjn2Jwr56HfnODpkg9Oh_ev3EokM
+- state address: oF9z_FGY618Ht63scQOas8NHxbqjc6OlT_PoYaVwyhQ
 
+CAPTAINAMERICANISE test CBVAC PST:
+- state address: GTT5IdnU0PLY6SBJl_CUWjEq9TNyMbToeJjCZhAq0Jo
 
 ### Credits
 

@@ -1,0 +1,73 @@
+{
+    "ticker": "{openbits}-openbits@0.0.1",
+    "shares": 100,
+    "owners": [
+        "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4"
+    ],
+    "investors": [],
+    "users": {},
+    "MultiverseWaitingList": {},
+    "currentMultiverseAccount": {},
+    "sharesPayedToTheMultiverse": 0,
+    "targetProfit": 10000000,
+    "installationsToReleaseShares": 10000000,
+    "generatedProfit": 0,
+    "currentlyIsPaying": "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4",
+    "sharesReleaseIn": 10000000,
+    "sharesAvailableForInvestors": {
+        "levels": [
+            {
+                "multiplier": 10,
+                "beforeProfit": 200000,
+                "amountOfShares": 5,
+                "pricePerShare": 10000,
+                "expectedROI": 450000,
+                "owner": "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4",
+                "available": true,
+                "name": "Yellow",
+                "color": "secondary-color",
+                "textColor": "white"
+            },
+            {
+                "multiplier": 7,
+                "beforeProfit": 340000,
+                "amountOfShares": 5,
+                "pricePerShare": 14285.714285714286,
+                "expectedROI": 428571.4285714286,
+                "owner": "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4",
+                "available": false,
+                "name": "Red",
+                "color": "danger",
+                "textColor": "white"
+            },
+            {
+                "multiplier": 5,
+                "beforeProfit": 440000,
+                "amountOfShares": 5,
+                "pricePerShare": 20000,
+                "expectedROI": 400000,
+                "owner": "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4",
+                "available": false,
+                "name": "Green",
+                "color": "fourth-color",
+                "textColor": "white"
+            },
+            {
+                "multiplier": 3,
+                "beforeProfit": 500000,
+                "amountOfShares": 5,
+                "pricePerShare": 33333.333333333336,
+                "expectedROI": 333333.3333333333,
+                "owner": "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4",
+                "available": false,
+                "name": "Blue",
+                "color": "third-color",
+                "textColor": "white"
+            }
+        ]
+    },
+    "balances": {
+        "XKVU3cnfIXOSQkAAiTse7C2_xnzBkVxeKQ3oXGqAt_4": 100,
+        "multiverse": 0
+    }
+}

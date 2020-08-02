@@ -9,6 +9,10 @@
         :openbit="openbit"
       />
     </b-card-group>
+    <h3 v-else>
+      You didn't published any OpenBit! Publish your first one
+      <router-link to="publish-openbit">right now</router-link>
+    </h3>
   </b-container>
 </template>
 

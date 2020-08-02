@@ -201,16 +201,18 @@
             :disabled="
               transactionInfo === 'preparing to publish...' ||
               ( transactionInfo &&
-                transactionInfo.enrichedTransaction.transactionStatus.status === 202)"
+                transactionInfo.enrichedTransaction.transactionStatus.status === 202) ||
+                transactionInfo.publishing"
             @click=" (!transactionInfo)
               ? createPublishTransaction()
               : confirmTransactionAndPublishOpenBit() ">
             <span v-if="!transactionInfo">Prepare to Publish</span>
             <span v-else-if="transactionInfo === 'preparing to publish...'">
-              <b-spinner small variant="dark" type="grow" label="Spinning"></b-spinner>
+              <b-spinner small variant="secondary-color" type="grow" label="Spinning"></b-spinner>
               {{transactionInfo}}
             </span>
-            <span v-else>
+            <span
+              v-else>
               Click to confirm and publish your OpenBit
               <b-spinner
                 small
@@ -222,6 +224,13 @@
                 label="Spinning"></b-spinner>
             </span>
           </b-button>
+          <!--<b-badge
+              variant="mutiverse-color"
+              v-if="transactionInfo &&
+              transactionInfo.enrichedTransaction.transactionStatus.status === 200">
+              Your OpenBit was succesfully published! Check the status of your OpenBits
+              <router-link to="user-openbits">here</router-link>
+          </b-badge>-->
         </template>
       </b-card>
     </div>
@@ -230,7 +239,7 @@
 
 <script>
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 import config from '@/mixins/configs';
@@ -294,6 +303,11 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      addOpenBit: 'openbits/addOpenBit',
+      emptyOpenBits: 'openbits/emptyOpenBits',
+    }),
+
     async removeFile() {
       this.$refs['publish-openbit-dropzone'].removeAllFiles();
       this.file = null;
@@ -337,7 +351,7 @@ export default {
           Number(this.$refs['openbit-economy'].targetProfit),
           this.$refs['openbit-economy'].getLevels,
         );
-        // console.log(JSON.stringify(pstInitState));
+        console.log(JSON.stringify(pstInitState));
 
         const PSTTags = [{
           name: 'dApp',
@@ -390,9 +404,10 @@ export default {
           name: 'Input',
           value: JSON.stringify({
             function: 'register',
+            type: 'node-package',
             name: packName,
             version: packVersion,
-            pstId: '4hxzUh54i48w98dQgEg1F8GriSVRyx5QCI8NTBJxZUs', // this.$arGetARTransactionsQueue[0].arTransaction.id,
+            pstId: this.$arGetARTransactionsQueue[0].arTransaction.id,
           }),
         }];
 
@@ -407,13 +422,29 @@ export default {
       }
     },
     async confirmTransactionAndPublishOpenBit() {
-      // await this.$arUtilsSignTransaction(this.$arGetARTransactionsQueue[0].arTransaction);
+      this.transactionInfo.publishing = true;
       await this.$arUtilsSendTransaction(
         this.$arGetARTransactionsQueue[0].arTransaction,
       );
       await this.$arUtilsSendTransaction(
         this.$arGetARTransactionsQueue[1].arTransaction,
       );
+      setTimeout(() => {
+        if (this.transactionInfo
+          && this.transactionInfo.enrichedTransaction.transactionStatus.status === 200) {
+          this.refreshOpenBitsRegistry();
+        }
+      }, 1000);
+    },
+    async refreshOpenBitsRegistry() {
+      // refresh the OpenBits registry
+      const rs = await readContract(Vue.$arweave.node, this.config.OPENBITS_REGISTRY);
+      this.emptyOpenBits();
+      // get the openbits
+      const { OpenBits } = rs;
+      Object.values(OpenBits.nodePackages).forEach((v) => {
+        this.addOpenBit(v);
+      });
     },
   },
   data() {
