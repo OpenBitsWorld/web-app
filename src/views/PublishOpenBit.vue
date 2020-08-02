@@ -202,7 +202,8 @@
               transactionInfo === 'preparing to publish...' ||
               ( transactionInfo &&
                 transactionInfo.enrichedTransaction.transactionStatus.status === 202) ||
-                transactionInfo.publishing"
+              ( transactionInfo &&
+                transactionInfo.publishing)"
             @click=" (!transactionInfo)
               ? createPublishTransaction()
               : confirmTransactionAndPublishOpenBit() ">
@@ -351,7 +352,6 @@ export default {
           Number(this.$refs['openbit-economy'].targetProfit),
           this.$refs['openbit-economy'].getLevels,
         );
-        console.log(JSON.stringify(pstInitState));
 
         const PSTTags = [{
           name: 'dApp',
@@ -429,12 +429,12 @@ export default {
       await this.$arUtilsSendTransaction(
         this.$arGetARTransactionsQueue[1].arTransaction,
       );
-      setTimeout(() => {
+      /* setTimeout(() => {
         if (this.transactionInfo
           && this.transactionInfo.enrichedTransaction.transactionStatus.status === 200) {
           this.refreshOpenBitsRegistry();
         }
-      }, 1000);
+      }, 1000); */
     },
     async refreshOpenBitsRegistry() {
       // refresh the OpenBits registry

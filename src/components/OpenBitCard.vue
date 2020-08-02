@@ -223,7 +223,6 @@ export default {
           const passedLevels = sharesAvailableForInvestors.levels.filter((l) => (
             l.available
           ));
-          console.log(passedLevels);
           const currentLevel = passedLevels[passedLevels.length - 1];
           return {
             status: currentLevel.name,
