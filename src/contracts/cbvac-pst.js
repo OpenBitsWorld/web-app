@@ -35,12 +35,15 @@ export function handle(state, action) {
       }
     }
 
-    // check if the openbit has reached an investment level. If so, disable that level.
-    sharesAvailableForInvestors.levels.forEach((l) => {
-      if (state.generatedProfit >= l.beforeProfit) {
-        l.available = false;
+    // check if the OpenBit has reached an investment level. If so, disable that level.
+    for (let i = 0; i < sharesAvailableForInvestors.levels.length; i += 1) {
+      if (state.generatedProfit >= sharesAvailableForInvestors.levels[i].beforeProfit) {
+        sharesAvailableForInvestors.levels[i].available = false;
+        if (sharesAvailableForInvestors.levels[i + 1]) {
+          sharesAvailableForInvestors.levels[i].available = true;
+        }
       }
-    });
+    }
 
     // decrease the amount of installations are needed for a release
     state.sharesReleaseIn = state.sharesReleaseIn - 1;
@@ -56,7 +59,7 @@ export function handle(state, action) {
         // transfer a share of the owner to the multiverse
         balances[owner] = balances[owner] - 1;
         balances['multiverse'] = balances['multiverse'] + 1;
-        return state;
+        return { state };
       }
 
       // the OpenBit is currently owned only by the creator and the multiverse
@@ -76,7 +79,7 @@ export function handle(state, action) {
           // increase the number of shares payed to the multiverse
           state.sharesPayedToTheMultiverse = state.sharesPayedToTheMultiverse + 1;
 
-          return state;
+          return { state };
         }
 
         // increase the number of shares payed to the multiverse
@@ -95,7 +98,7 @@ export function handle(state, action) {
         state.currentlyIsPaying = nextUserForMultiverse[0];
 
         delete state.users[nextUserForMultiverse[0]];
-        return state;
+        return { state };
       }
 
       // check if there are investors
@@ -110,7 +113,7 @@ export function handle(state, action) {
 
         // if the investor has still shares return
         if (balances[currentInvestor] > 0) {
-          return state;
+          return { state };
         }
         // else delete the investor from the array
         delete balances[currentInvestor];
@@ -121,7 +124,7 @@ export function handle(state, action) {
         // set the currentlyPaying to the next investor if there is one and return
         if (ownerOfSharesNow.length > 2) {
           state.currentlyIsPaying = ownerOfSharesNow[ownerOfSharesNow.length - 1];
-          return state;
+          return { state };
         }
         // else it is the time of the first multiverse user
         // get the user that has installed more the OpenBit
@@ -136,21 +139,23 @@ export function handle(state, action) {
         // remove the user from the users list
         delete state.users[nextUserForMultiverse[0]];
 
-        return state;
+        return { state };
       }
     }
     // a share must not be released
-    return state;
+    return { state };
   }
 
   if (input.function === 'buy') {
+    // there can be only one level available in each moment
     const requestedLevel = sharesAvailableForInvestors.levels[input.level];
+
     // check if the shares for the requested level are still available
     if (!requestedLevel.available) {
       throw new ContractError('Function BUY: Shares for the level you are requesting are not available');
     }
 
-    // the investor cant be an owner and cant be already an investor
+    // the investor can't be an owner and can't be already an investor
     if (state.owners.includes(caller)
       || state.investors.includes(caller)) {
       throw new ContractError('Function BUY: To buy shares you cannot be one of the owners or you cannot be already an investor.');
@@ -161,28 +166,27 @@ export function handle(state, action) {
 
     // check if the investor has sent the right amount of AR
     if (SmartWeave.transaction.quantity !== SmartWeave.arweave.ar.arToWinston(totalSharesPrice)) {
-      throw new ContractError(`Function BUY: To buy shares for an expected ROI of ${requestedLevel}x you have to pay ${totalSharesPrice} winston. You sent ${SmartWeave.transaction.quantity} winston`);
+      throw new ContractError(`Function BUY: To buy shares for an expected ROI of ${requestedLevel.expextedROI} you have to pay ${totalSharesPrice} winston. You sent ${SmartWeave.transaction.quantity} winston`);
     }
 
     // check if the target is the owner of the shares
     if (SmartWeave.transaction.target !== requestedLevel.owner) {
-      throw new ContractError(`Function BUY: To buy shares for you to send ${SmartWeave.arweave.ar.arToWinston(totalSharesPrice)} winston to the address ${requestedLevel.owner}. You sent ${SmartWeave.transaction.target} winston`);
+      throw new ContractError(`Function BUY: To buy shares for level ${input.level} you have to send ${SmartWeave.arweave.ar.arToWinston(totalSharesPrice)} winston to the address ${requestedLevel.owner}.`);
     }
 
     // update the investors array
     state.investors.push(caller);
 
-    // ---- TO DO ---- Levels availability must be updated
+    // update levels availability
+    sharesAvailableForInvestors.levels[input.level].available = false;
+    sharesAvailableForInvestors.levels[input.level].owner = caller;
+    if ( sharesAvailableForInvestors.levels[input.level + 1]
+      && state.generatedProfit < sharesAvailableForInvestors.levels[input.level + 1].beforeProfit) {
+      sharesAvailableForInvestors.levels[input.level + 1].available = true;
+    }
 
     // Lower the token balance of the caller
-    balances[SmartWeave.transaction.target] -= requestedLevel.amountOfShares;
-    if (SmartWeave.transaction.target in balances) {
-      // Wallet already exists in state, add new tokens
-      balances[SmartWeave.transaction.target] += requestedLevel.amountOfShares;
-    } else {
-      // Wallet is new, set starting balance
-      balances[SmartWeave.transaction.target] = requestedLevel.amountOfShares;
-    }
+    balances[SmartWeave.transaction.target] = requestedLevel.amountOfShares;
 
     return { state };
   }

@@ -49,7 +49,7 @@
               </b-nav-item>
             </b-nav>
           </nav>
-          <!-- <b-button variant="primary" block @click="hide">Close Sidebar</b-button> -->
+          <OpenBitsStatusInfo :pstAddress="config.OPENBITS_CBVAC_STATUS" />
         </div>
       </template>
   </b-sidebar>
@@ -58,12 +58,13 @@
 <script>
 // import InlineSvg from 'vue-inline-svg';
 import config from '@/mixins/configs';
+import OpenBitsStatusInfo from '@/components/OpenBitsStatusInfo.vue';
 
 export default {
   name: 'LayoutSidebar',
   mixins: [config],
   components: {
-    // InlineSvg,
+    OpenBitsStatusInfo,
   },
   methods: {
     isActivePage(page) {

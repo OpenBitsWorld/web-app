@@ -13,7 +13,7 @@
                 lg="12"
                 class="pt-5 pt-lg-0 d-flex align-items-center">
                 <img src="../../assets/logo-white.png"
-                class="pl-5 mx-auto d-block" height="300"/>
+                class="pl-5 mx-auto d-block logo"/>
             </b-col>
           </b-row>
           <b-row
@@ -100,15 +100,14 @@ export default {
     }
     .logo{
       display:block;
-      height:150px;
-      width:auto;
+      width:40%;
     }
     .hero-screenshot {
       width:100%;
     }
     h1 {
       margin: 0 0 20px 0;
-      font-size: 56px;
+      font-size: 3em;
       font-weight: 700;
       line-height: 56px;
       /* span {
@@ -117,7 +116,7 @@ export default {
     }
     h2 {
       margin-bottom: 40px;
-      font-size: 36px;
+      font-size: 2em;
       span {
         border-bottom: 4px solid white;
       }

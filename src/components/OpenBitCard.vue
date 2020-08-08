@@ -5,7 +5,7 @@
     header-tag="header"
     footer-tag="footer">
     <template v-slot:header>
-      <h5>
+      <h5 v-if="openbit">
         {{openbit.name}}@{{openbit.version}}
       </h5>
     </template>
@@ -157,6 +157,7 @@ export default {
     // get the OpenBit PST status
     const OpenBitPST = await readContract(Vue.$arweave.node, this.openbit.pstId);
     this.pst = OpenBitPST;
+    console.log(this.pst);
   },
   data() {
     return {
@@ -223,7 +224,14 @@ export default {
           const passedLevels = sharesAvailableForInvestors.levels.filter((l) => (
             l.available
           ));
-          const currentLevel = passedLevels[passedLevels.length - 1];
+          const currentLevel = passedLevels[0];
+          if (!currentLevel) {
+            return {
+              status: 'Multiverse',
+              headerBg: 'multiverse-color',
+              headerText: 'text-white',
+            };
+          }
           return {
             status: currentLevel.name,
             headerBg: currentLevel.color,
