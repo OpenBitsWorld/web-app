@@ -111,8 +111,16 @@
         </h5>
         <b-button
           class="mt-2"
-          variant="main-color">
+          variant="main-color"
+          :disabled="buyingShares"
+          @click="buySharesForCurrentLevel">
           <b>
+            <b-spinner
+              small
+              v-if="buyingShares"
+              variant="secondary-color"
+              type="grow"
+              label="Spinning"></b-spinner>
             Buy {{openBitStatus.currentLevel.amountOfShares}}
             shares of this OpenBit for
             {{openBitStatus.currentLevel.pricePerShare * openBitStatus.currentLevel.amountOfShares}}
@@ -157,11 +165,11 @@ export default {
     // get the OpenBit PST status
     const OpenBitPST = await readContract(Vue.$arweave.node, this.openbit.pstId);
     this.pst = OpenBitPST;
-    console.log(this.pst);
   },
   data() {
     return {
       pst: null,
+      buyingShares: null,
       tableProfits: [{
         key: 'currentLevel',
         label: 'Current Level',
@@ -342,6 +350,53 @@ export default {
           return 'third-color';
         default:
           return 'dark';
+      }
+    },
+    // isOwnerOrInvestor() {
+    // get the current user
+    // }
+    async buySharesForCurrentLevel() {
+      // get the current level
+      if (this.pst) {
+        console.log(this.pst);
+        this.buyingShares = true;
+        const {
+          sharesAvailableForInvestors,
+        } = this.pst;
+        const currentLevel = sharesAvailableForInvestors.levels.filter((l) => (
+          l.available
+        ))[0];
+        const indexOfCurrentLevel = sharesAvailableForInvestors.levels.indexOf(currentLevel);
+
+        // get the cost of the investment
+        const sharesCost = (currentLevel.amountOfShares * currentLevel.pricePerShare).toString();
+
+        // this is a blocking transaction, I will use the arweave.createTransaction directly
+        const transaction = await Vue.$arweave.node.createTransaction({
+          target: currentLevel.owner,
+          quantity: await Vue.$arweave.node.ar.arToWinston(sharesCost),
+        }, this.defaultARWallet.jwk);
+
+        transaction.addTag('dApp', 'OpenBits');
+        transaction.addTag('type', 'buy-openbit-shares');
+        transaction.addTag('openbit-name', `${this.pst.ticker}`);
+        transaction.addTag('App-Name', 'SmartWeaveAction');
+        transaction.addTag('App-Version', '0.3.0');
+        transaction.addTag('Contract', this.openbit.pstId);
+        transaction.addTag('Input', JSON.stringify({
+          function: 'buy',
+          level: indexOfCurrentLevel,
+        }));
+
+        await Vue.$arweave.node.transactions.sign(transaction, this.defaultARWallet.jwk);
+
+        // get the total cost of the transaction
+        // const buySharesTotalCost = await Vue.$arweave.node.ar.winstonToAr(
+        //  Number(transaction.reward) + Number(transaction.quantity),
+        // );
+        // check of the owner has enough AR
+        // if (this.arGetDefaultWallet < )
+        // console.log(buySharesTotalCost);
       }
     },
   },

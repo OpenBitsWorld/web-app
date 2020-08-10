@@ -1,0 +1,73 @@
+{
+    "ticker": "batrandom@1.0.0",
+    "shares": 100,
+    "owners": [
+        "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8"
+    ],
+    "investors": [],
+    "users": {},
+    "MultiverseWaitingList": {},
+    "currentMultiverseAccount": {},
+    "sharesPayedToTheMultiverse": 0,
+    "targetProfit": 1,
+    "generatedProfit": 0,
+    "installationsToReleaseShares": 1,
+    "currentlyIsPaying": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+    "sharesReleaseIn": 1,
+    "sharesAvailableForInvestors": {
+        "levels": [
+            {
+                "multiplier": 10,
+                "beforeProfit": 0.02,
+                "amountOfShares": 5,
+                "pricePerShare": 0.001,
+                "expectedROI": 0.045000000000000005,
+                "owner": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+                "available": true,
+                "name": "Yellow",
+                "color": "secondary-color",
+                "textColor": "white"
+            },
+            {
+                "multiplier": 7,
+                "beforeProfit": 0.034,
+                "amountOfShares": 5,
+                "pricePerShare": 0.0014285714285714286,
+                "expectedROI": 0.04285714285714286,
+                "owner": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+                "available": false,
+                "name": "Red",
+                "color": "danger",
+                "textColor": "white"
+            },
+            {
+                "multiplier": 5,
+                "beforeProfit": 0.044000000000000004,
+                "amountOfShares": 5,
+                "pricePerShare": 0.002,
+                "expectedROI": 0.04,
+                "owner": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+                "available": false,
+                "name": "Green",
+                "color": "fourth-color",
+                "textColor": "white"
+            },
+            {
+                "multiplier": 3,
+                "beforeProfit": 0.05,
+                "amountOfShares": 5,
+                "pricePerShare": 0.0033333333333333335,
+                "expectedROI": 0.03333333333333334,
+                "owner": "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8",
+                "available": false,
+                "name": "Blue",
+                "color": "third-color",
+                "textColor": "white"
+            }
+        ]
+    },
+    "balances": {
+        "Ly-jR1h1BrdUTtCMXdgtzSm0mZ-qoI3n9YchDqtmcO8": 100,
+        "multiverse": 0
+    }
+}
