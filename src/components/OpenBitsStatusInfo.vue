@@ -65,7 +65,6 @@ export default {
     // get the openbits PST Status
     const OpenBitsPSTStatus = await readContract(Vue.$arweave.node, this.pstAddress);
     this.pst = OpenBitsPSTStatus;
-    console.log(this.pst);
   },
   methods: {
     getProgressVariant(i) {

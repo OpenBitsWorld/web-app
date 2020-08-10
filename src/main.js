@@ -20,6 +20,8 @@ import {
   faAward,
   faSadCry,
   faGrinHearts,
+  faSadTear,
+  faRocket,
 } from '@fortawesome/free-solid-svg-icons';
 
 import VueAnimateOnScroll from 'vue-animate-onscroll';
@@ -40,6 +42,8 @@ library.add(faHandSpock);
 library.add(faAward);
 library.add(faSadCry);
 library.add(faGrinHearts);
+library.add(faSadTear);
+library.add(faRocket);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(VueArweave);

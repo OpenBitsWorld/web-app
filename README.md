@@ -24,11 +24,11 @@ npm run build
 ### Useful Things to test
 
 OPENBITS-CURRENT-REGISTRY
-- address: No89JcDxt1km6M1faCT9UeRpZpNMUCcPT4YcyTdpk_k
+- address: V9injf0UaHzKXHOSaX82PnKftgq37KAxK6wyCD4lyaw
 
 OPENBITS CBVAC PST: 
-- state address:  d3IRkAmv300lpIuOpWBWXplORTVLLkvNSRZU8Pr-Hl0
-- contract address: yXoazk9KKae5ZhQgRATaXkU-CX66wkqXjW_A78_YM84
+- state address:  q60BFg81MCT45yilMIao3oNfn8MeJOzjZs9Gl2SgP9g
+- contract address: _MTcQVnIWLEj9VlQy5atbCPqHDIXa36MmYwepk161S8
 
 ### Credits
 

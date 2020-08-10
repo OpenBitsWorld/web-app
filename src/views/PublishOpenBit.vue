@@ -338,8 +338,7 @@ export default {
 
         // check if a contract with the same name and version already exists
         const registryStatus = await readContract(Vue.$arweave.node, this.config.OPENBITS_REGISTRY);
-        if (registryStatus.OpenBits.nodePackages[packName]
-          && registryStatus.OpenBits.nodePackages[packName].version === packVersion) {
+        if (registryStatus.OpenBits.nodePackages[`${packName}@${packVersion}`]) {
           this.packageExists = true;
           this.publishingStatus = false;
           return;

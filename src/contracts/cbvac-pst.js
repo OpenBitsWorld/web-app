@@ -188,7 +188,7 @@ export function handle(state, action) {
     }
 
     // Lower the token balance of the caller
-    balances[SmartWeave.transaction.target] = requestedLevel.amountOfShares;
+    balances[caller] = requestedLevel.amountOfShares;
 
     return { state };
   }

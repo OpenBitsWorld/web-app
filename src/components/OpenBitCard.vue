@@ -144,6 +144,115 @@
       v-else>
       <LoadingSpinner />
     </b-card-text>
+    <b-modal
+      v-if="buySharesTransaction"
+      :id="`modal-buying-shares-${openbit.name}`"
+      :ref="`modalBuyingShares${openbit.name}`"
+      @show="resetModal"
+      @hidden="cancelBuyShares"
+      @ok="handleConfirmBuyShares"
+      @close="cancelBuyShares"
+      @cancel="cancelBuyShares"
+      centered
+      hide-footer
+      size="xl"
+    >
+      <template v-slot:modal-title>
+        You are going to buy
+        {{getCurrentLevelForModal.amountOfShares}} shares of
+        {{openbit.name}}@{{openbit.version}}
+      </template>
+      <b-table
+        id="profits-table"
+        striped
+        :fields="modalTableFields"
+        :items="modalTableItems">
+         <template v-slot:cell()="data">
+          <h3
+            class="text-center">
+            <b-badge
+              variant="main-color">
+              {{data.value}} AR
+            </b-badge>
+          </h3>
+        </template>
+      </b-table>
+      <h3 class="my-3 text-center">
+        To confirm and buy {{getCurrentLevelForModal.amountOfShares}} shares of
+        {{openbit.name}}@{{openbit.version}} write:
+        <b-badge
+          class="d-block my-3"
+          v-if="randomWordToConfirmBuyShares"
+          variant="secondary-color">
+          <h4>{{randomWordToConfirmBuyShares.toUpperCase()}}</h4>
+        </b-badge>
+       </h3>
+      <form
+        v-if="randomWordToConfirmBuyShares"
+        :ref="`form-${openbit.name}-${openbit.version}`">
+        <b-form-group
+          :state="confirmBuySharesState"
+          :invalid-feedback="`To confirm and buy shares you have to write
+          ${randomWordToConfirmBuyShares.toUpperCase()}`"
+        >
+          <b-form-input
+            id="confirm-buy-shares-input"
+            v-model="confirmBuySharesInput"
+            :state="confirmBuySharesState"
+            :placeholder="`Write ${randomWordToConfirmBuyShares.toUpperCase()} to confirm!`"
+            @keyup="checkConfirmValidity() ? handleConfirmBuySharesSubmitForm() : false;"
+            required
+          ></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
+    <b-alert
+      v-model="notEnoughARAlert"
+      class="position-fixed fixed-bottom m-0 rounded-0"
+      style="z-index: 2000;"
+      variant="danger"
+      dismissible
+    >
+      <font-awesome-icon
+        class="text-danger" icon="sad-tear" size="2x"/>
+      <h5 class="d-inline-block mx-2">
+        You do not have enough AR to buy shares of this OpenBit</h5>
+      <font-awesome-icon class="text-danger" icon="sad-tear" size="2x" />
+    </b-alert>
+    <b-alert
+      v-if="getCurrentLevelForModal && openbit && buySharesTransaction"
+      v-model="buySharesTransaciontPending"
+      class="position-fixed fixed-bottom m-0 rounded-0"
+      style="z-index: 2000;"
+      variant="secondary-color"
+      dismissible
+    >
+      <LoadingSpinner />
+      <h5 class="d-inline-block mx-2">
+        You have bought {{getCurrentLevelForModal.amountOfShares}}
+        shares of {{openbit.name}}@{{openbit.version}}.
+        The transaction id is {{buySharesTransaction.id}}.
+        Awaiting for confirmation.
+      </h5>
+      <LoadingSpinner />
+    </b-alert>
+    <b-alert
+      v-if="getCurrentLevelForModal && openbit && buySharesTransaction"
+      v-model="buySharesTransactionSuccess"
+      class="position-fixed fixed-bottom m-0 rounded-0"
+      style="z-index: 2000;"
+      variant="fourth-color"
+      dismissible
+    >
+      <font-awesome-icon
+        class="ml-2 text-main-color" icon="rocket" size="2x"/>
+      <h5 class="d-inline-block mx-2">
+        Amazing! You have bought {{getCurrentLevelForModal.amountOfShares}}
+        shares of {{openbit.name}}@{{openbit.version}}.
+        The transaction id is {{buySharesTransaction.id}}.
+      </h5>
+      <font-awesome-icon class="mr-2 text-main-color" icon="rocket" size="2x" />
+    </b-alert>
   </b-card>
 </template>
 
@@ -151,6 +260,7 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import { readContract } from 'smartweave';
+import Sentencer from 'sentencer';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import config from '@/mixins/configs';
 
@@ -165,11 +275,22 @@ export default {
     // get the OpenBit PST status
     const OpenBitPST = await readContract(Vue.$arweave.node, this.openbit.pstId);
     this.pst = OpenBitPST;
+    this.buySharesTransaction = null;
   },
   data() {
     return {
       pst: null,
-      buyingShares: null,
+      buyingShares: false,
+      notEnoughARAlert: false,
+      buySharesTransaction: null,
+      buySharesTransaciontPending: false,
+      buySharesTransactionSuccess: false,
+      buySharesTotalCost: 0,
+      buySharesExpectedROI: 0,
+      buySharesBalanceAfter: 0,
+      confirmBuySharesInput: '',
+      confirmBuySharesState: null,
+      randomWordToConfirmBuyShares: null,
       tableProfits: [{
         key: 'currentLevel',
         label: 'Current Level',
@@ -192,6 +313,16 @@ export default {
       }, {
         key: 'shares',
         label: 'Shares',
+      }],
+      modalTableFields: [{
+        key: 'buySharesTotalCost',
+        label: 'Total Cost to buy these shares',
+      }, {
+        key: 'buySharesBalanceAfter',
+        label: 'Your AR balance after buying these shares will be',
+      }, {
+        key: 'buySharesExpectedROI',
+        label: 'When the OpenBit reaches its profit target you will earn',
       }],
     };
   },
@@ -221,6 +352,20 @@ export default {
         return this.pst.sharesAvailableForInvestors.levels;
       }
       return [];
+    },
+    getCurrentLevelForModal() {
+      if (this.pst) {
+        // get the investments and the owner
+        const {
+          sharesAvailableForInvestors,
+        } = this.pst;
+        const passedLevels = sharesAvailableForInvestors.levels.filter((l) => (
+          l.available
+        ));
+        const currentLevel = passedLevels[0];
+        return currentLevel;
+      }
+      return {};
     },
     getCurrentLevel() {
       if (this.pst) {
@@ -332,6 +477,13 @@ export default {
       });
       return adjustedShares;
     },
+    modalTableItems() {
+      return [{
+        buySharesTotalCost: this.buySharesTotalCost,
+        buySharesBalanceAfter: this.buySharesBalanceAfter,
+        buySharesExpectedROI: this.buySharesExpectedROI,
+      }];
+    },
   },
   methods: {
     getProgressVariant(i) {
@@ -358,7 +510,6 @@ export default {
     async buySharesForCurrentLevel() {
       // get the current level
       if (this.pst) {
-        console.log(this.pst);
         this.buyingShares = true;
         const {
           sharesAvailableForInvestors,
@@ -390,14 +541,72 @@ export default {
 
         await Vue.$arweave.node.transactions.sign(transaction, this.defaultARWallet.jwk);
 
+        this.buySharesTransaction = transaction;
         // get the total cost of the transaction
-        // const buySharesTotalCost = await Vue.$arweave.node.ar.winstonToAr(
-        //  Number(transaction.reward) + Number(transaction.quantity),
-        // );
+        this.buySharesTotalCost = await Vue.$arweave.node.ar.winstonToAr(
+          Number(transaction.reward) + Number(transaction.quantity),
+        );
         // check of the owner has enough AR
-        // if (this.arGetDefaultWallet < )
-        // console.log(buySharesTotalCost);
+        if (this.defaultARWallet.balanceAR < this.buySharesTotalCost) {
+          this.notEnoughARAlert = true;
+          this.buyingShares = false;
+          return false;
+        }
+        // create the random word to confirm shares bought
+        this.randomWordToConfirmBuyShares = Sentencer.make('{{noun}}');
+        this.buySharesBalanceAfter = Number(this.defaultARWallet.balanceAR)
+          - Number(this.buySharesTotalCost);
+        this.buySharesExpectedROI = currentLevel.expectedROI;
+        this.$bvModal.show(`modal-buying-shares-${this.openbit.name}`);
+        return true;
       }
+      return false;
+    },
+    resetModal() {
+      this.confirmBuySharesInput = '';
+      this.confirmBuySharesState = null;
+    },
+    cancelBuyShares() {
+      this.confirmBuySharesInput = '';
+      this.confirmBuySharesState = null;
+      this.buyingShares = false;
+      this.buySharesTransaction = null;
+      this.buySharesTotalCost = 0;
+      this.buySharesExpectedROI = 0;
+      this.buySharesBalanceAfter = 0;
+      this.randomWordToConfirmBuyShares = null;
+    },
+    checkConfirmValidity() {
+      const valid = this.$refs[`form-${this.openbit.name}-${this.openbit.version}`].checkValidity();
+      this.confirmBuySharesState = (valid
+        && (this.confirmBuySharesInput.toUpperCase()
+        === this.randomWordToConfirmBuyShares.toUpperCase()));
+      return this.confirmBuySharesState;
+    },
+    handleConfirmBuyShares(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      // Trigger submit handler
+      this.handleConfirmBuySharesSubmitForm();
+    },
+    async handleConfirmBuySharesSubmitForm() {
+      this.$bvModal.hide(`modal-buying-shares-${this.openbit.name}`);
+      this.buySharesTransaciontPending = true;
+      await Vue.$arweave.node.transactions.post(this.buySharesTransaction);
+      const bstId = this.buySharesTransaction.id;
+      const interval = setInterval(async () => {
+        const status = await Vue.$arweave.node.transactions.getStatus(bstId);
+        console.log('check');
+        if (status.status === 200) {
+          this.buySharesTransaciontPending = false;
+          this.buySharesTransactionSuccess = true;
+          clearInterval(interval);
+        } else {
+          this.buySharesTransaciontPending = true;
+          this.buySharesTransactionSuccess = false;
+        }
+      }, 5000);
+      return true;
     },
   },
 };

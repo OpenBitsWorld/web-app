@@ -1,6 +1,6 @@
 {
   "name": "openbits",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -16,7 +16,10 @@
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
+    "natural": "^2.1.5",
+    "sentencer": "^0.2.1",
     "smartweave": "https://arweave.net/AM-u4X2po-3Tx7fma3lRonCfLwrjI42IALwDL_YFXBs",
+    "sylvester": "0.0.21",
     "vue": "^2.6.11",
     "vue-animate-onscroll": "^1.0.8",
     "vue-arweave": "^2.0.2",
