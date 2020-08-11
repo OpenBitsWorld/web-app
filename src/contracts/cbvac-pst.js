@@ -37,7 +37,8 @@ export function handle(state, action) {
 
     // check if the OpenBit has reached an investment level. If so, disable that level.
     for (let i = 0; i < sharesAvailableForInvestors.levels.length; i += 1) {
-      if (state.generatedProfit >= sharesAvailableForInvestors.levels[i].beforeProfit) {
+      if (state.generatedProfit >= sharesAvailableForInvestors.levels[i].beforeProfit
+        && sharesAvailableForInvestors.levels[i].available) {
         sharesAvailableForInvestors.levels[i].available = false;
         if (sharesAvailableForInvestors.levels[i + 1]) {
           sharesAvailableForInvestors.levels[i + 1].available = true;
