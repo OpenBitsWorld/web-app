@@ -38,8 +38,6 @@ export function handle(state, action) {
     // check if the OpenBit has reached an investment level. If so, disable that level.
     for (let i = 0; i < sharesAvailableForInvestors.levels.length; i += 1) {
       if (state.generatedProfit >= sharesAvailableForInvestors.levels[i].beforeProfit) {
-        console.log(state.generatedProfit)
-        console.log(sharesAvailableForInvestors.levels[i].beforeProfit)
         sharesAvailableForInvestors.levels[i].available = false;
         if (sharesAvailableForInvestors.levels[i + 1]) {
           sharesAvailableForInvestors.levels[i + 1].available = true;
@@ -187,8 +185,10 @@ export function handle(state, action) {
       sharesAvailableForInvestors.levels[input.level + 1].available = true;
     }
 
-    // Lower the token balance of the caller
+    // Increase the token balance of the caller
     balances[caller] = requestedLevel.amountOfShares;
+    // Decrease the token balance of the seller
+    balances[SmartWeave.transaction.target] -= requestedLevel.amountOfShares;
 
     return { state };
   }

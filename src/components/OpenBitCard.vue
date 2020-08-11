@@ -221,7 +221,7 @@
     </b-alert>
     <b-alert
       v-if="getCurrentLevelForModal && openbit && buySharesTransaction"
-      v-model="buySharesTransaciontPending"
+      v-model="buySharesTransactionPending"
       class="position-fixed fixed-bottom m-0 rounded-0"
       style="z-index: 2000;"
       variant="secondary-color"
@@ -283,7 +283,7 @@ export default {
       buyingShares: false,
       notEnoughARAlert: false,
       buySharesTransaction: null,
-      buySharesTransaciontPending: false,
+      buySharesTransactionPending: false,
       buySharesTransactionSuccess: false,
       buySharesTotalCost: 0,
       buySharesExpectedROI: 0,
@@ -570,7 +570,6 @@ export default {
       this.confirmBuySharesInput = '';
       this.confirmBuySharesState = null;
       this.buyingShares = false;
-      this.buySharesTransaction = null;
       this.buySharesTotalCost = 0;
       this.buySharesExpectedROI = 0;
       this.buySharesBalanceAfter = 0;
@@ -591,18 +590,17 @@ export default {
     },
     async handleConfirmBuySharesSubmitForm() {
       this.$bvModal.hide(`modal-buying-shares-${this.openbit.name}`);
-      this.buySharesTransaciontPending = true;
+      this.buySharesTransactionPending = true;
       await Vue.$arweave.node.transactions.post(this.buySharesTransaction);
       const bstId = this.buySharesTransaction.id;
       const interval = setInterval(async () => {
         const status = await Vue.$arweave.node.transactions.getStatus(bstId);
-        console.log('check');
-        if (status.status === 200) {
-          this.buySharesTransaciontPending = false;
+        if (status && status.status === 200) {
+          this.buySharesTransactionPending = false;
           this.buySharesTransactionSuccess = true;
           clearInterval(interval);
         } else {
-          this.buySharesTransaciontPending = true;
+          this.buySharesTransactionPending = true;
           this.buySharesTransactionSuccess = false;
         }
       }, 5000);

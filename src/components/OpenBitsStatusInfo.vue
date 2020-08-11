@@ -46,7 +46,10 @@
           </template>
       </b-table>
     </div>
-    <LoadingSpinner v-else />
+    <div v-else>
+      <h5>Loading OpenBits status ... this may take some dozen of secs ...</h5>
+      <LoadingSpinner class="d-block mx-auto" />
+    </div>
   </b-container>
 </template>
 
