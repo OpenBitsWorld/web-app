@@ -6,16 +6,6 @@
 
 This is the source code of the Web Application of OpenBits. The web application is a Vue.JS application and it includes both the landing page (the web site) and the actual application that allows to publish and invest in OpenBits. The following sections explain how to setup your own development environment to contribute to OpenBits or to run a fork of it. 
 
-### Useful Things to test
-
-OPENBITS-CURRENT-REGISTRY
-- address: J9L-OZSn8ytSe1f-r_fUfnncvWeR7HBpppRP6oVW11A
-
-OPENBITS CBVAC PST: 
-- state address:  cvszFSVl9B--w93kQ_o_vLG5-CU-9XVkqHrpIfxEDdQ
-- contract address: WEsD1ARHOvjzD3rFf3xiW9u7Dc0x5OSsJ1A6V0CE-40
-
-
 ## Project setup
 
 Firstly, clone this project by running: 
@@ -54,7 +44,7 @@ If you do not want to use the above environment, you have to set up your develop
 
 Firstly you have to publish your customized SmartWeave contract that handles the OpenBits' registry. 
 
-To do so, go in a different folder from the OpenBits root and (Clone SmartWeave)[https://github.com/ArweaveTeam/SmartWeave] by doing the following:
+To do so, go in a different folder from the OpenBits root and [https://github.com/ArweaveTeam/SmartWeave] (Clone SmartWeave) by doing the following:
 
 ```
 git clone https://github.com/ArweaveTeam/SmartWeave
