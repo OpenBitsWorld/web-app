@@ -44,6 +44,7 @@ library.add(faSadCry);
 library.add(faGrinHearts);
 library.add(faSadTear);
 library.add(faRocket);
+
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(VueArweave);

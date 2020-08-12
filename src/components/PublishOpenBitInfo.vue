@@ -11,7 +11,7 @@
           Here you can create your OpenBits. Currently, OpenBits only handles node.js packages.
           Note that you can publis OpenBits also by means of the openbits cli by executing the
           following command in the root folder of your node.js package:
-          <pre class="mt-3"><kbd>openbits publish --type node-package</kbd></pre>
+          <pre class="mt-3"><kbd>openbits publish</kbd></pre>
           After having created your OpenBit it will be available to other users. They will be
           able to use it by installing the OpenBits cli and writing the following in their shell:
           <pre class="mt-3"><kbd>openbits install your-package-name[@your.package.version]</kbd>
@@ -23,7 +23,7 @@
           files on the arweave network (usually a few $cents for MB), plus the fee for OpenBits,
           that is currently {{getFeeForPublication}} AR. Fees
           will be redistributed to OpenBits shares owners and to OpenBits users as described
-          <router-link to="/home">here</router-link>.
+          <a href="https://gitlab.com/cervoneluca/openbits" target="_blank">here</a>.
         </p>
       </b-alert>
     </p>

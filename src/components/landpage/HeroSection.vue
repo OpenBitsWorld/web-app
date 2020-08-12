@@ -31,7 +31,7 @@
                 </h1>
                 <h2
                   class="text-white">
-                  Earn wath you need from your Open Source
+                  Earn what you need from your Open Source
                   packages before
                   <span
                     class="text-multiverse-color"><b>donating them to the multiverse!</b></span>

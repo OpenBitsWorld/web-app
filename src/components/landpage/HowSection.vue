@@ -1,8 +1,8 @@
 <template>
-  <section id="how-section">
+  <section id="how-section" class="pb-5">
     <b-container
       fluid
-      class="mt-5 px-5 py-5 bg-secondary-color">
+      class="mt-5 px-5 py-5 bg-secondary-color how">
       <b-row
         class="px-5">
         <b-col
@@ -124,12 +124,12 @@
                   <b-list-group-item>
                     When developers install the package by means of
                     OpenBits, <b>they pay a small fee of 0.02 AR</b>.
-                    0.01 AR gose to OpenBits, and <b>0.01 AR goes to you</b>;
+                    0.01 AR goes to OpenBits, and <b>0.01 AR goes to you</b>;
                   </b-list-group-item>
                   <b-list-group-item>
                     Every time you earn an amount of AR <b>equal to the price of
                     a share</b>, a share of your package <b>will be given to
-                    the MULTIVERSE</b>. One you have only one share, <b>shares
+                    the MULTIVERSE</b>. Once you have only one share, <b>shares
                     of investors will be given to the MULTIVERSE</b>.
                   </b-list-group-item>
                 </b-list-group>
@@ -183,45 +183,47 @@ export default {
 @import '../../assets/styles/custom-theme.scss';
 
 #how-section {
-  a {
-    border-bottom: 2px solid white;
-    color: $main-color;
-    font-weight: 900;
-    &:hover{
-      color:white!important;
-      text-decoration: none;
+  .how {
+    a {
+      border-bottom: 2px solid white;
+      color: $main-color;
+      font-weight: 900;
+      &:hover{
+        color:white!important;
+        text-decoration: none;
+      }
+      &:visited{
+        text-decoration: none;
+      }
     }
-    &:visited{
-      text-decoration: none;
-    }
-  }
-  .section-title{
-    width: 100%;
-    text-align:center;
-    font-weight: 900;
-  }
-  .why-image{
-    width: 70%
-  }
-  .to-be-animated {
-    transition-duration: 800ms;
-    &:not(.animated) {
-      opacity: 0;
-    }
-  }
-  .list-intro{
-    font-size: 1.5em;
-    b {
+    .section-title{
+      width: 100%;
+      text-align:center;
       font-weight: 900;
     }
-  }
-  .list{
-    font-size: 1.2em;
-    b {
-      font-weight: 900;
+    .why-image{
+      width: 70%
     }
-    b.openbits {
-      font-size: 1.3em;
+    .to-be-animated {
+      transition-duration: 800ms;
+      &:not(.animated) {
+        opacity: 0;
+      }
+    }
+    .list-intro{
+      font-size: 1.5em;
+      b {
+        font-weight: 900;
+      }
+    }
+    .list{
+      font-size: 1.2em;
+      b {
+        font-weight: 900;
+      }
+      b.openbits {
+        font-size: 1.3em;
+      }
     }
   }
 }
