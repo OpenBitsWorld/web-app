@@ -5,7 +5,7 @@
        fluid>
        <b-container class="p-5">
           <b-row
-            class="to-be-animated"
+            class="to-be-animated d-none d-sm-block"
             v-animate-onscroll="{down: 'animated fadeInDown'}">
             <b-col
                 sm="12"
