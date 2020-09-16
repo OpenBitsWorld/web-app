@@ -18,33 +18,32 @@
           </b-row>
           <b-row
             v-animate-onscroll="{down: 'animated fadeInUp'}"
-            class="mt-5 pt-5 to-be-animated">
+            class="mt-5 to-be-animated">
             <b-col
               sm="12"
               md="12"
               lg="12"
-              class="pt-5 pt-lg-0 d-flex align-items-center">
-              <div class="text-center">
-                <h1
-                  class="text-secondary-color">Welcome to
-                  <span class="text-white">OpenBits</span>
-                </h1>
-                <h2
-                  class="text-white">
-                  Earn what you need from your Open Source
-                  packages before
-                  <span
-                    class="text-multiverse-color"><b>donating them to the multiverse!</b></span>
-                </h2>
-              </div>
+              class="text-center">
+              <h1
+                class="text-secondary-color">
+                Each Single Open Source Bit In The Multiverse Matters!
+              </h1>
             </b-col>
           </b-row>
-          <!-- <b-row>
+          <b-row
+            v-animate-onscroll="{down: 'animated fadeInUp'}"
+            class="mt-5 to-be-animated">
             <b-col
               cols="12">
-              <b-button>Explore Published OpenBits</b-button>
+              <b-button
+                size="lg"
+                variant="multiverse-color"
+                class="mx-auto d-block w-50"
+                @click="$router.push('explore-openbits')">
+                  <b>Explore Published OpenBits</b>
+              </b-button>
             </b-col>
-          </b-row> -->
+          </b-row>
        </b-container>
     </b-container>
     <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
@@ -116,9 +115,6 @@ export default {
       font-size: 3em;
       font-weight: 700;
       line-height: 56px;
-      /* span {
-        border-bottom: 4px solid white;
-      } */
     }
     h2 {
       margin-bottom: 40px;
