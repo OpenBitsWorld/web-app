@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button
-      variant="dark"
+      variant="multiverse-color"
       v-b-modal.login-modal>
         <b>Login</b>
     </b-button>
@@ -63,7 +63,7 @@ export default {
 
             const defWallet = this.$arGetDefaultWallet;
             this.setARDefaultWallet(defWallet);
-            this.$router.push('/publish-openbit');
+            this.$router.push('/explore-openbits');
           };
           reader.readAsText(file);
           done();
