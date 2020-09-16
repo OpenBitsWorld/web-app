@@ -14,8 +14,10 @@
         <h4
           class="pl-4 pt-2"
           id="sidebar-no-header-title">
-            <img src="../../assets/logo-black.png" class="sidebar-logo" />
-            <!-- <div class="brand ml-2 mt-1">OpenBits</div> -->
+            <img
+              @click="$router.push('/')"
+              src="../../assets/logo-black.png"
+              class="sidebar-logo" />
         </h4>
         <div class="p-3 mt-4">
           <nav class="mb-3">
@@ -28,25 +30,28 @@
                 @click="$router.push('explore-openbits')">
                 <font-awesome-icon icon="search" /> Explore OpenBits
               </b-nav-item>
-              <b-nav-item
-                :active="isActivePage('/user-openbits')"
-                class="m-1"
-                @click="$router.push('user-openbits')">
-                <font-awesome-icon icon="box-open" /> Your OpenBits
-              </b-nav-item>
-              <b-nav-item
-                :active="isActivePage('/publish-openbit')"
-                class="m-1"
-                @click="$router.push('publish-openbit')">
-                <font-awesome-icon icon="folder-plus" /> Publish Your OpenBit
-              </b-nav-item>
-              <b-nav-item
-                disabled
-                :active="isActivePage('/user-packages-shares')"
-                class="m-1"
-                @click="$router.push('user-packages-shares')">
-                <font-awesome-icon icon="file-contract" /> Your OpenBits Shares
-              </b-nav-item>
+              <div
+                v-if="isLogged">
+                <b-nav-item
+                  :active="isActivePage('/user-openbits')"
+                  class="m-1"
+                  @click="$router.push('user-openbits')">
+                  <font-awesome-icon icon="box-open" /> Your OpenBits
+                </b-nav-item>
+                <b-nav-item
+                  :active="isActivePage('/publish-openbit')"
+                  class="m-1"
+                  @click="$router.push('publish-openbit')">
+                  <font-awesome-icon icon="folder-plus" /> Publish Your OpenBit
+                </b-nav-item>
+                <b-nav-item
+                  disabled
+                  :active="isActivePage('/user-packages-shares')"
+                  class="m-1"
+                  @click="$router.push('user-packages-shares')">
+                  <font-awesome-icon icon="file-contract" /> Your OpenBits Shares
+                </b-nav-item>
+              </div>
             </b-nav>
           </nav>
           <OpenBitsStatusInfo :pstAddress="config.OPENBITS_CBVAC_STATUS" />
@@ -56,13 +61,16 @@
 </template>
 
 <script>
-// import InlineSvg from 'vue-inline-svg';
 import config from '@/mixins/configs';
+import utils from '@/mixins/utils';
 import OpenBitsStatusInfo from '@/components/OpenBitsStatusInfo.vue';
 
 export default {
   name: 'LayoutSidebar',
-  mixins: [config],
+  mixins: [
+    config,
+    utils,
+  ],
   components: {
     OpenBitsStatusInfo,
   },
@@ -85,7 +93,9 @@ export default {
     .sidebar-logo {
       width:auto;
       height:70px;
-      display:inline-block!important;
+      display:block;
+      cursor:pointer;
+      z-index:1000!important;
     }
     .brand {
       display:inline-block;

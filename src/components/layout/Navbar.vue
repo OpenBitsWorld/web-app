@@ -6,31 +6,20 @@
     text-variant="light"
     variant="white">
     <b-navbar-brand
-      v-if="classes === 'landpage-navbar'">
+      v-if="isHomePage()">
       <h4
         class="pl-4 pt-2"
         id="navbar-title">
         <img src="../../assets/logo-white.png" class="navbar-logo" />
-        <!-- <div class="brand ml-2 mt-1 text-white">OpenBits</div> -->
       </h4>
     </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <!-- <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-        </b-nav-form> -->
-        <!--<b-nav-item-dropdown text="Lang" right>
-          <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#">ES</b-dropdown-item>
-          <b-dropdown-item href="#">RU</b-dropdown-item>
-          <b-dropdown-item href="#">FA</b-dropdown-item>
-        </b-nav-item-dropdown> -->
         <b-nav-item-dropdown
           right
-          v-if="defaultARWallet">
+          v-if="isLogged">
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
             <strong
@@ -58,22 +47,23 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import config from '@/mixins/configs';
+import utils from '@/mixins/utils';
 import LayoutLoginModal from '@/components/layout/LoginModal.vue';
 
 export default {
   name: 'LayoutNavbar',
-  mixins: [config],
+  mixins: [
+    config,
+    utils,
+  ],
   components: {
     LayoutLoginModal,
   },
   computed: {
-    ...mapGetters({
-      defaultARWallet: 'user/getDefaultARWallet',
-    }),
     classes() {
-      if (this.defaultARWallet) {
+      if (this.isLogged) {
         return 'app-navbar';
       }
       return 'landpage-navbar';

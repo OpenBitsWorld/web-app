@@ -11,8 +11,6 @@
     </template>
     <b-card-text
       v-if="pst">
-      <!-- <h4>Usage Info</h4>
-      <hr /> -->
       <b-table
         id="profits-table"
         striped
@@ -406,7 +404,9 @@ export default {
           sharesAvailableForInvestors,
         } = this.pst;
         // the openbit is owned by the user
-        if (this.defaultARWallet.address === this.openbit.ownedBy) {
+        if (
+          this.defaultARWallet
+          && this.defaultARWallet.address === this.openbit.ownedBy) {
           return {
             status: 'owned',
             headerBg: 'dark',
