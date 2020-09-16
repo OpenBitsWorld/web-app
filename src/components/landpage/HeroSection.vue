@@ -26,7 +26,7 @@
               class="text-center">
               <h1
                 class="text-secondary-color">
-                Each Single Open Source Bit In The Multiverse Matters!
+                Each Single Open Source Bit In The Multiverse Matters! And a test.
               </h1>
             </b-col>
           </b-row>
