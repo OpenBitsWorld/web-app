@@ -39,6 +39,12 @@
               </div>
             </b-col>
           </b-row>
+          <!-- <b-row>
+            <b-col
+              cols="12">
+              <b-button>Explore Published OpenBits</b-button>
+            </b-col>
+          </b-row> -->
        </b-container>
     </b-container>
     <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">

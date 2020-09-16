@@ -2,7 +2,7 @@
   <div
     id="app-layout"
     class="h-100">
-    <LayoutSidebar v-if="defaultARWallet" />
+    <LayoutSidebar v-if="$route.path !== '/'" />
     <div
       id="page-center-container"
       class="h-100"
@@ -15,18 +15,20 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import utils from '@/mixins/utils';
 import LayoutNavbar from '@/components/layout/Navbar.vue';
 import LayoutSidebar from '@/components/layout/Sidebar.vue';
 
 export default {
   name: 'LayoutMain',
+  mixins: [utils],
   components: {
     LayoutNavbar,
     LayoutSidebar,
   },
   computed: {
     pageContainerClass() {
-      return (this.defaultARWallet) ? 'user-logged' : 'user-not-logged';
+      return (this.isHomePage()) ? 'homepage' : 'app';
     },
     ...mapGetters({
       defaultARWallet: 'user/getDefaultARWallet',
@@ -38,7 +40,7 @@ export default {
 <style lang="scss">
 #app-layout {
   #page-center-container{
-    &.user-logged{
+    &.app{
       margin-left:20em;
     }
   }
