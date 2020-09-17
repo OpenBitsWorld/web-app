@@ -22,6 +22,8 @@ import {
   faGrinHearts,
   faSadTear,
   faRocket,
+  faBars,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -57,6 +59,8 @@ library.add(faDiscord);
 library.add(faTwitter);
 library.add(faTelegram);
 library.add(faGitlab);
+library.add(faBars);
+library.add(faTimes);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

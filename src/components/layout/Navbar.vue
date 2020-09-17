@@ -20,12 +20,16 @@
       target="test-modal"
       @click="openOverlayMenu()">
       <template v-slot:default="{ expanded }">
-        <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
-        <b-icon v-else icon="chevron-bar-down"></b-icon>
+        <font-awesome-icon
+          v-if="expanded"
+          size="lg"
+          :icon="['fa', 'times']" />
+        <font-awesome-icon
+          size="lg"
+          :icon="['fa', 'bars']" />
       </template>
     </b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
-      <!-- Right aligned nav items -->
       <b-navbar-nav
         v-if="isLogged"
         class="ml-auto">
@@ -78,50 +82,23 @@
           right>
           Explore OpenBits
         </b-nav-item>
-        <div class="social-nav pt-2 px-2">
-          <b-nav-item
-            target="_blank"
-            href="https://discord.gg/ZYjAwXk"
-            class="d-inline-block social-icon">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'discord']" />
-          </b-nav-item>
-          <b-nav-item
-            target="_blank"
-            href="https://twitter.com/OpenBitsWorld"
-            class="d-inline-block social-icon">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'twitter']" />
-          </b-nav-item>
-          <b-nav-item
-            target="_blank"
-            href="https://t.me/openbits_official"
-            class="d-inline-block social-icon">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'telegram']" />
-          </b-nav-item>
-          <b-nav-item
-            target="_blank"
-            href="https://gitlab.com/cervoneluca/openbits"
-            class="d-inline-block social-icon">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'gitlab']" />
-          </b-nav-item>
-         </div>
         <b-nav-item
           id="main-login-button"
           right><LayoutLoginModal /></b-nav-item>
+        <LayoutSocialNav />
       </b-navbar-nav>
     </b-collapse>
     <div id="overlay-menu" class="overlay-menu">
-      <a
+      <font-awesome-icon
+        v-if="expanded"
+        class="close-menu-icon closebtn"
+        size="lg"
+        :icon="['fa', 'times']"
+        @click="closeOverlayMenu()" />
+        <!-- <a
         href="#"
         class="closebtn"
-        @click="closeOverlayMenu()">&times;</a>
+        @click="closeOverlayMenu()">&times;</a> -->
         <b-nav vertical class="w-25">
           <b-nav-item
           href="#"
@@ -204,6 +181,7 @@
 import { mapActions } from 'vuex';
 import config from '@/mixins/configs';
 import utils from '@/mixins/utils';
+import LayoutSocialNav from '@/components/layout/SocialNav.vue';
 import LayoutLoginModal from '@/components/layout/LoginModal.vue';
 
 export default {
@@ -213,6 +191,7 @@ export default {
     utils,
   ],
   components: {
+    LayoutSocialNav,
     LayoutLoginModal,
   },
   computed: {
@@ -262,10 +241,6 @@ export default {
       }
     }
   }
-  .social-nav {
-    border-right:1px solid $white;
-    border-left:1px solid $white;
-  }
   &.app-navbar {
     border-bottom: 2px solid black;
   }
@@ -288,39 +263,38 @@ export default {
     background-color: rgba(0,0,0, 0.9);
     overflow-x: hidden;
     transition: 0.5s;
-  }
+    .overlay-content {
+      position: relative;
+      top: 25%;
+      width: 100%;
+      text-align: center;
+      margin-top: 30px;
+    }
 
-  .overlay-content {
-    position: relative;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-  }
+    a {
+      padding: 8px;
+      text-decoration: none;
+      font-size: 36px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
 
-  .overlay a {
-    padding: 8px;
-    text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
+    a:hover, .overlay a:focus {
+      color: #f1f1f1;
+    }
 
-  .overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
-  }
-
-  .overlay .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
+    .closebtn {
+      position: absolute;
+      top: 20px;
+      right: 45px;
+      font-size: 60px;
+    }
   }
 
   @media screen and (max-height: 450px) {
-    .overlay a {font-size: 20px}
-    .overlay .closebtn {
+    .overlay-menu a {font-size: 20px}
+    .overlay-menu .closebtn {
     font-size: 40px;
     top: 15px;
     right: 35px;
