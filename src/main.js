@@ -24,8 +24,17 @@ import {
   faRocket,
 } from '@fortawesome/free-solid-svg-icons';
 
+import {
+  faDiscord,
+  faTwitter,
+  faTelegram,
+  faGitlab,
+} from '@fortawesome/free-brands-svg-icons';
+
 import VueAnimateOnScroll from 'vue-animate-onscroll';
 import 'vue2-animate/dist/vue2-animate.min.css';
+
+import VueScrollTo from 'vue-scrollto';
 
 import App from './App.vue';
 import router from './router';
@@ -44,6 +53,10 @@ library.add(faSadCry);
 library.add(faGrinHearts);
 library.add(faSadTear);
 library.add(faRocket);
+library.add(faDiscord);
+library.add(faTwitter);
+library.add(faTelegram);
+library.add(faGitlab);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
@@ -52,6 +65,7 @@ Vue.use(VueArweave);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueAnimateOnScroll);
+Vue.use(VueScrollTo);
 
 Vue.config.productionTip = false;
 

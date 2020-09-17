@@ -1,50 +1,48 @@
 <template>
   <section id="hero-section" class="h-100">
     <b-container
-       class="hero h-100 bg-main-color"
+       class="hero h-100 bg-main-color px-3 px-lg-5 px-md-5 px-sm-2"
        fluid>
-       <b-container class="p-5">
-          <b-row
-            class="to-be-animated"
-            v-animate-onscroll="{down: 'animated fadeInDown'}">
-            <b-col
-                sm="12"
-                md="12"
-                lg="12"
-                class="pt-5 pt-lg-0 d-flex align-items-center">
-                <img src="../../assets/logo-white.png"
-                class="pl-5 mx-auto d-block logo"/>
-            </b-col>
-          </b-row>
-          <b-row
-            v-animate-onscroll="{down: 'animated fadeInUp'}"
-            class="mt-5 to-be-animated">
-            <b-col
-              sm="12"
-              md="12"
-              lg="12"
-              class="text-center">
-              <h1
-                class="text-secondary-color">
-                Each Single Open Source Bit In The Multiverse Matters!
-              </h1>
-            </b-col>
-          </b-row>
-          <b-row
-            v-animate-onscroll="{down: 'animated fadeInUp'}"
-            class="mt-5 to-be-animated">
-            <b-col
-              cols="12">
-              <b-button
-                size="lg"
-                variant="multiverse-color"
-                class="mx-auto d-block w-50"
-                @click="$router.push('explore-openbits')">
-                  <b>Explore Published OpenBits</b>
-              </b-button>
-            </b-col>
-          </b-row>
-       </b-container>
+      <b-row
+        class="to-be-animated d-none d-sm-block mt-5"
+        v-animate-onscroll="{down: 'animated fadeInDown'}">
+        <b-col
+            sm="12"
+            md="12"
+            lg="12"
+            class="pt-5 pt-lg-0 d-flex align-items-center">
+            <img src="../../assets/logo-white.png"
+            class="mt-5 pl-5 mx-auto d-block logo"/>
+        </b-col>
+      </b-row>
+      <b-row
+        v-animate-onscroll="{down: 'animated fadeInUp'}"
+        class="mt-5 to-be-animated">
+        <b-col
+          sm="12"
+          md="12"
+          lg="12"
+          class="text-center">
+          <div
+            class="h1 text-secondary-color section-title">
+            Each Single Open Source Bit In The Multiverse Matters!
+          </div>
+        </b-col>
+      </b-row>
+      <b-row
+        v-animate-onscroll="{down: 'animated fadeInUp'}"
+        class="mt-5 to-be-animated px-2">
+        <b-col
+          cols="12">
+          <b-button
+            size="lg"
+            variant="multiverse-color"
+            class="mx-auto d-block"
+            @click="$router.push('explore-openbits')">
+              <b>Explore OpenBits</b>
+          </b-button>
+        </b-col>
+      </b-row>
     </b-container>
     <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
       <defs>
@@ -82,11 +80,10 @@ export default {
 #hero-section{
   margin-top:-120px;
   .hero {
-    // height:800px;
     background: url("../../assets/multiverse-wallpaper.jpg");
     background-repeat:no-repeat;
     position: relative;
-    padding: 120px 0 0 0;
+    padding: 10rem 0 0 0;
     background-size: auto 100%;
     .to-be-animated {
       transition-duration: 800ms;
@@ -105,7 +102,7 @@ export default {
     }
     .logo{
       display:block;
-      width:40%;
+      width:23rem;
     }
     .hero-screenshot {
       width:100%;
