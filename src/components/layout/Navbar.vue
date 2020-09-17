@@ -18,7 +18,7 @@
       data-toggle="modal"
       data-target="test-modal"
       target="test-modal"
-      v-b-modal.test-modal>
+      @click="openOverlayMenu()">
       <template v-slot:default="{ expanded }">
         <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
         <b-icon v-else icon="chevron-bar-down"></b-icon>
@@ -117,38 +117,86 @@
           right><LayoutLoginModal /></b-nav-item>
       </b-navbar-nav>
     </b-collapse>
-    <b-modal
-      id="test-modal"
-      ref="test-modal"
-      class="w-100 h-100"
-      hide-footer>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown
-          right
-          v-if="isLogged">
-          <!-- Using 'button-content' slot -->
-          <template v-slot:button-content>
-            <strong
-              class="text-dark">{{defaultARWallet.address}}
-              <div class="d-inline-block">
-                <b-badge
-                  variant="secondary-color">
-                  Balance: {{defaultARWallet.balanceAR}} AR
-                </b-badge>
-              </div>
-            </strong>
-          </template>
-          <b-dropdown-item>
-            <router-link to="user-profile">Profile</router-link></b-dropdown-item>
-          <b-dropdown-item
-            @click="signOut()">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
+    <div id="overlay-menu" class="overlay-menu">
+      <a
+        href="#"
+        class="closebtn"
+        @click="closeOverlayMenu()">&times;</a>
+        <b-nav vertical class="w-25">
+          <b-nav-item
+          href="#"
+          v-scroll-to="'#why-section'"
+          class="text-white pt-2 d-inline-block"
+          @click="closeOverlayMenu()"
+          right>
+          Why OpenBits
+        </b-nav-item>
         <b-nav-item
-          v-else
-          right
-          ><LayoutLoginModal /></b-nav-item>
-      </b-navbar-nav>
-    </b-modal>
+          href="#"
+          v-scroll-to="'#how-section'"
+          class="text-white pt-2 d-inline-block"
+          @click="closeOverlayMenu()"
+          right>
+          How OpenBits Works
+        </b-nav-item>
+        <b-nav-item
+          href="#"
+          v-scroll-to="'#what-section'"
+          class="text-white pt-2 d-inline-block"
+          @click="closeOverlayMenu()"
+          right>
+          Get Started
+        </b-nav-item>
+        <b-nav-item
+          @click="$router.push('explore-openbits'); closeOverlayMenu();"
+          class="text-white pt-2 d-inline-block"
+          right>
+          Explore OpenBits
+        </b-nav-item>
+        <div class="social-nav pt-2 px-2">
+          <b-nav-item
+            target="_blank"
+            href="https://discord.gg/ZYjAwXk"
+            class="d-inline-block social-icon"
+            @click="closeOverlayMenu()">
+            <font-awesome-icon
+              size="lg"
+              :icon="['fab', 'discord']" />
+          </b-nav-item>
+          <b-nav-item
+            target="_blank"
+            href="https://twitter.com/OpenBitsWorld"
+            class="d-inline-block social-icon"
+            @click="closeOverlayMenu()">
+            <font-awesome-icon
+              size="lg"
+              :icon="['fab', 'twitter']" />
+          </b-nav-item>
+          <b-nav-item
+            target="_blank"
+            href="https://t.me/openbits_official"
+            class="d-inline-block social-icon"
+            @click="closeOverlayMenu()">
+            <font-awesome-icon
+              size="lg"
+              :icon="['fab', 'telegram']" />
+          </b-nav-item>
+          <b-nav-item
+            target="_blank"
+            href="https://gitlab.com/cervoneluca/openbits"
+            class="d-inline-block social-icon"
+            @click="closeOverlayMenu()">
+            <font-awesome-icon
+              size="lg"
+              :icon="['fab', 'gitlab']" />
+          </b-nav-item>
+        </div>
+        <b-nav-item
+          id="main-login-button"
+          @click="closeOverlayMenu()"
+          right><LayoutLoginModal /></b-nav-item>
+        </b-nav>
+    </div>
   </b-navbar>
 </template>
 
@@ -183,6 +231,12 @@ export default {
       this.$arRemoveWallet(this.defaultARWallet.id);
       this.setARDefaultWallet(null);
       this.$router.push('/');
+    },
+    openOverlayMenu() {
+      document.getElementById('overlay-menu').style.width = '100%';
+    },
+    closeOverlayMenu() {
+      document.getElementById('overlay-menu').style.width = '0';
     },
   },
 };
@@ -222,6 +276,55 @@ export default {
   }
   .brand {
     display:inline-block;
+  }
+  .overlay-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+
+  .overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
   }
 }
 </style>
