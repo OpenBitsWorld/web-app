@@ -46,20 +46,16 @@
                 They helped a lot in creating OpenBits! Join their discord channel
                 <a href="https://discord.gg/q8jxFK" target="_blank">here</a>.
               </li>
-              <li>Section Why image is a derived work of
-                <a href="https://www.freepik.com/free-photos-vectors/business" target="_blank">
-                  Business vector created by freepik -
-                </a>
-                <a href="http://www.freepik.com" rel="nofollow noreferrer noopener" target="_blank">
-                  www.freepik.com
-                </a>
-              </li>
               <li data-sourcepos="184:1-184:182">
                 The Universe Image in the background is a courtesy of
                 <a href="https://www.freepik.com/free-photos-vectors/background" target="_blank">
                   Background vector created by upklyak </a><a href="http://www.freepik.com" target="_blank">
                   www.freepik.com
-                </a>
+                </a>.
+              </li>
+              <li>
+                Images in the "Why OpenBits" section are courtesy of Freepik
+                <a href="https://stories.freepik.com/web">Illustration by Freepik Stories</a>.
               </li>
             </ul>
           </b-col>

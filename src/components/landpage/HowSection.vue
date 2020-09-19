@@ -22,13 +22,14 @@
                 href="https://medium.com/@arweave/profit-sharing-tokens-a-new-incentivization-mechanism-for-an-open-web-1f2532411d6e"
                 target="_blank"
                 class="text-main-color">SmartWeave Profit Sharing Tokens</a>.
-              By combining these two technologies, OpenBits allows you to
-              <b class="text-main-color">earn AR</b> (the arweave cryptocurrency)
-              when other developers install your packages, it allows you
-              <b class="text-main-color">to create investments plans</b>
-              on your packages, and it allows you to
-              <b class="text-main-color">donate your Open Source packages to the MULTIVERSE</b>
-              when you reach your profit targets. All of this in
+              By combining these two technologies, OpenBits allows developers to
+              be rewarded when other developers install their packages, and it allows developers
+              <b class="text-main-color">to share their rewards</b> with other people.
+              And then, as soon as developers reaches their rewards target,
+              <b class="text-main-color">
+                their creations are automatically donated to the MULTIVERSE
+              </b>.
+              All of this in
               <b class="text-main-color">just three simple steps:</b>
             </p>
         </b-col>
