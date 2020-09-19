@@ -89,17 +89,16 @@
       </b-navbar-nav>
     </b-collapse>
     <div id="overlay-menu" class="overlay-menu">
-      <font-awesome-icon
-        v-if="expanded"
-        class="close-menu-icon closebtn"
-        size="lg"
-        :icon="['fa', 'times']"
-        @click="closeOverlayMenu()" />
-        <!-- <a
-        href="#"
-        class="closebtn"
-        @click="closeOverlayMenu()">&times;</a> -->
-        <b-nav vertical class="w-25">
+        <b-button
+          variant="outline-white"
+          class="closebtn mt-4 p-1"
+          @click="closeOverlayMenu()">
+          <font-awesome-icon
+            class="close-menu-icon text-white"
+            size="3x"
+            :icon="['fa', 'times']"/>
+        </b-button>
+        <b-nav vertical class="w-100 mt-5 p-3">
           <b-nav-item
           href="#"
           v-scroll-to="'#why-section'"
@@ -130,7 +129,7 @@
           right>
           Explore OpenBits
         </b-nav-item>
-        <div class="social-nav pt-2 px-2">
+        <!-- <div class="social-nav pt-2 px-2">
           <b-nav-item
             target="_blank"
             href="https://discord.gg/ZYjAwXk"
@@ -167,12 +166,14 @@
               size="lg"
               :icon="['fab', 'gitlab']" />
           </b-nav-item>
-        </div>
+        </div> -->
         <b-nav-item
           id="main-login-button"
           @click="closeOverlayMenu()"
-          right><LayoutLoginModal /></b-nav-item>
-        </b-nav>
+          right><LayoutLoginModal />
+        </b-nav-item>
+        <LayoutSocialNav />
+      </b-nav>
     </div>
   </b-navbar>
 </template>
@@ -263,42 +264,26 @@ export default {
     background-color: rgba(0,0,0, 0.9);
     overflow-x: hidden;
     transition: 0.5s;
-    .overlay-content {
-      position: relative;
-      top: 25%;
-      width: 100%;
-      text-align: center;
-      margin-top: 30px;
-    }
-
     a {
       padding: 8px;
       text-decoration: none;
-      font-size: 36px;
-      color: #818181;
+      font-size: 1.5rem;
       display: block;
       transition: 0.3s;
     }
-
-    a:hover, .overlay a:focus {
-      color: #f1f1f1;
-    }
-
     .closebtn {
       position: absolute;
-      top: 20px;
-      right: 45px;
-      font-size: 60px;
+      right: 0.9rem;
     }
   }
 
-  @media screen and (max-height: 450px) {
+  /* @media screen and (max-height: 450px) {
     .overlay-menu a {font-size: 20px}
     .overlay-menu .closebtn {
     font-size: 40px;
     top: 15px;
     right: 35px;
     }
-  }
+  } */
 }
 </style>
