@@ -38,6 +38,9 @@
             v-animate-onscroll="{down: 'animated fadeInDown'}">
             <b class="text-main-color">OpenBits incentivise developers by supplying them an engaging
             way to be rewarded for creating and using Open Source Packages!</b>
+            And there is much more! OpenBits incentivize developers to donate their
+            creation to the community (that we call the MULTIVERSE), as soon as they reach
+            their desired amount of rewards!
           </p>
         </b-col>
       </b-row>

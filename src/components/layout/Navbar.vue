@@ -89,88 +89,47 @@
       </b-navbar-nav>
     </b-collapse>
     <div id="overlay-menu" class="overlay-menu">
-        <b-button
-          variant="outline-white"
-          class="closebtn mt-4 p-1"
-          @click="closeOverlayMenu()">
-          <font-awesome-icon
-            class="close-menu-icon text-white"
-            size="3x"
-            :icon="['fa', 'times']"/>
-        </b-button>
-        <b-nav vertical class="w-100 mt-5 p-3">
-          <b-nav-item
+      <b-button
+        variant="outline-white"
+        class="closebtn mt-4 p-1"
+        @click="closeOverlayMenu()">
+        <font-awesome-icon
+          class="close-menu-icon text-white"
+          size="3x"
+          :icon="['fa', 'times']"/>
+      </b-button>
+      <b-nav vertical class="w-100 mt-5 p-3 pt-5">
+        <b-nav-item
           href="#"
           v-scroll-to="'#why-section'"
           class="text-white pt-2 d-inline-block"
-          @click="closeOverlayMenu()"
-          right>
+          @click="closeOverlayMenu()">
           Why OpenBits
         </b-nav-item>
         <b-nav-item
           href="#"
           v-scroll-to="'#how-section'"
           class="text-white pt-2 d-inline-block"
-          @click="closeOverlayMenu()"
-          right>
+          @click="closeOverlayMenu()">
           How OpenBits Works
         </b-nav-item>
         <b-nav-item
           href="#"
           v-scroll-to="'#what-section'"
           class="text-white pt-2 d-inline-block"
-          @click="closeOverlayMenu()"
-          right>
+          @click="closeOverlayMenu()">
           Get Started
         </b-nav-item>
         <b-nav-item
           @click="$router.push('explore-openbits'); closeOverlayMenu();"
-          class="text-white pt-2 d-inline-block"
-          right>
+          class="text-white pt-2 d-inline-block">
           Explore OpenBits
         </b-nav-item>
-        <!-- <div class="social-nav pt-2 px-2">
-          <b-nav-item
-            target="_blank"
-            href="https://discord.gg/ZYjAwXk"
-            class="d-inline-block social-icon"
-            @click="closeOverlayMenu()">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'discord']" />
-          </b-nav-item>
-          <b-nav-item
-            target="_blank"
-            href="https://twitter.com/OpenBitsWorld"
-            class="d-inline-block social-icon"
-            @click="closeOverlayMenu()">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'twitter']" />
-          </b-nav-item>
-          <b-nav-item
-            target="_blank"
-            href="https://t.me/openbits_official"
-            class="d-inline-block social-icon"
-            @click="closeOverlayMenu()">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'telegram']" />
-          </b-nav-item>
-          <b-nav-item
-            target="_blank"
-            href="https://gitlab.com/cervoneluca/openbits"
-            class="d-inline-block social-icon"
-            @click="closeOverlayMenu()">
-            <font-awesome-icon
-              size="lg"
-              :icon="['fab', 'gitlab']" />
-          </b-nav-item>
-        </div> -->
         <b-nav-item
           id="main-login-button"
-          @click="closeOverlayMenu()"
-          right><LayoutLoginModal />
+          class="my-3 d-block"
+          @click="closeOverlayMenu()">
+          <LayoutLoginModal />
         </b-nav-item>
         <LayoutSocialNav />
       </b-nav>

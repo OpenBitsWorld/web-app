@@ -25,7 +25,7 @@
           class="text-center">
           <div
             class="h1 text-secondary-color section-title">
-            Each Single Open Source Bit In The Multiverse Matters!
+            A Rewarding Multiverse For Open Source Packages!
           </div>
         </b-col>
       </b-row>
