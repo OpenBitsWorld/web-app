@@ -28,7 +28,9 @@ export default {
     // get the openbits
     const { OpenBits } = rs;
     Object.values(OpenBits.nodePackages).forEach((v) => {
-      this.addOpenBit(v);
+      if (v.name !== '@theronin/solarweave') {
+        this.addOpenBit(v);
+      }
     });
   },
   methods: {

@@ -2,9 +2,8 @@
   <section id="how-section" class="pb-5">
     <b-container
       fluid
-      class="mt-5 px-5 py-5 bg-secondary-color how">
-      <b-row
-        class="px-5">
+      class="px-3 px-sm-3 px-md-4 px-lg-5 how">
+      <b-row>
         <b-col
           sm="12"
           md="12"
@@ -16,7 +15,7 @@
               v-animate-onscroll="{down: 'animated fadeInDown'}">
               OpenBits relies on the <a href="https://www.arweave.org/"
                 target="_blank"
-                class="text-main-color">Arweave Blockchain</a> and it uses
+                class="text-secondary-color">Arweave Blockchain</a> and it uses
                 its
               <a
                 href="https://medium.com/@arweave/profit-sharing-tokens-a-new-incentivization-mechanism-for-an-open-web-1f2532411d6e"
@@ -140,7 +139,7 @@
         </b-row>
       </b-container>
       <b-row
-        class="px-5 my-5">
+        class="my-5">
         <b-col
           sm="12"
           md="12"
@@ -186,8 +185,8 @@ export default {
 #how-section {
   .how {
     a {
-      border-bottom: 2px solid white;
-      color: $main-color;
+      border-bottom: 2px solid $secondary-color;
+      color: $secondary-color;
       font-weight: 900;
       &:hover{
         color:white!important;
@@ -212,7 +211,6 @@ export default {
       }
     }
     .list-intro{
-      font-size: 1.5em;
       b {
         font-weight: 900;
       }

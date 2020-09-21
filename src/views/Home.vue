@@ -2,6 +2,7 @@
   <main id="main" class="h-100">
     <LandPageHeroSection />
     <LandPageWhySection />
+    <TriangleAndLogoSeparator />
     <LandPageHowSection />
     <LandPageWhatSection />
     <LandPageFooterSection />
@@ -14,6 +15,7 @@ import LandPageWhySection from '@/components/landpage/WhySection.vue';
 import LandPageHowSection from '@/components/landpage/HowSection.vue';
 import LandPageWhatSection from '@/components/landpage/WhatSection.vue';
 import LandPageFooterSection from '@/components/landpage/FooterSection.vue';
+import TriangleAndLogoSeparator from '@/components/landpage/TriangleAndLogoSeparator.vue';
 
 export default {
   name: 'Home',
@@ -23,6 +25,7 @@ export default {
     LandPageHowSection,
     LandPageWhatSection,
     LandPageFooterSection,
+    TriangleAndLogoSeparator,
   },
 };
 </script>
