@@ -1,6 +1,6 @@
 <template>
   <section class="trianle-and-logo-separator">
-    <div class="triangle">
+    <div class="triangle" :style="cssProps">
       <img
         src="../../assets/logo-black.png"
         class="why-image d-block mx-auto divider-logo"/>
@@ -11,6 +11,17 @@
 <script>
 export default {
   name: 'TriangleAndLogoSeparator',
+  props: ['color'],
+  mounted() {
+    console.log(this.color);
+  },
+  computed: {
+    cssProps() {
+      return {
+        '--borderColor': this.color,
+      };
+    },
+  },
 };
 </script>
 
@@ -19,11 +30,12 @@ export default {
 
 .trianle-and-logo-separator {
   position:relative;
-  height:250px;
+  height:256px;
   overflow: hidden;
   .triangle {
     display:block;
     width:100%;
+    border-color: var(--borderColor);
     &:before {
       right: 50%;
       border-right: 1000px solid transparent;
@@ -39,8 +51,10 @@ export default {
       position:absolute;
       top: 0;
       width: 50%;
-      z-index: 100;
-      border-bottom: 160px solid $main-color;
+      z-index:-100;
+      border-bottom-width: 160px;
+      border-bottom-style: solid;
+      border-bottom-color: inherit;
       -moz-transform: rotate(0.000001deg);
       -webkit-transform: rotate(0.000001deg);
       -o-transform: rotate(0.000001deg);
@@ -49,10 +63,15 @@ export default {
     }
     .divider-logo {
       display:block;
-      width: 10rem;
-      margin-top:90px;
-      padding-left:20px;
-      z-index:105;
+      width: 12rem;
+      margin-top:96px;
+      padding-left:40px;
+      z-index:105!important;
+      -moz-transform: rotate(-9deg);
+      -webkit-transform: rotate(-9deg);
+      -o-transform: rotate(-9deg);
+      -ms-transform: rotate(-9deg);
+      transform: rotate(-9deg);
     }
 
   }

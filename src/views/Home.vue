@@ -2,7 +2,7 @@
   <main id="main" class="h-100">
     <LandPageHeroSection />
     <LandPageWhySection />
-    <TriangleAndLogoSeparator />
+    <TriangleAndLogoSeparator color="#ffd301"/>
     <LandPageHowSection />
     <LandPageWhatSection />
     <LandPageFooterSection />
