@@ -53,7 +53,7 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
       <b-navbar-nav
-        v-else
+        v-else-if="isHomePage()"
         class="ml-auto">
         <b-nav-item
           href="#"
@@ -82,6 +82,14 @@
           right>
           Explore OpenBits
         </b-nav-item>
+        <b-nav-item
+          id="main-login-button"
+          right><LayoutLoginModal /></b-nav-item>
+        <LayoutSocialNav />
+      </b-navbar-nav>
+      <b-navbar-nav
+        v-else
+        class="ml-auto app">
         <b-nav-item
           id="main-login-button"
           right><LayoutLoginModal /></b-nav-item>
@@ -188,14 +196,30 @@ export default {
   &.landpage-navbar {
     z-index: 10000;
     background: transparent!important;
-    .nav-item {
-      &:not(#main-login-button) {
-        a {
-          color: $white;
-          font-weight:bold;
-          padding-bottom: 5px;
-          &:hover{
-            color: $secondary-color;
+    .navbar-nav {
+      .nav-item {
+        &:not(#main-login-button) {
+          a {
+            color:$white;
+            font-weight:bold;
+            padding-bottom: 5px;
+            &:hover{
+              color: $secondary-color;
+            }
+          }
+        }
+      }
+      &.app {
+        .nav-item {
+          &:not(#main-login-button) {
+            a {
+              color:$dark;
+              font-weight:bold;
+              padding-bottom: 5px;
+              &:hover{
+                color: $secondary-color;
+              }
+            }
           }
         }
       }

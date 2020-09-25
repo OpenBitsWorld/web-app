@@ -32,6 +32,12 @@
         size="lg"
         :icon="['fab', 'gitlab']" />
     </b-nav-item>
+    <b-nav-item
+      target="_blank"
+      href="https://community.xyz/#6eTVr8IKPNYbMHVcpHFXr-XNaL5hT6zRJXimcP-owmo"
+      class="d-inline-block social-icon">
+      <img src="../../assets/communityxyz-icon-white.svg" class="communityxyz-logo-icon" />
+    </b-nav-item>
   </div>
 </template>
 
@@ -40,3 +46,10 @@ export default {
   name: 'LayoutSocialNav',
 };
 </script>
+
+<style lang="scss" scoped>
+  .communityxyz-logo-icon {
+    height: 21px;
+    padding-bottom:5px;
+  }
+</style>

@@ -2,16 +2,16 @@
   <section id="footer-section">
     <b-container
       fluid
-      class="px-5 pt-5 bg-main-color footer text-white pb-5">
+      class="px-5 bg-main-color footer text-white pb-5">
       <b-container>
-        <b-row>
+        <b-row align-h="center">
           <b-col
-              sm="12"
-              md="12"
-              lg="12"
-              class="pt-5 pt-lg-0 d-flex align-items-center">
+              sm="6"
+              md="6"
+              lg="6"
+              class="mt-5 pt-lg-0">
               <img src="../../assets/logo-white.png"
-              class="pl-5 mx-auto d-block logo-footer"/>
+              class="d-block mx-auto w-50"/>
           </b-col>
         </b-row>
         <b-row>
@@ -72,10 +72,10 @@
               All the software that compose OpenBits is distributed
               under the
               <a href="https://opensource.org/licenses/MIT" target="_blank"> MIT license</a>.
-              OpenBits is a property of the MULTIVERSE and was authored by <a
+              <!-- OpenBits is a property of the MULTIVERSE and was authored by <a
               class="text-white"
               href="mailto:cervoneluca@gmail.com">
-              Luca Cervone</a>.
+              Luca Cervone</a>. -->
             </h6>
           </b-col>
         </b-row>
@@ -98,9 +98,6 @@ export default {
 
 #footer-section {
   .footer {
-    .logo-footer{
-      width:20%;
-    }
     min-height:300px;
     h5 {
       border-bottom: 2px solid white;

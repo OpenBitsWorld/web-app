@@ -1,14 +1,16 @@
 <template>
   <section id="what-section" class="pb-5">
     <b-container
-      class="what pt-5"
+      class="what"
       fluid>
       <b-container
         fluid
         class="px-4">
         <b-row class="mb-5">
           <b-col cols="12">
-            <h1 class="text-black text-center w-100">Get Started With OpenBits!</h1>
+            <h1 class="section-title text-multiverse-color text-center">
+              Get Started With OpenBits!
+            </h1>
           </b-col>
         </b-row>
         <b-row
@@ -130,6 +132,11 @@ export default {
 @import '../../assets/styles/custom-theme.scss';
 
 #what-section{
+  margin-top:-200px;
+  font-size: 1.2rem;
+  .section-title {
+    font-weight:900;
+  }
   .what {
     color:$main-color!important;
     .to-be-animated {
@@ -145,18 +152,11 @@ export default {
     .what-screenshot {
       width:100%;
     }
-    h1 {
-      margin: 0 0 20px 0;
-      font-size: 3em;
-      font-weight: 700;
-      line-height: 56px;
-      /* span {
-        border-bottom: 4px solid white;
-      } */
-    }
     h2 {
       margin-bottom: 40px;
-      font-size: 2em;
+      font-size: 1.5rem;
+      font-weight:900;
+      color:$third-color;
       span {
         border-bottom: 4px solid white;
       }
