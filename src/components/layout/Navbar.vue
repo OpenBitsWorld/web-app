@@ -249,6 +249,7 @@ export default {
     transition: 0.5s;
     a {
       padding: 8px;
+      color: $white;
       text-decoration: none;
       font-size: 1.5rem;
       display: block;

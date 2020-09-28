@@ -13,7 +13,7 @@
       <h6>Generated Profit</h6>
       <b-badge
         class="mb-2"
-        variant="main-color">{{pst.generatedProfit}} AR</b-badge>
+        variant="main-color">{{parseFloat(pst.generatedProfit).toFixed(2)}} AR</b-badge>
       <h6>Next share relased to the multiverse in:</h6>
       <b-badge
         class="mb-2"

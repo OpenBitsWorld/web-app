@@ -41,7 +41,9 @@ export default {
 #app-layout {
   #page-center-container{
     &.app{
-      margin-left:20em;
+      @media (min-width: 768px) {
+        margin-left:20em;
+      }
     }
   }
 }

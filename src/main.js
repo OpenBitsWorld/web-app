@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faUser,
+  faUserAstronaut,
   faBoxOpen,
   faCube,
   faFileContract,
@@ -37,6 +38,7 @@ import VueAnimateOnScroll from 'vue-animate-onscroll';
 import 'vue2-animate/dist/vue2-animate.min.css';
 
 import VueScrollTo from 'vue-scrollto';
+import VueNumber from 'vue-number-animation';
 
 import App from './App.vue';
 import router from './router';
@@ -44,6 +46,7 @@ import store from './store';
 
 // font awesome icons
 library.add(faUser);
+library.add(faUserAstronaut);
 library.add(faBoxOpen);
 library.add(faCube);
 library.add(faSearch);
@@ -70,6 +73,7 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueAnimateOnScroll);
 Vue.use(VueScrollTo);
+Vue.use(VueNumber);
 
 Vue.config.productionTip = false;
 

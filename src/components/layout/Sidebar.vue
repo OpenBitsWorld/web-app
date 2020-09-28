@@ -1,7 +1,7 @@
  <template>
   <b-sidebar
     id="layout-sidebar"
-    class="layout-sidebar"
+    class="layout-sidebar d-none d-md-block d-lg-block"
     title="Sidebar"
     shadow
     no-header

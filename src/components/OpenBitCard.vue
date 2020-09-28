@@ -32,7 +32,7 @@
                 </span>
                 <span
                   v-else-if="data.field.key === 'numberOfInstallations'">
-                {{pst.generatedProfit * 100}}
+                {{Math.round(pst.generatedProfit * 100)}}
                 </span>
                 <span
                  v-if="data.field.key === 'targetProfit' || data.field.key === 'generatedProfit'">
