@@ -24,7 +24,13 @@
           lg="12"
           class="text-center">
           <div
-            class="display-4 text-secondary-color section-title">
+            class="display-4 text-secondary-color section-title
+            d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">
+            A Rewarding Multiverse For Open Source Packages!
+          </div>
+          <div
+            class="h2 text-secondary-color section-title
+            d-inline-block d-sm-none d-md-none d-lg-none">
             A Rewarding Multiverse For Open Source Packages!
           </div>
         </b-col>
@@ -36,7 +42,7 @@
           class="big-number-counter-col">
           <font-awesome-icon
             size="3x"
-            class="mb-2 mb-sm-2 mb-md-5 mb-lg-5 mx-auto mr-sm-3 mr-md-3 mr-lg-3 d-block d-sm-block
+            class="mb-2 mb-sm-2 mb-md-5 mb-lg-5 mx-auto mr-sm-3 mr-md-3 mr-lg-3 d-none d-sm-block
             d-md-inline d-lg-inline"
             icon="box-open" />
           <number
@@ -57,7 +63,7 @@
           class="big-number-counter-col">
           <font-awesome-icon
             size="3x"
-            class="mb-2 mb-sm-2 mb-md-5 mb-lg-5 mx-auto mr-sm-3 mr-md-3 mr-lg-3 d-block d-sm-block
+            class="mb-2 mb-sm-2 mb-md-5 mb-lg-5 mx-auto mr-sm-3 mr-md-3 mr-lg-3 d-none d-sm-block
             d-md-inline d-lg-inline"
             icon="hand-spock" />
           <number
@@ -78,7 +84,7 @@
           class="big-number-counter-col">
           <font-awesome-icon
             size="3x"
-            class="mb-2 mb-sm-2 mb-md-5 mb-lg-5 mx-auto mr-sm-3 mr-md-3 mr-lg-3 d-block d-sm-block
+            class="mb-2 mb-sm-2 mb-md-5 mb-lg-5 mx-auto mr-sm-3 mr-md-3 mr-lg-3 d-none d-sm-block
             d-md-inline d-lg-inline"
             icon="user-astronaut" />
           <number
@@ -106,7 +112,7 @@
             variant="multiverse-color"
             class="mr-2"
             @click="$router.push('explore-openbits')">
-              <b>Explore Published OpenBits</b>
+              <b>Explore All OpenBits</b>
           </b-button>
           <b-button
             v-scroll-to="'#why-section'"
