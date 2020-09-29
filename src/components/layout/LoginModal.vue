@@ -2,12 +2,12 @@
   <div>
     <b-button
       variant="multiverse-color"
-      v-b-modal.login-modal>
+      v-b-modal="`login-modal-${modalId}`">
         <b>Login</b>
     </b-button>
     <b-modal
-      id="login-modal"
-      ref="login-modal"
+      :id="`login-modal-${modalId}`"
+      :ref="`login-modal-${modalId}`"
       title="Login with your arweave JSON wallet"
       hide-footer>
       <vue-dropzone
@@ -39,6 +39,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
 export default {
   name: 'LayoutLoginModal',
+  props: ['modalId'],
   components: {
     vueDropzone: vue2Dropzone,
   },
@@ -54,7 +55,7 @@ export default {
         accept: (file, done) => {
           const reader = new FileReader();
           reader.onload = async (event) => {
-            this.$refs['login-modal'].hide();
+            this.$refs[`login-modal-${this.modalId}`].hide();
             const jwk = JSON.parse(event.target.result);
             await this.$arImportWallet({
               isDefault: true,

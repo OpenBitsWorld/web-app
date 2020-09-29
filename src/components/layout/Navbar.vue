@@ -84,7 +84,7 @@
         </b-nav-item>
         <b-nav-item
           id="main-login-button"
-          right><LayoutLoginModal /></b-nav-item>
+          right><LayoutLoginModal modalId="0" /></b-nav-item>
         <LayoutSocialNav />
       </b-navbar-nav>
       <b-navbar-nav
@@ -92,7 +92,7 @@
         class="ml-auto app">
         <b-nav-item
           id="main-login-button"
-          right><LayoutLoginModal /></b-nav-item>
+          right><LayoutLoginModal modalId="0" /></b-nav-item>
         <LayoutSocialNav />
       </b-navbar-nav>
     </b-collapse>
@@ -137,7 +137,7 @@
           id="main-login-button"
           class="my-3 d-block"
           @click="closeOverlayMenu()">
-          <LayoutLoginModal />
+          <LayoutLoginModal modalId="1" />
         </b-nav-item>
         <LayoutSocialNav />
       </b-nav>
