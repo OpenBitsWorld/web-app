@@ -106,7 +106,8 @@
         v-animate-onscroll="{down: 'animated fadeInUp'}"
         class="mt-3 mt-sm-3 mt-md-5 mt-lg-5 to-be-animated px-2 text-center">
         <b-col
-          cols="12">
+          cols="12"
+          class="d-none d-sm-none d-md-inline-block d-lg-inline-block">
           <b-button
             size="lg"
             variant="multiverse-color"
@@ -118,6 +119,20 @@
             v-scroll-to="'#why-section'"
             class="ml-md-3 ml-lg-3 mt-2 mt-sm-0 mt-md-0 mt-lg-0 mr-md-3 mr-lg-3"
             size="lg"
+            variant="outline-multiverse-color text-white">Learn More On OpenBits</b-button>
+        </b-col>
+        <b-col
+          cols="12"
+          class="d-inline-block d-sm-inline-block d-md-none d-lg-none">
+          <b-button
+            variant="multiverse-color"
+            class="mr-2"
+            @click="$router.push('explore-openbits')">
+              <b>Explore All OpenBits</b>
+          </b-button>
+          <b-button
+            v-scroll-to="'#why-section'"
+            class="ml-md-3 ml-lg-3 mt-2 mt-sm-0 mt-md-0 mt-lg-0 mr-md-3 mr-lg-3"
             variant="outline-multiverse-color text-white">Learn More On OpenBits</b-button>
         </b-col>
       </b-row>
