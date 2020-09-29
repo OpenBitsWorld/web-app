@@ -7,6 +7,18 @@
     <TriangleAndLogoSeparator color="#343a40" triangle="up" :logo="false"/>
     <LandPageWhatSection />
     <LandPageFooterSection />
+    <back-to-top
+      bottom="1rem"
+      right="1rem">
+      <b-button
+        id="button-back-to-top"
+        variant="secondary-color">
+        <font-awesome-icon
+          size="lg"
+          icon="chevron-circle-up"
+          class="text-white" />
+      </b-button>
+    </back-to-top>
   </main>
 </template>
 
@@ -34,5 +46,8 @@ export default {
 <style lang="scss" scoped>
 #main *{
   font-family: "Poppins", sans-serif;
+  #button-back-to-top {
+    border-radius: 50px;
+  }
 }
 </style>

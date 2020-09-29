@@ -14,6 +14,7 @@ import {
   faUserAstronaut,
   faBoxOpen,
   faCube,
+  faChevronCircleUp,
   faFileContract,
   faSearch,
   faFolderPlus,
@@ -39,6 +40,7 @@ import 'vue2-animate/dist/vue2-animate.min.css';
 
 import VueScrollTo from 'vue-scrollto';
 import VueNumber from 'vue-number-animation';
+import BackToTop from 'vue-backtotop';
 
 import App from './App.vue';
 import router from './router';
@@ -49,6 +51,7 @@ library.add(faUser);
 library.add(faUserAstronaut);
 library.add(faBoxOpen);
 library.add(faCube);
+library.add(faChevronCircleUp);
 library.add(faSearch);
 library.add(faFileContract);
 library.add(faFolderPlus);
@@ -74,6 +77,7 @@ Vue.use(IconsPlugin);
 Vue.use(VueAnimateOnScroll);
 Vue.use(VueScrollTo);
 Vue.use(VueNumber);
+Vue.use(BackToTop);
 
 Vue.config.productionTip = false;
 
