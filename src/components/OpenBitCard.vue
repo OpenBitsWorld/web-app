@@ -7,6 +7,7 @@
     <template v-slot:header>
       <h5 v-if="openbit">
         {{openbit.name}}@{{openbit.version}}
+        <router-link :to="`explore-openbits/${openbit.name}`">Read More</router-link>
       </h5>
     </template>
     <b-card-text

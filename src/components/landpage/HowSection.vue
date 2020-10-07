@@ -23,7 +23,7 @@
               By combining these two technologies, OpenBits allows developers to
               be rewarded when other developers install their packages, and it allows developers
               <b class="text-main-color">to split their rewards</b> with other people.
-              And then, as soon as developers reaches their rewards target,
+              And then, as soon as developers reach their rewards target,
               <b class="text-main-color">
                 their creations are automatically donated to the MULTIVERSE
               </b>.

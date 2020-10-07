@@ -178,7 +178,3 @@ ipfs add -r dist
 
 That's all! 
 
-### Credits
-
-- Section Why image is a derived work of <a href='https://www.freepik.com/free-photos-vectors/business'>Business vector created by freepik - www.freepik.com</a>
-- The Universe Image in the hero background is a courtesy of <a href='https://www.freepik.com/free-photos-vectors/background'>Background vector created by upklyak www.freepik.com</a>

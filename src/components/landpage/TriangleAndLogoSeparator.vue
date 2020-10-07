@@ -13,9 +13,6 @@
 export default {
   name: 'TriangleAndLogoSeparator',
   props: ['color', 'triangle', 'logo'],
-  mounted() {
-    console.log(this.color);
-  },
   computed: {
     cssProps() {
       return {

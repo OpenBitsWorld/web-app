@@ -26,6 +26,7 @@ import {
   faRocket,
   faBars,
   faTimes,
+  faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -67,6 +68,7 @@ library.add(faTelegram);
 library.add(faGitlab);
 library.add(faBars);
 library.add(faTimes);
+library.add(faInfoCircle);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

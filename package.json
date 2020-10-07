@@ -16,6 +16,7 @@
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
     "natural": "^2.1.5",
+    "semver": "^7.3.2",
     "sentencer": "^0.2.1",
     "smartweave": "https://arweave.net/AM-u4X2po-3Tx7fma3lRonCfLwrjI42IALwDL_YFXBs",
     "sylvester": "0.0.21",

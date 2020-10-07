@@ -21,8 +21,13 @@ const routes = [
   },
   {
     path: '/explore-openbits',
-    name: 'ExploreOBits',
+    name: 'ExploreOpenBits',
     component: ExploreOpenBits,
+  },
+  {
+    path: '/explore-openbits/:id',
+    name: 'ExploreOpenBits',
+    component: PublishOpenBit,
   },
   {
     path: '/user-openbits',
@@ -31,7 +36,7 @@ const routes = [
   },
   {
     path: '/publish-openbit',
-    name: 'PublishOBit',
+    name: 'PublishOpenBit',
     component: PublishOpenBit,
   },
 ];

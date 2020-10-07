@@ -175,7 +175,6 @@ export default {
       this.config.OPENBITS_CBVAC_STATUS,
     );
     this.pst = OpenBitsPSTStatus;
-    console.log(this.pst);
   },
   computed: {
     ...mapGetters({
