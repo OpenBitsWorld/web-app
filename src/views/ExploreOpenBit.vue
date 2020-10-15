@@ -5,12 +5,15 @@
     <!-- <b-card-group
       v-if="getOpenBits && getOpenBits.length !== 0"
       columns> -->
+    <h1>
+      {{$route.params.id}}
+    </h1>
     <div v-if="getOpenBits && getOpenBits.length !== 0">
-      <OpenBitCardMini
+      <!-- <OpenBitCardMini
         v-for="openbit in openBitsList"
         :key="openbit.openbitAddress"
-        :openbits="openbit"
-      />
+        :openbit="openbit"
+      /> -->
     </div>
     <!-- </b-card-group> -->
     <h3 v-else>
@@ -23,18 +26,13 @@
 <script>
 import { mapGetters } from 'vuex';
 import utils from '@/mixins/utils';
-import OpenBitCardMini from '@/components/OpenBitCardMini.vue';
 
 export default {
-  name: 'ExploreOpenBits',
+  name: 'ExploreOpenBit',
   mixins: [utils],
-  /* mounted() {
-    // get unique names
-    const unique = [...new Set(this.getOpenBits.map((openBit) => openBit.name))];
-    console.log(unique);
-  }, */
-  components: {
-    OpenBitCardMini,
+  props: ['openbits'],
+  mounted() {
+    console.log(this.openbits);
   },
   computed: {
     ...mapGetters({
@@ -45,7 +43,7 @@ export default {
         const groupedOpenBits = this.groupBy(this.getOpenBits, (openbit) => openbit.name);
         const openBitsList = [];
         groupedOpenBits.forEach((o) => {
-          openBitsList.push(o);
+          openBitsList.push(o.pop());
         });
         return openBitsList;
       }

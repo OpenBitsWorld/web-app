@@ -1,46 +1,20 @@
 <template>
   <div
-    class="openbit-card-mini text-center my-4 d-block w-100">
+    class="openbit-card-mini my-4 d-block w-100">
     <b-card
       border-variant="white"
       footer-tag="footer">
       <b-card-title
         class="text-left">
-        <h4
+        <h3
           v-if="openbit"
           class="d-inline-block">
           <router-link
             class="text-main-color"
-            :to="`explore-openbits/${openbit.name}@${openbit.version}`">
-            {{openbit.name}}@{{openbit.version}}
+            :to="`explore-openbit/${openbit.name}@${openbit.version}`">
+            {{openbit.name}}
           </router-link>
-        </h4>
-        <h6
-          v-if="pst"
-          class="d-inline-block align-middle mt-1 ml-3">
-          <b-badge
-            :variant="
-            getCurrentLevel.status !== 'Multiverse' ? 'success' : 'danger' ">
-            <b v-if="getCurrentLevel.status !== 'Multiverse'">
-              Shares available
-            </b>
-            <b v-else>
-              Shares not available
-            </b>
-          </b-badge>
-          <font-awesome-icon
-            :id="`shares-status-tooltip-${pst.ticker}`"
-            class="ml-1"
-            icon="info-circle" />
-          <b-tooltip
-            :target="`shares-status-tooltip-${pst.ticker}`">
-            If the creator of this OpenBit chose to allow
-            other people to buy shares of this OpenBits, you could
-            be allowed to obtain them if they are still available.
-            Click on the OpenBit's title on the left to visit the
-            OpenBit's page and learn how to do so.
-          </b-tooltip>
-        </h6>
+        </h3>
       </b-card-title>
       <b-card-text
         v-if="pst"
@@ -124,7 +98,7 @@
               the ownership of this OpenBit with other 4 people.
               Thus, this progress bar is the current status of the ownership of this OpenBit,
               as following: <br/>
-              1) The black is the amount of shares the creator still owns; <br/>
+              1) The purple is the amount of shares the creator still owns; <br/>
               2) The yellow, the red, the green and the dark blue, if present they
                  are the amount of shares the creators has given to other people; <br/>
               3) The light blue, if present, is the amount of shares that was already donated
@@ -132,10 +106,74 @@
             </b-tooltip>
           </b-col>
         </b-row>
+        <b-row>
+          <b-col lg="3">
+            <b>Shares Available: </b>
+          </b-col>
+          <b-col>
+             <h6
+              v-if="pst"
+              class="d-inline-block align-middle">
+              <b-badge
+                :variant="
+                getCurrentLevel.status !== 'Multiverse' ? 'success' : 'danger' ">
+                <b v-if="getCurrentLevel.status !== 'Multiverse'">
+                  Yes
+                </b>
+                <b v-else>
+                  No
+                </b>
+              </b-badge>
+              <font-awesome-icon
+                :id="`shares-status-tooltip-${pst.ticker}`"
+                class="ml-1"
+                icon="info-circle" />
+              <b-tooltip
+                :target="`shares-status-tooltip-${pst.ticker}`">
+                If the creator of this OpenBit chose to allow
+                other people to buy shares of this OpenBits, you could
+                be allowed to obtain them if they are still available.
+                Click on the OpenBit's title on the left to visit the
+                OpenBit's page and learn how to do so.
+              </b-tooltip>
+            </h6>
+          </b-col>
+        </b-row>
       </b-card-text>
       <b-card-text
         v-else>
-        <LoadingSpinner />
+        <b-row>
+          <b-col lg="3">
+            <b>Rewards Target:</b>
+          </b-col>
+          <b-col>
+            <b-skeleton animation="wave" width="15%" variant="multiverse-color"></b-skeleton>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col lg="3">
+            <b>Rewarded Installations:</b>
+          </b-col>
+          <b-col>
+            <b-skeleton animation="wave" width="15%" variant="multiverse-color"></b-skeleton>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col lg="3">
+            <b>Ownership Status:</b>
+          </b-col>
+          <b-col>
+            <b-skeleton animation="wave" width="95%" variant="multiverse-color"></b-skeleton>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col lg="3">
+            <b>Shares Available: </b>
+          </b-col>
+          <b-col>
+            <b-skeleton animation="wave" width="5%" variant="multiverse-color"></b-skeleton>
+          </b-col>
+        </b-row>
       </b-card-text>
     </b-card>
     <hr class="openbit-card-hr" />
@@ -146,24 +184,22 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import { readContract } from 'smartweave';
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import config from '@/mixins/configs';
 
 export default {
   name: 'OpenBitCardMini',
-  props: ['openbit'],
+  props: ['openbits'],
   mixins: [config],
-  components: {
-    LoadingSpinner,
-  },
   async mounted() {
     // get the OpenBit PST status
+    this.openbit = this.openbits.pop();
     const OpenBitPST = await readContract(Vue.$arweave.node, this.openbit.pstId);
     this.pst = OpenBitPST;
     this.buySharesTransaction = null;
   },
   data() {
     return {
+      openbit: null,
       pst: null,
     };
   },
@@ -311,7 +347,7 @@ export default {
     getProgressVariant(i) {
       switch (i) {
         case 0:
-          return 'dark';
+          return 'owner-color';
         case 1:
           return 'multiverse-color';
         case 2:

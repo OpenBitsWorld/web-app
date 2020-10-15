@@ -25,7 +25,7 @@
               vertical
               pills>
               <b-nav-item
-                :active="isActivePage('/explore-openbits')"
+                :active="isActivePage('/explore-openbits') || isActivePage('/explore-openbit')"
                 class="m-1"
                 @click="$router.push('explore-openbits')">
                 <font-awesome-icon icon="search" /> Explore OpenBits
