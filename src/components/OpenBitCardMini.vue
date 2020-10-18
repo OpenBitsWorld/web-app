@@ -11,7 +11,7 @@
           class="d-inline-block">
           <router-link
             class="text-main-color"
-            :to="`explore-openbit/${openbit.name}@${openbit.version}`">
+            :to="`explore-openbit/${encodeURIComponent(`${openbit.name}@${openbit.version}`)}`">
             {{openbit.name}}
           </router-link>
         </h3>

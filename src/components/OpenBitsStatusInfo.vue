@@ -3,9 +3,14 @@
     <b-badge
       class="w-100 px-2 mt-5 mb-2 py-2"
       variant="multiverse-color">
-      <h4>OpenBits Status</h4>
+      <h4 v-if="$route.name==='ExploreOpenBits'">OpenBits Status</h4>
+      <h4 v-else-if="openbit">{{openbit.name}} Status</h4>
     </b-badge>
-    <div v-if="pst">
+    <div v-if="pst && openbit">
+      <h6>Version</h6>
+      <b-badge
+        class="mb-2"
+        variant="main-color">{{openbit.version}}</b-badge>
       <h6>Target Profit</h6>
       <b-badge
         class="mb-2"
@@ -56,18 +61,37 @@
 <script>
 import Vue from 'vue';
 import { readContract } from 'smartweave';
+
+import utils from '@/mixins/utils';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 export default {
   name: 'OpenBitsStatusInfo',
-  props: ['pstAddress'],
   components: {
     LoadingSpinner,
   },
+  mixins: [
+    utils,
+  ],
+  watch: {
+    async $route() {
+      this.pst = null;
+      const OpenBitsPSTStatus = await readContract(
+        Vue.$arweave.node,
+        this.getCurrentOpenBitAddress(),
+      );
+      this.pst = OpenBitsPSTStatus;
+      this.openbit = this.getCurrentOpenBit();
+    },
+  },
   async mounted() {
     // get the openbits PST Status
-    const OpenBitsPSTStatus = await readContract(Vue.$arweave.node, this.pstAddress);
+    const OpenBitsPSTStatus = await readContract(
+      Vue.$arweave.node,
+      this.getCurrentOpenBitAddress(),
+    );
     this.pst = OpenBitsPSTStatus;
+    this.openbit = this.getCurrentOpenBit();
   },
   methods: {
     getProgressVariant(i) {
@@ -137,6 +161,7 @@ export default {
   data() {
     return {
       pst: null,
+      openbit: null,
       sharesDistributionTable: [{
         key: 'owner',
         label: 'Owner',

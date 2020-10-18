@@ -54,30 +54,28 @@
               </div>
             </b-nav>
           </nav>
-          <OpenBitsStatusInfo :pstAddress="config.OPENBITS_CBVAC_STATUS" />
+          <OpenBitsStatusInfo />
         </div>
       </template>
   </b-sidebar>
 </template>
 
 <script>
-import config from '@/mixins/configs';
 import utils from '@/mixins/utils';
 import OpenBitsStatusInfo from '@/components/OpenBitsStatusInfo.vue';
 
 export default {
   name: 'LayoutSidebar',
   mixins: [
-    config,
     utils,
   ],
   components: {
     OpenBitsStatusInfo,
   },
-  methods: {
-    isActivePage(page) {
-      return this.$route.path === page;
-    },
+  data() {
+    return {
+      currentOpenBitAddress: null,
+    };
   },
 };
 </script>

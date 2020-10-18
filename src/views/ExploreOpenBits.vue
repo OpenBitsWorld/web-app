@@ -2,17 +2,13 @@
   <b-container
     fluid
     class="mt-3 px-2 px-sm-2 px-md-3 px-lg-5">
-    <!-- <b-card-group
-      v-if="getOpenBits && getOpenBits.length !== 0"
-      columns> -->
     <div v-if="getOpenBits && getOpenBits.length !== 0">
       <OpenBitCardMini
-        v-for="openbit in openBitsList"
-        :key="openbit.openbitAddress"
-        :openbits="openbit"
+        v-for="openbit in openBitsList()"
+        :key="openbit[0]"
+        :openbits="openbit[1]"
       />
     </div>
-    <!-- </b-card-group> -->
     <h3 v-else>
       No one has published OpenBits yet! Be the first one
       <router-link to="publish-openbit">right now</router-link>
@@ -28,11 +24,6 @@ import OpenBitCardMini from '@/components/OpenBitCardMini.vue';
 export default {
   name: 'ExploreOpenBits',
   mixins: [utils],
-  /* mounted() {
-    // get unique names
-    const unique = [...new Set(this.getOpenBits.map((openBit) => openBit.name))];
-    console.log(unique);
-  }, */
   components: {
     OpenBitCardMini,
   },
@@ -40,17 +31,6 @@ export default {
     ...mapGetters({
       getOpenBits: 'openbits/getOpenBits',
     }),
-    openBitsList() {
-      if (this.getOpenBits) {
-        const groupedOpenBits = this.groupBy(this.getOpenBits, (openbit) => openbit.name);
-        const openBitsList = [];
-        groupedOpenBits.forEach((o) => {
-          openBitsList.push(o);
-        });
-        return openBitsList;
-      }
-      return [];
-    },
   },
 };
 </script>
