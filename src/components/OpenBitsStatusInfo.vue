@@ -7,10 +7,37 @@
       <h4 v-else-if="openbit">{{openbit.name}} Status</h4>
     </b-badge>
     <div v-if="pst && openbit">
-      <h6>Version</h6>
-      <b-badge
-        class="mb-2"
-        variant="main-color">{{openbit.version}}</b-badge>
+      <div
+        v-if="$route.name !== 'ExploreOpenBits'">
+        <h6>Version</h6>
+        <b-badge
+          v-if="
+            getAllVersionsOfCurrentOpenBit() &&
+            getAllVersionsOfCurrentOpenBit().length === 1"
+          class="mb-2"
+          variant="main-color">{{openbit.version}}</b-badge>
+        <div
+          v-else>
+          <div>
+            <b-dropdown
+              id="version-dropdown"
+              :text="openbit.version"
+              variant="main-color"
+              size="sm"
+              class="mb-3">
+              <b-dropdown-item
+                v-for="openbits in reverseVersionsList()"
+                :key="openbits.version">
+                <span
+                  v-if="openbits.version !== openbit.version"
+                  @click="goToAnotherVersion(openbits.version)">
+                  {{openbits.version}}
+                </span>
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
+        </div>
+      </div>
       <h6>Target Profit</h6>
       <b-badge
         class="mb-2"
@@ -84,8 +111,7 @@ export default {
       this.openbit = this.getCurrentOpenBit();
     },
   },
-  async mounted() {
-    // get the openbits PST Status
+  async beforeMount() {
     const OpenBitsPSTStatus = await readContract(
       Vue.$arweave.node,
       this.getCurrentOpenBitAddress(),
@@ -94,10 +120,23 @@ export default {
     this.openbit = this.getCurrentOpenBit();
   },
   methods: {
+    reverseVersionsList() {
+      const list = this.getAllVersionsOfCurrentOpenBit();
+      return list.reverse();
+    },
+    goToAnotherVersion(version) {
+      console.log(version);
+      this.$router.push({
+        name: 'ExploreOpenBit',
+        params: {
+          id: `${this.openbit.name}@${version}`,
+        },
+      });
+    },
     getProgressVariant(i) {
       switch (i) {
         case 0:
-          return 'dark';
+          return 'owner-color';
         case 1:
           return 'multiverse-color';
         case 2:
@@ -109,7 +148,7 @@ export default {
         case 5:
           return 'third-color';
         default:
-          return 'dark';
+          return 'owner-color';
       }
     },
   },
@@ -121,7 +160,7 @@ export default {
           adjustedShares.push({
             owner: 'owner',
             shares: item[1],
-            color: 'dark',
+            color: 'owner-color',
           });
         } else if (index === 1) {
           adjustedShares.push({

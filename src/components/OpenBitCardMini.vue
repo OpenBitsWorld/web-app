@@ -23,7 +23,7 @@
           <b-col lg="3">
             <b>Rewards Target:</b>
           </b-col>
-          <b-col>
+          <b-col align-self="end">
             <b-badge
               variant="main-color">
               {{pst.targetProfit}} AR
@@ -43,7 +43,7 @@
           <b-col lg="3">
             <b>Rewarded Installations:</b>
           </b-col>
-          <b-col>
+          <b-col align-self="end">
             <b-badge
               variant="main-color">
               {{Math.round(pst.generatedProfit * 100)}} ({{pst.generatedProfit}} AR)
@@ -66,7 +66,7 @@
           <b-col lg="3">
             <b>Ownership Status:</b>
           </b-col>
-          <b-col>
+          <b-col align-self="end">
             <b-progress
               show-progress
               max="100"
@@ -110,7 +110,7 @@
           <b-col lg="3">
             <b>Shares Available: </b>
           </b-col>
-          <b-col>
+          <b-col align-self="end">
              <h6
               v-if="pst"
               class="d-inline-block align-middle">

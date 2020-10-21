@@ -29,28 +29,39 @@ const utils = {
     getCurrentPage() {
       return this.$route.path;
     },
-    getCurrentOpenBit() {
+    getAllVersionsOfCurrentOpenBit() {
       if (this.$route.name === 'ExploreOpenBit') {
         const {
           name,
+        } = parse(this.$route.params.id);
+        const openBits = this.openBitsList().get(name);
+        return openBits || [];
+      }
+      return [];
+    },
+    getCurrentOpenBit() {
+      if (this.$route.name === 'ExploreOpenBit') {
+        const {
           version,
         } = parse(this.$route.params.id);
-        const openBit = this.openBitsList().get(name).filter((o) => o.version === version);
-        return openBit[0];
+        const allVersions = this.getAllVersionsOfCurrentOpenBit();
+        const filtered = allVersions.filter((o) => o.version === version);
+        return filtered[0];
       }
       return [];
     },
     getCurrentOpenBitAddress() {
       if (this.$route.name === 'ExploreOpenBit') {
-        return this.getCurrentOpenBit().pstId;
+        const current = this.getCurrentOpenBit();
+        return current.pstId;
       }
       return this.config.OPENBITS_CBVAC_STATUS;
     },
     openBitsList() {
-      if (this.getOpenBits) {
+      if (this.getOpenBits.length) {
         return this.groupBy(this.getOpenBits, (openbit) => openbit.name);
       }
-      return [];
+      return new Map();
     },
   },
 

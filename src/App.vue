@@ -19,7 +19,7 @@ export default {
   components: {
     LayoutMain,
   },
-  async mounted() {
+  async beforeMount() {
     // console.log(config);
     // load OpenBits
     // get openbits from the registry

@@ -27,7 +27,9 @@
               <b-nav-item
                 :active="isActivePage('/explore-openbits') || isActivePage('/explore-openbit')"
                 class="m-1"
-                @click="$router.push('explore-openbits')">
+                @click="$router.push({
+                  name: 'ExploreOpenBits',
+                })">
                 <font-awesome-icon icon="search" /> Explore OpenBits
               </b-nav-item>
               <div

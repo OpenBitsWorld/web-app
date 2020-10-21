@@ -5,12 +5,8 @@
     <h1>
       {{$route.params.id}}
     </h1>
-    <div v-if="getOpenBits && getOpenBits.length !== 0">
-      <!-- <OpenBitCardMini
-        v-for="openbit in openBitsList"
-        :key="openbit.openbitAddress"
-        :openbit="openbit"
-      /> -->
+    <div v-if="getCurrentOpenBit()">
+      {{getCurrentOpenBit()}}
     </div>
     <h3 v-else>
       No one has published OpenBits yet! Be the first one
