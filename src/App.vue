@@ -42,10 +42,15 @@ export default {
 </script>
 
 <style lang="scss">
+@import './assets/styles/custom-theme.scss';
+
 html {
   height:100%;
   body {
     height:100%;
+    a {
+      color: $multiverse-color;
+    }
   }
 }
 </style>

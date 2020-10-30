@@ -4,9 +4,11 @@
       class="w-100 px-2 mt-5 mb-2 py-2"
       variant="multiverse-color">
       <h4 v-if="$route.name==='ExploreOpenBits'">OpenBits Status</h4>
-      <h4 v-else-if="openbit">{{openbit.name}} Status</h4>
+      <h4 v-else-if="openbit && openbit !== 'not-found'">{{openbit.name}} Status</h4>
+      <h4 v-else-if="openbit === 'not-found'">Unexistant OpenBit</h4>
     </b-badge>
-    <div v-if="pst && openbit">
+    <div v-if="
+      pst && openbit && (pst !== 'not-found' && openbit !== 'not-found')">
       <div
         v-if="$route.name !== 'ExploreOpenBits'">
         <h6>Version</h6>
@@ -78,8 +80,11 @@
           </template>
       </b-table>
     </div>
+    <div v-else-if="pst === 'not-found' && openbit === 'not-found'">
+      We didn't find the OpenBit you are looking for!
+    </div>
     <div v-else>
-      <h5>Loading OpenBits status ... this may take some dozen of secs ...</h5>
+      <h5>Loading OpenBits status ...</h5>
       <LoadingSpinner class="d-block mx-auto" />
     </div>
   </b-container>
@@ -103,12 +108,17 @@ export default {
   watch: {
     async $route() {
       this.pst = null;
-      const OpenBitsPSTStatus = await readContract(
-        Vue.$arweave.node,
-        this.getCurrentOpenBitAddress(),
-      );
-      this.pst = OpenBitsPSTStatus;
-      this.openbit = this.getCurrentOpenBit();
+      try {
+        const OpenBitsPSTStatus = await readContract(
+          Vue.$arweave.node,
+          this.getCurrentOpenBitAddress(),
+        );
+        this.pst = OpenBitsPSTStatus;
+        this.openbit = this.getCurrentOpenBit();
+      } catch (err) {
+        this.pst = 'not-found';
+        this.openbit = 'not-found';
+      }
     },
   },
   async beforeMount() {

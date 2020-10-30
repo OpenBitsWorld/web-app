@@ -54,8 +54,8 @@
                 </a>.
               </li>
               <li>
-                Images in the "Why OpenBits" section are courtesy of Freepik
-                <a href="https://stories.freepik.com/web">Illustration by Freepik Stories</a>.
+                Animated images around the site are derived works of animation downloaded from
+                <a href="https://stories.freepik.com/web">Freepik Stories</a>.
               </li>
             </ul>
           </b-col>
