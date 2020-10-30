@@ -1,20 +1,38 @@
 <template>
   <b-container
     fluid
-    class="mt-3 px-2 px-sm-2 px-md-3 px-lg-5">
+    class="mt-3 px-0 px-sm-0 px-md-1 px-lg-1">
+    <h5>{{$route.params.id}}</h5>
     <div v-if="getCurrentOpenBit()"
-      class="readme-container"
-      v-html="readme">
+      class="readme-container">
+      <div
+        v-if="readme"
+        v-html="readme">
+      </div>
+      <div v-else>
+        <b-card
+          border-variant="white">
+          <b-skeleton
+            v-for="n in 25"
+            :key="`skeleton-template-${n}`"
+            animation="wave"
+            width="100%"
+            class="mt-3"
+            variant="multiverse-color">
+          </b-skeleton>
+        </b-card>
+      </div>
     </div>
     <div
+      class="readme-not-found-container"
       v-else>
       <h3 class="mt-5">
-        We looked around the whole multiverse and we were
+        We searched around the whole multiverse and we were
         not able to find the OpenBit you are looking for.
       </h3>
       <img
         src="../assets/openbit-not-found-animation.svg"
-        class="why-image w-25 d-block mx-auto"/>
+        class="openbit-not-found-animation d-block mx-auto"/>
       <p>
         Search something else that can serve your scope in the
         <router-link
@@ -27,49 +45,23 @@
 
 <script>
 import utils from '@/mixins/utils';
-import pako from 'pako';
-import untar from 'js-untar';
-import showdown from 'showdown';
-// import OpenBitCard from '@/components/OpenBitCard.vue';
 
 export default {
   name: 'ExploreOpenBit',
   mixins: [utils],
-  mounted() {
-    fetch(`https://arweave.net/${this.getCurrentOpenBit().dataId}`)
-      .then(async (d) => {
-        try {
-          const packBuffer = await d.arrayBuffer();
-          const uintPackArray = new Uint8Array(packBuffer);
-          const extracted = pako.inflate(uintPackArray);
-          untar(extracted.buffer).then((files) => {
-            const readme = files.filter((file) => file.name === 'package/README.md');
-            if (readme) {
-              const converter = new showdown.Converter();
-              const html = converter.makeHtml(readme[0].readAsString('utf8'));
-              this.readme = html;
-            } else {
-              this.readme = `
-                <h1>${this.$route.params.id}</h1>
-                <p>
-                  We looked around the whole multiverse and we were not able to find a readme for this package
-                </p>
-              `;
-            }
-          });
-        } catch (err) {
-          this.readme = `
-            <h1>${this.$route.params.id}</h1>
-            <p>
-              We looked around the whole multiverse and we were not able to find a readme for this package
-            </p>
-          `;
-        }
-      });
+  watch: {
+    async $route() {
+      this.readme = null;
+      this.readme = await this.retrieveCurrentOpenBitReadme();
+    },
+  },
+  async mounted() {
+    this.readme = null;
+    this.readme = await this.retrieveCurrentOpenBitReadme();
   },
   data() {
     return {
-      readme: '',
+      readme: null,
     };
   },
   computed: {
@@ -77,7 +69,27 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-  .explore-openbit-link {
+<style lang="scss">
+  @import '../assets/styles/custom-theme.scss';
+  .readme-not-found-container {
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+    .openbit-not-found-animation{
+      width: 30%;
+    }
+  }
+  .readme-container {
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+    pre {
+      padding:1%;
+      width:90%;
+      margin-left: 1%;
+      background-color:$secondary-color;
+      border:1px solid $multiverse-color;
+    }
+
   }
 </style>
