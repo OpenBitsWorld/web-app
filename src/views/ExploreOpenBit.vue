@@ -50,9 +50,11 @@ export default {
   name: 'ExploreOpenBit',
   mixins: [utils],
   watch: {
-    async $route() {
-      this.readme = null;
-      this.readme = await this.retrieveCurrentOpenBitReadme();
+    async $route(to) {
+      if (!to.hash) {
+        this.readme = null;
+        this.readme = await this.retrieveCurrentOpenBitReadme();
+      }
     },
   },
   async mounted() {

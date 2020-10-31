@@ -96,13 +96,13 @@ const utils = {
             const highligted = hljs.highlightAuto($(e).text());
             $(e).replaceWith(highligted.value);
           });
-          $('a').each((i, e) => {
+          /* $('a').each((i, e) => {
             const href = $(e).attr('href');
             console.log(href);
             if (href.includes('#') && !href.includes('/')) {
-              $(e).attr('href', `${document.location}${href}`);
+              // $(e).attr('href', `${document.location}${href}`);
             }
-          });
+          }); */
           return $.html();
         }
         return `
