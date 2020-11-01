@@ -9,7 +9,7 @@
     no-close-on-esc
     :visible=true
     bg-variant="white"
-    width="20em">
+    width="22em">
     <template v-slot:default="{}">
         <h4
           class="pl-4 pt-2"
@@ -44,7 +44,7 @@
                   :active="isActivePage('/publish-openbit')"
                   class="m-1"
                   @click="$router.push('publish-openbit')">
-                  <font-awesome-icon icon="folder-plus" /> Publish Your OpenBit
+                  <font-awesome-icon icon="folder-plus" /> Publish OpenBit
                 </b-nav-item>
                 <b-nav-item
                   disabled
@@ -56,7 +56,8 @@
               </div>
             </b-nav>
           </nav>
-          <OpenBitsStatusInfo />
+          <OpenBitsStatusInfo
+            v-if="$route.name === 'ExploreOpenBits' || $route.name === 'ExploreOpenBit'"/>
         </div>
       </template>
   </b-sidebar>

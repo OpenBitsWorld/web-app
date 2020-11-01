@@ -42,7 +42,7 @@ export default {
   #page-center-container{
     &.app{
       @media (min-width: 768px) {
-        margin-left:20em;
+        margin-left:22em;
       }
     }
   }

@@ -43,6 +43,7 @@ import 'vue2-animate/dist/vue2-animate.min.css';
 import VueScrollTo from 'vue-scrollto';
 import VueNumber from 'vue-number-animation';
 import BackToTop from 'vue-backtotop';
+import VueClipboard from 'vue-clipboard2';
 
 import App from './App.vue';
 import router from './router';
@@ -81,6 +82,9 @@ Vue.use(VueAnimateOnScroll);
 Vue.use(VueScrollTo);
 Vue.use(VueNumber);
 Vue.use(BackToTop);
+
+VueClipboard.config.autoSetContainer = true;
+Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
 

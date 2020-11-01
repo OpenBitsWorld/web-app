@@ -50,8 +50,11 @@ const utils = {
           version,
         } = parse(this.$route.params.id);
         const allVersions = this.getAllVersionsOfCurrentOpenBit();
-        const filtered = allVersions.filter((o) => o.version === version);
-        return filtered[0];
+        if (version) {
+          const filtered = allVersions.filter((o) => o.version === version);
+          return filtered[0];
+        }
+        return allVersions.pop();
       }
       return [];
     },
@@ -69,7 +72,12 @@ const utils = {
       return new Map();
     },
     async retrieveCurrentOpenBitPackage() {
-      const packData = await fetch(`https://arweave.net/${this.getCurrentOpenBit().dataId}`);
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/octet-stream; charset=UTF-8');
+      const packData = await fetch(
+        `https://arweave.net/${this.getCurrentOpenBit().dataId}`,
+        headers,
+      );
       try {
         const packBuffer = await packData.arrayBuffer();
         const uintPackArray = new Uint8Array(packBuffer);
@@ -96,13 +104,6 @@ const utils = {
             const highligted = hljs.highlightAuto($(e).text());
             $(e).replaceWith(highligted.value);
           });
-          /* $('a').each((i, e) => {
-            const href = $(e).attr('href');
-            console.log(href);
-            if (href.includes('#') && !href.includes('/')) {
-              // $(e).attr('href', `${document.location}${href}`);
-            }
-          }); */
           return $.html();
         }
         return `
@@ -136,8 +137,36 @@ const utils = {
           `;
       }
     },
+    async retrieveCurrentOpenBitPackageJson() {
+      try {
+        const files = await this.retrieveCurrentOpenBitPackage();
+        const packageJson = files.filter((file) => file.name === 'package/package.json');
+        if (packageJson) {
+          const {
+            author,
+            repository,
+            homepage,
+          } = packageJson[0].readAsJSON();
+          return {
+            author,
+            repository,
+            homepage,
+          };
+        }
+        return {
+          author: null,
+          repository: null,
+          webPage: null,
+        };
+      } catch (err) {
+        return {
+          author: null,
+          repository: null,
+          webPage: null,
+        };
+      }
+    },
   },
-
   computed: {
     ...mapGetters({
       defaultARWallet: 'user/getDefaultARWallet',

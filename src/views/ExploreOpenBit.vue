@@ -1,7 +1,6 @@
 <template>
   <b-container
-    fluid
-    class="mt-3 px-0 px-sm-0 px-md-1 px-lg-1">
+    class="mt-3 px-3">
     <h5>{{$route.params.id}}</h5>
     <div v-if="getCurrentOpenBit()"
       class="readme-container">
@@ -58,6 +57,7 @@ export default {
     },
   },
   async mounted() {
+    window.scroll(0, 0);
     this.readme = null;
     this.readme = await this.retrieveCurrentOpenBitReadme();
   },
@@ -79,15 +79,7 @@ export default {
   .openbit-not-found-animation{
     width: 30%;
   }
-  .readme-not-found-container {
-    width:90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
   .readme-container {
-    width:90%;
-    margin-left: auto;
-    margin-right: auto;
     pre {
       padding:1%;
       width:90%;

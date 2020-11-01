@@ -1,7 +1,6 @@
 <template>
   <b-container
-    fluid
-    class="mt-3 px-2 px-sm-2 px-md-3 px-lg-5">
+    class="mt-3 px-3">
     <div v-if="getOpenBits && getOpenBits.length !== 0">
       <OpenBitCardMini
         v-for="openbit in openBitsList()"
@@ -24,6 +23,9 @@ import OpenBitCardMini from '@/components/OpenBitCardMini.vue';
 export default {
   name: 'ExploreOpenBits',
   mixins: [utils],
+  mounted() {
+    window.scroll(0, 0);
+  },
   components: {
     OpenBitCardMini,
   },

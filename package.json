@@ -30,6 +30,7 @@
     "vue-animate-onscroll": "^1.0.8",
     "vue-arweave": "^2.0.2",
     "vue-backtotop": "^1.6.1",
+    "vue-clipboard2": "^0.3.1",
     "vue-number-animation": "^1.0.5",
     "vue-router": "^3.2.0",
     "vue-scrollto": "^2.18.2",

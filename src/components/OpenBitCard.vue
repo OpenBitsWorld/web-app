@@ -5,10 +5,16 @@
     header-tag="header"
     footer-tag="footer">
     <template v-slot:header>
-      <h5 v-if="openbit">
-        {{openbit.name}}@{{openbit.version}}
-        <router-link :to="`explore-openbits/${openbit.name}`">Read More</router-link>
-      </h5>
+      <router-link :to="{
+          name: 'ExploreOpenBit',
+          params: {
+            id: openbit.name,
+          }
+        }">
+        <h5 v-if="openbit">
+          {{openbit.name}}@{{openbit.version}}
+        </h5>
+      </router-link>
     </template>
     <b-card-text
       v-if="pst">

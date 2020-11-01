@@ -1,16 +1,23 @@
 <template>
   <b-container>
-    <b-badge
-      class="w-100 px-2 mt-5 mb-2 py-2"
-      variant="multiverse-color">
-      <h4 v-if="$route.name==='ExploreOpenBits'">OpenBits Status</h4>
-      <h4 v-else-if="openbit && openbit !== 'not-found'">{{openbit.name}} Status</h4>
-      <h4 v-else-if="openbit === 'not-found'">Unexistant OpenBit</h4>
-    </b-badge>
     <div v-if="
       pst && openbit && (pst !== 'not-found' && openbit !== 'not-found')">
       <div
         v-if="$route.name !== 'ExploreOpenBits'">
+        <h5 class="openbit-info-title p-1 pl-3 mt-5 mb-3 bg-secondary-color">
+          Usage Info
+        </h5>
+        <h6>Install Command</h6>
+        <b-badge
+          class="mb-2 copy-to-clipboard d-block text-truncate"
+          variant="main-color"
+          v-clipboard:copy="`openbits install ${$route.params.id}`"
+          v-clipboard:success="copiedToast">
+          <span class="d-block text-truncate text-left">
+            openbits install
+            {{$route.params.id}}
+          </span>
+        </b-badge>
         <h6>Version</h6>
         <b-badge
           v-if="
@@ -39,21 +46,79 @@
             </b-dropdown>
           </div>
         </div>
+        <div
+          v-if="openbitPackageInfo
+            && openbitPackageInfo.repository
+            && openbitPackageInfo.repository !== ''">
+          <h6>Repository</h6>
+          <b-badge
+            class="mb-2"
+            variant="main-color d-block text-truncate">
+            <span class="d-block text-truncate text-left">
+              <a
+                :href="openbitPackageInfo.repository.url || openbitPackageInfo.repository"
+                class="text-white"
+                target="_blank">
+                {{openbitPackageInfo.repository.url || openbitPackageInfo.repository}}
+              </a>
+            </span>
+          </b-badge>
+        </div>
+        <div
+          v-if="openbitPackageInfo
+            && openbitPackageInfo.homepage
+            && openbitPackageInfo.homepage !== ''">
+          <h6>Web Site</h6>
+          <b-badge
+            class="mb-2"
+            variant="main-color d-block text-truncate">
+            <span class="d-block text-truncate text-left">
+              <a
+                :href="openbitPackageInfo.homepage"
+                class="text-white"
+                target="_blank">
+                {{openbitPackageInfo.homepage}}
+              </a>
+            </span>
+          </b-badge>
+        </div>
+        <div
+          v-if="openbitPackageInfo
+            && openbitPackageInfo.author
+            && openbitPackageInfo.author.name !== ''">
+          <h6>Author</h6>
+          <b-badge
+            class="mb-2"
+            variant="main-color d-block text-truncate">
+            <span class="d-block text-truncate text-left">
+              {{openbitPackageInfo.author.name || openbitPackageInfo.author}}
+            </span>
+          </b-badge>
+        </div>
       </div>
-      <h6>Target Profit</h6>
+      <h5 class="openbit-shares-info-title p-1 pl-3 mt-5 mb-3 bg-multiverse-color text-white">
+        <span v-if="$route.name==='ExploreOpenBits'">OpenBits</span>
+        Shares Info
+      </h5>
+      <div
+        v-if="$route.name !== 'ExploreOpenBits'">
+      </div>
+      <h6>Target Rewards</h6>
       <b-badge
         class="mb-2"
         variant="main-color">{{pst.targetProfit}} AR</b-badge>
-      <h6>Generated Profit</h6>
+      <h6>Rewarded Installations</h6>
       <b-badge
         class="mb-2"
-        variant="main-color">{{parseFloat(pst.generatedProfit).toFixed(2)}} AR</b-badge>
+        variant="main-color">
+        {{Math.round(pst.generatedProfit * 100)}}
+        ({{parseFloat(pst.generatedProfit).toFixed(2)}} AR)
+      </b-badge>
       <h6>Next share relased to the multiverse in:</h6>
       <b-badge
         class="mb-2"
         variant="main-color">{{pst.sharesReleaseIn}} Installations</b-badge>
-      <h4>Shares Distribution</h4>
-      <hr />
+      <h6>Shares Distribution</h6>
       <b-progress
         show-progress
         max="100" class="mb-3">
@@ -119,6 +184,7 @@ export default {
         );
         this.pst = OpenBitsPSTStatus;
         this.openbit = this.getCurrentOpenBit();
+        this.openbitPackageInfo = await this.retrieveCurrentOpenBitPackageJson();
       } catch (err) {
         this.pst = 'not-found';
         this.openbit = 'not-found';
@@ -131,34 +197,29 @@ export default {
       );
       this.pst = OpenBitsPSTStatus;
       this.openbit = this.getCurrentOpenBit();
+      this.openbitPackageInfo = await this.retrieveCurrentOpenBitPackageJson();
     },
   },
-  /* async mounted() {
-    this.$store.watch(
-      () => this.$store.getters['openbits/openbits'],
-      (openbits) => {
-        console.log(openbits);
-      },
-      /* async (getters) => {
-        if (getters && getters.openbits.openbits.length) {
-          // console.log(true);
-          const OpenBitsPSTStatus = await readContract(
-            Vue.$arweave.node,
-            this.getCurrentOpenBitAddress(),
-          );
-          this.pst = OpenBitsPSTStatus;
-          this.openbit = this.getCurrentOpenBit();
-        }
-      },
-    );
-  }, */
+  async beforeMount() {
+    try {
+      const OpenBitsPSTStatus = await readContract(
+        Vue.$arweave.node,
+        this.getCurrentOpenBitAddress(),
+      );
+      this.pst = OpenBitsPSTStatus;
+      this.openbit = this.getCurrentOpenBit();
+      this.openbitPackageInfo = await this.retrieveCurrentOpenBitPackageJson();
+      return true;
+    } catch (err) {
+      return false;
+    }
+  },
   methods: {
     reverseVersionsList() {
       const list = this.getAllVersionsOfCurrentOpenBit();
       return list.reverse();
     },
     goToAnotherVersion(version) {
-      console.log(version);
       this.$router.push({
         name: 'ExploreOpenBit',
         params: {
@@ -183,6 +244,17 @@ export default {
         default:
           return 'owner-color';
       }
+    },
+    copiedToast() {
+      this.$bvToast.toast(
+        `"openbits install ${this.$route.params.id}" copied to your clipboard`,
+        {
+          variant: 'success',
+          toaster: 'b-toaster-top-left',
+          title: 'copied to clipboard',
+          autoHideDelay: 1000,
+        },
+      );
     },
   },
   computed: {
@@ -237,6 +309,7 @@ export default {
     return {
       pst: null,
       openbit: null,
+      openbitPackageInfo: null,
       sharesDistributionTable: [{
         key: 'owner',
         label: 'Owner',
@@ -248,3 +321,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  @import '../assets/styles/custom-theme.scss';
+
+  .openbit-info-title, .openbit-shares-info-title {
+    border-radius: 5px;
+  }
+  .copy-to-clipboard {
+    cursor: pointer;
+  }
+</style>

@@ -8,7 +8,7 @@
     <b-navbar-brand
       v-if="isHomePage()">
       <h4
-        class="pl-4 pt-2"
+        class="pl-4 pt-3 mt-3"
         id="navbar-title">
         <img src="../../assets/logo-white.png" class="navbar-logo" />
       </h4>
@@ -41,7 +41,7 @@
               <div class="d-inline-block">
                 <b-badge
                   variant="secondary-color">
-                  Balance: {{defaultARWallet.balanceAR}} AR
+                  Balance: {{parseFloat(defaultARWallet.balanceAR).toFixed(3)}} AR
                 </b-badge>
               </div>
             </strong>
@@ -54,7 +54,7 @@
       </b-navbar-nav>
       <b-navbar-nav
         v-else-if="isHomePage()"
-        class="ml-auto">
+        class="ml-auto pt-3">
         <b-nav-item
           href="#"
           v-scroll-to="'#why-section'"
@@ -167,7 +167,7 @@ export default {
       if (this.isLogged) {
         return 'app-navbar';
       }
-      return 'landpage-navbar';
+      return `landpage-navbar ${this.$route.name}`;
     },
   },
   methods: {
@@ -194,7 +194,11 @@ export default {
 
 #main-navbar {
   &.landpage-navbar {
+    &:not(.Home){
+      border-bottom: 2px solid $dark
+    }
     z-index: 10000;
+    height: 58px;
     background: transparent!important;
     .navbar-nav {
       .nav-item {
@@ -226,7 +230,7 @@ export default {
     }
   }
   &.app-navbar {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid $dark;
   }
   .navbar-logo {
     width:auto;

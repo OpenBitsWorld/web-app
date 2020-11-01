@@ -15,12 +15,11 @@
          Drop your Node package here or click to select it from your computer.
         </h3>
         <div class="subtitle">
-          You should have creted your package by using the npm cli or the OpenBits cli,
-          for instance by running these commands in your package root folder:
+          You must create your package by using the npm cli or the OpenBits cli,
+          and so by running the following command in your package root folder:
           <div class="mt-1 mb-1">
-            <kbd>openbits pack --type node-package</kbd> or <kbd>npm pack </kbd>
+            <kbd>npm pack </kbd>
           </div>
-          Read more on how to pack your node package <router-link to="/home">here</router-link>.
         </div>
       </div>
     </vue-dropzone>
