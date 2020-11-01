@@ -92,6 +92,7 @@
 
 <script>
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 import { readContract } from 'smartweave';
 
 import utils from '@/mixins/utils';
@@ -106,7 +107,10 @@ export default {
     utils,
   ],
   watch: {
-    async $route() {
+    async $route(to) {
+      if (to.hash) {
+        return;
+      }
       this.pst = null;
       try {
         const OpenBitsPSTStatus = await readContract(
@@ -120,15 +124,34 @@ export default {
         this.openbit = 'not-found';
       }
     },
+    async getOpenBits() {
+      const OpenBitsPSTStatus = await readContract(
+        Vue.$arweave.node,
+        this.getCurrentOpenBitAddress(),
+      );
+      this.pst = OpenBitsPSTStatus;
+      this.openbit = this.getCurrentOpenBit();
+    },
   },
-  async beforeMount() {
-    const OpenBitsPSTStatus = await readContract(
-      Vue.$arweave.node,
-      this.getCurrentOpenBitAddress(),
+  /* async mounted() {
+    this.$store.watch(
+      () => this.$store.getters['openbits/openbits'],
+      (openbits) => {
+        console.log(openbits);
+      },
+      /* async (getters) => {
+        if (getters && getters.openbits.openbits.length) {
+          // console.log(true);
+          const OpenBitsPSTStatus = await readContract(
+            Vue.$arweave.node,
+            this.getCurrentOpenBitAddress(),
+          );
+          this.pst = OpenBitsPSTStatus;
+          this.openbit = this.getCurrentOpenBit();
+        }
+      },
     );
-    this.pst = OpenBitsPSTStatus;
-    this.openbit = this.getCurrentOpenBit();
-  },
+  }, */
   methods: {
     reverseVersionsList() {
       const list = this.getAllVersionsOfCurrentOpenBit();
@@ -163,6 +186,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      getOpenBits: 'openbits/getOpenBits',
+    }),
     sharesDistributionItems() {
       const adjustedShares = [];
       Object.entries(this.pst.balances).forEach((item, index) => {

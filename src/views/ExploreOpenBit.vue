@@ -10,17 +10,12 @@
         v-html="readme">
       </div>
       <div v-else>
-        <b-card
-          border-variant="white">
-          <b-skeleton
-            v-for="n in 25"
-            :key="`skeleton-template-${n}`"
-            animation="wave"
-            width="100%"
-            class="mt-3"
-            variant="multiverse-color">
-          </b-skeleton>
-        </b-card>
+        <h3 class="mt-5">
+          Diving the multiverse to find the readme of this OpenBit ...
+        </h3>
+        <img
+          src="../assets/openbit-not-found-animation.svg"
+          class="openbit-not-found-animation d-block mx-auto"/>
       </div>
     </div>
     <div
@@ -44,6 +39,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import utils from '@/mixins/utils';
 
 export default {
@@ -56,6 +52,10 @@ export default {
         this.readme = await this.retrieveCurrentOpenBitReadme();
       }
     },
+    async getOpenBits() {
+      this.readme = null;
+      this.readme = await this.retrieveCurrentOpenBitReadme();
+    },
   },
   async mounted() {
     this.readme = null;
@@ -67,19 +67,22 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      getOpenBits: 'openbits/getOpenBits',
+    }),
   },
 };
 </script>
 
 <style lang="scss">
   @import '../assets/styles/custom-theme.scss';
+  .openbit-not-found-animation{
+    width: 30%;
+  }
   .readme-not-found-container {
     width:90%;
     margin-left: auto;
     margin-right: auto;
-    .openbit-not-found-animation{
-      width: 30%;
-    }
   }
   .readme-container {
     width:90%;
