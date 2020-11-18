@@ -12,10 +12,8 @@
             class="why-image w-75 d-block mx-auto"/>
           <p class="to-be-animated px-1"
             v-animate-onscroll="{down: 'animated fadeInDown'}">
-            Creators of Open Source packages, no matter the language they use,
-            are building all the bricks that compose software we use day by day.
-            These packages are the Bits that allow other developers to create fastly
-            new technologies that improves our daily lifes.
+            Developers of open-source packages create the necessary framework
+            for all other developers to build upon.
           </p>
         </b-col>
         <b-col>
@@ -24,10 +22,8 @@
             class="why-image w-75 d-block mx-auto"/>
           <p class="to-be-animated px-1"
             v-animate-onscroll="{down: 'animated fadeInDown'}">
-            However, Package Managers do not reward neither developers of packages,
-            nor users of packages. Thus, although developers usually creates these
-            important software because they want to contribute to common goods,
-            it is difficult for them to stay motivated in continuing to create them.
+            However, package managers often do not reward these developers for their
+            hard work and meaningful contributions.
           </p>
         </b-col>
         <b-col>
@@ -36,11 +32,11 @@
             class="why-image w-75 d-block mx-auto"/>
           <p class="to-be-animated px-1"
             v-animate-onscroll="{down: 'animated fadeInDown'}">
-            <b class="text-main-color">OpenBits incentivises developers by supplying
-            them an engaging way to be rewarded for creating and using Open Source Packages!</b>
-            And there is much more! OpenBits incentivises developers to donate their
-            creations to the community (that we call the MULTIVERSE) as soon as they reach
-            their desired amount of rewards!
+            <b class="text-main-color">
+              OpenBits incentivizes developers by allowing them to generate a stream of income
+              from their creations, through the installations and investments
+              of the broader community or ‘MULTIVERSE’.
+            </b>
           </p>
         </b-col>
       </b-row>
@@ -61,7 +57,8 @@ export default {
 @import '../../assets/styles/custom-theme.scss';
 
 #why-section {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  text-align:justify;
   section-title {
     font-size: 1.4rem;
   }

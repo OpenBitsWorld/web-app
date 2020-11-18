@@ -2,7 +2,55 @@
   <b-container>
     <div v-if="
       pst && openbit && (pst !== 'not-found' && openbit !== 'not-found')">
+      <h5 class="openbit-shares-info-title p-1 pl-3 mt-5 mb-3 bg-multiverse-color text-white">
+        <span v-if="$route.name==='ExploreOpenBits'">OpenBits</span>
+        Shares Info
+      </h5>
       <div
+        v-if="$route.name !== 'ExploreOpenBits'">
+      </div>
+      <h6>Target Rewards</h6>
+      <b-badge
+        class="mb-2"
+        variant="main-color">{{pst.targetProfit}} AR</b-badge>
+      <h6>Rewarded Installations</h6>
+      <b-badge
+        class="mb-2"
+        variant="main-color">
+        {{Math.round(pst.generatedProfit * 100)}}
+        ({{parseFloat(pst.generatedProfit).toFixed(2)}} AR)
+      </b-badge>
+      <h6>Next share relased to the multiverse in:</h6>
+      <b-badge
+        class="mb-2"
+        variant="main-color">{{pst.sharesReleaseIn}} Installations</b-badge>
+      <h6>Shares Distribution</h6>
+      <b-progress
+        show-progress
+        max="100" class="mb-3">
+        <b-progress-bar
+          v-for="(b, i) in Object.entries(pst.balances)"
+          :value="b[1]"
+          :key="i"
+          :variant="getProgressVariant(i, b)">
+        </b-progress-bar>
+      </b-progress>
+      <b-table
+        id="shares-distribution-table"
+        v-if="pst"
+        striped
+        :items="sharesDistributionItems"
+        :fields="sharesDistributionTable">
+          <template v-slot:cell(owner)="data">
+            <b-badge
+              class="d-inline-block w-100"
+              :variant="data.item.color"
+            >
+            {{data.value}}
+          </b-badge>
+          </template>
+      </b-table>
+            <div
         v-if="$route.name !== 'ExploreOpenBits'">
         <h5 class="openbit-info-title p-1 pl-3 mt-5 mb-3 bg-secondary-color">
           Usage Info
@@ -96,54 +144,6 @@
           </b-badge>
         </div>
       </div>
-      <h5 class="openbit-shares-info-title p-1 pl-3 mt-5 mb-3 bg-multiverse-color text-white">
-        <span v-if="$route.name==='ExploreOpenBits'">OpenBits</span>
-        Shares Info
-      </h5>
-      <div
-        v-if="$route.name !== 'ExploreOpenBits'">
-      </div>
-      <h6>Target Rewards</h6>
-      <b-badge
-        class="mb-2"
-        variant="main-color">{{pst.targetProfit}} AR</b-badge>
-      <h6>Rewarded Installations</h6>
-      <b-badge
-        class="mb-2"
-        variant="main-color">
-        {{Math.round(pst.generatedProfit * 100)}}
-        ({{parseFloat(pst.generatedProfit).toFixed(2)}} AR)
-      </b-badge>
-      <h6>Next share relased to the multiverse in:</h6>
-      <b-badge
-        class="mb-2"
-        variant="main-color">{{pst.sharesReleaseIn}} Installations</b-badge>
-      <h6>Shares Distribution</h6>
-      <b-progress
-        show-progress
-        max="100" class="mb-3">
-        <b-progress-bar
-          v-for="(b, i) in Object.entries(pst.balances)"
-          :value="b[1]"
-          :key="i"
-          :variant="getProgressVariant(i, b)">
-        </b-progress-bar>
-      </b-progress>
-      <b-table
-        id="shares-distribution-table"
-        v-if="pst"
-        striped
-        :items="sharesDistributionItems"
-        :fields="sharesDistributionTable">
-          <template v-slot:cell(owner)="data">
-            <b-badge
-              class="d-inline-block w-100"
-              :variant="data.item.color"
-            >
-            {{data.value}}
-          </b-badge>
-          </template>
-      </b-table>
     </div>
     <div v-else-if="pst === 'not-found' && openbit === 'not-found'">
       We didn't find the OpenBit you are looking for!
