@@ -13,7 +13,7 @@
             How OpenBits Works?</h1>
             <p class="list-intro to-be-animated"
               v-animate-onscroll="{down: 'animated fadeInDown'}">
-inteintegra                OpenBits is built on <a href="https://www.arweave.org/"
+                OpenBits is built on <a href="https://www.arweave.org/"
                 target="_blank"
                 class="text-secondary-color">The Arweave</a>,
                 a new type of decentralized storage using blockchain technology.
