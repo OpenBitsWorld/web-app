@@ -8,9 +8,9 @@
     <b-navbar-brand
       v-if="isHomePage()">
       <h4
-        class="pl-4 pt-3 mt-3"
+        class="pl-4 pt-2 mt-3"
         id="navbar-title">
-        <img src="../../assets/logo-white.png" class="navbar-logo" />
+        <img src="../../assets/logo-white-new-temp.png" class="navbar-logo" />
       </h4>
     </b-navbar-brand>
     <b-navbar-toggle
@@ -234,7 +234,7 @@ export default {
   }
   .navbar-logo {
     width:auto;
-    height:70px;
+    height:30px;
     display:inline-block!important;
   }
   .brand {

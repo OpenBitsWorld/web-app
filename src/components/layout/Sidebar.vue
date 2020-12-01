@@ -12,11 +12,11 @@
     width="22em">
     <template v-slot:default="{}">
         <h4
-          class="pl-4 pt-2"
+          class="pl-4 pt-3"
           id="sidebar-no-header-title">
             <img
               @click="$router.push('/')"
-              src="../../assets/logo-black.png"
+              src="../../assets/logo-black-new-temp.png"
               class="sidebar-logo" />
         </h4>
         <div class="p-3 mt-4">
@@ -93,7 +93,7 @@ export default {
     height: 58px;
     .sidebar-logo {
       width:auto;
-      height:70px;
+      height:50px;
       display:block;
       cursor:pointer;
       z-index:1000!important;

@@ -10,7 +10,7 @@
               md="6"
               lg="6"
               class="mt-5 pt-lg-0">
-              <img src="../../assets/logo-white.png"
+              <img src="../../assets/logo-white-new-temp.png"
               class="d-block mx-auto w-50"/>
           </b-col>
         </b-row>
@@ -22,7 +22,7 @@
             <hr/>
             <ul>
               <li>
-                 <a href="https://gitlab.com/cervoneluca/openbits" target="_blank">Green Paper</a>
+                <a href="https://gitlab.com/cervoneluca/openbits" target="_blank">Green Paper</a>
               </li>
               <li>
                 <a href="https://gitlab.com/cervoneluca/openbits-web" target="_blank">Web Site and Web Application Code</a>

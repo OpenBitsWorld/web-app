@@ -1,23 +1,23 @@
 <template>
   <section id="hero-section" class="h-100">
     <b-container
-       class="hero h-100 bg-main-color px-3 px-lg-5 px-md-5 px-sm-2"
-       fluid>
+      class="hero h-100 bg-main-color px-3 px-lg-5 px-md-5 px-sm-2"
+      fluid>
       <b-row
-        class="to-be-animated d-none d-sm-block mt-1"
+        class="to-be-animated d-none d-sm-block mt-5 py-3"
         v-animate-onscroll="{down: 'animated fadeInDown'}">
         <b-col
             sm="12"
             md="12"
             lg="12"
             class="pt-lg-0 d-flex align-items-center">
-            <img src="../../assets/logo-white.png"
+            <img src="../../assets/logo-white-new-temp.png"
             class="mt-5 pl-5 mx-auto d-block logo"/>
         </b-col>
       </b-row>
       <b-row
         v-animate-onscroll="{down: 'animated fadeInUp'}"
-        class="my-2 my-sm-2 my-md-4 my-lg-4 to-be-animated">
+        class="my-2 my-sm-3 my-md-5 my-lg-5 to-be-animated">
         <b-col
           sm="12"
           md="12"
@@ -217,7 +217,7 @@ export default {
     }
     .logo{
       display:block;
-      width:23rem;
+      width:42rem;
     }
     .hero-screenshot {
       width:100%;

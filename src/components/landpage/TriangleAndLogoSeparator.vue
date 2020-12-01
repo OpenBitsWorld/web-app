@@ -3,7 +3,7 @@
     <div :class="classes" :style="cssProps">
       <img
         v-if="logo"
-        src="../../assets/logo-black.png"
+        src="../../assets/logo-black-new-temp.png"
         class="why-image d-block mx-auto divider-logo"/>
     </div>
   </section>
@@ -69,8 +69,9 @@ export default {
       }
       .divider-logo {
         display:block;
-        width: 12rem;
-        margin-top:96px;
+        width: 21rem;
+        margin-left:46%!important;
+        margin-top:85px;
         padding-left:40px;
         z-index:105!important;
         -moz-transform: rotate(-9deg);

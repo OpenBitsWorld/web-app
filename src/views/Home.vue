@@ -2,7 +2,7 @@
   <main id="main" class="h-100">
     <LandPageHeroSection />
     <LandPageWhySection />
-    <TriangleAndLogoSeparator color="#ffd301" triangle="down" :logo="true" />
+    <TriangleAndLogoSeparator color="#ffd301" triangle="down" :logo="false" />
     <LandPageHowSection />
     <TriangleAndLogoSeparator color="#343a40" triangle="up" :logo="false"/>
     <LandPageWhatSection />
