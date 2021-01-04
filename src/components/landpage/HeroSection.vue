@@ -4,7 +4,7 @@
       class="hero h-100 bg-main-color px-3 px-lg-5 px-md-5 px-sm-2"
       fluid>
       <b-row
-        class="to-be-animated d-none d-sm-block mt-5 py-3"
+        class="to-be-animated mt-5 py-3"
         v-animate-onscroll="{down: 'animated fadeInDown'}">
         <b-col
             sm="12"
@@ -12,12 +12,12 @@
             lg="12"
             class="pt-lg-0 d-flex align-items-center">
             <img src="../../assets/logo-white-new-temp.png"
-            class="mt-5 pl-5 mx-auto d-block logo"/>
+            class="mt-5 mx-auto d-block logo"/>
         </b-col>
       </b-row>
       <b-row
         v-animate-onscroll="{down: 'animated fadeInUp'}"
-        class="my-2 my-sm-3 my-md-5 my-lg-5 to-be-animated">
+        class="my-5 my-sm-5 my-md-5 my-lg-5 pt-3 to-be-animated">
         <b-col
           sm="12"
           md="12"
@@ -217,7 +217,10 @@ export default {
     }
     .logo{
       display:block;
-      width:42rem;
+      width:29rem;
+      @media (max-width: 767px) {
+        width:20rem;
+      }
     }
     .hero-screenshot {
       width:100%;
