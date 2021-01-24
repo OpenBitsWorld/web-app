@@ -2,11 +2,10 @@
   <div
     id="app-layout"
     class="h-100">
-    <LayoutSidebar v-if="$route.path !== '/'" />
+    <LayoutSidebar />
     <div
       id="page-center-container"
-      class="h-100"
-      :class="pageContainerClass">
+      class="h-100 app">
       <LayoutNavbar />
       <router-view />
     </div>
@@ -27,9 +26,6 @@ export default {
     LayoutSidebar,
   },
   computed: {
-    pageContainerClass() {
-      return (this.isHomePage()) ? 'homepage' : 'app';
-    },
     ...mapGetters({
       defaultARWallet: 'user/getDefaultARWallet',
     }),

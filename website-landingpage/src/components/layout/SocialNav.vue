@@ -36,7 +36,7 @@
       target="_blank"
       href="https://community.xyz/#6eTVr8IKPNYbMHVcpHFXr-XNaL5hT6zRJXimcP-owmo"
       class="d-inline-block social-icon">
-      <img src="../../assets/communityxyz-icon-not-white.svg" class="communityxyz-logo-icon" />
+      <img src="../../assets/communityxyz-icon-white.svg" class="communityxyz-logo-icon" />
     </b-nav-item>
   </div>
 </template>
@@ -51,6 +51,5 @@ export default {
   .communityxyz-logo-icon {
     height: 21px;
     padding-bottom:5px;
-    fill: #FF0000;;
   }
 </style>

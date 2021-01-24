@@ -5,30 +5,7 @@
     toggleable="lg"
     text-variant="light"
     variant="white">
-    <b-navbar-brand
-      v-if="isHomePage()">
-      <h4
-        class="pl-4 pt-2 mt-3"
-        id="navbar-title">
-        <img src="../../assets/logo-white-new-temp.png" class="navbar-logo" />
-      </h4>
-    </b-navbar-brand>
-    <b-navbar-toggle
-      class="text-white"
-      data-toggle="modal"
-      data-target="test-modal"
-      target="test-modal"
-      @click="openOverlayMenu()">
-      <template v-slot:default="{ expanded }">
-        <font-awesome-icon
-          v-if="expanded"
-          size="lg"
-          :icon="['fa', 'times']" />
-        <font-awesome-icon
-          size="lg"
-          :icon="['fa', 'bars']" />
-      </template>
-    </b-navbar-toggle>
+    <LayoutSocialNav />
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav
         v-if="isLogged"
@@ -53,95 +30,13 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
       <b-navbar-nav
-        v-else-if="isHomePage()"
-        class="ml-auto pt-3">
-        <b-nav-item
-          href="#"
-          v-scroll-to="'#why-section'"
-          class="text-white pt-2 d-inline-block"
-          right>
-          Why OpenBits
-        </b-nav-item>
-        <b-nav-item
-          href="#"
-          v-scroll-to="'#how-section'"
-          class="text-white pt-2 d-inline-block"
-          right>
-          How OpenBits Works
-        </b-nav-item>
-        <b-nav-item
-          href="#"
-          v-scroll-to="'#what-section'"
-          class="text-white pt-2 d-inline-block"
-          right>
-          Get Started
-        </b-nav-item>
-        <b-nav-item
-          @click="$router.push('explore-openbits')"
-          class="text-white pt-2 d-inline-block"
-          right>
-          Explore OpenBits
-        </b-nav-item>
-        <b-nav-item
-          id="main-login-button"
-          right><LayoutLoginModal modalId="0" /></b-nav-item>
-        <LayoutSocialNav />
-      </b-navbar-nav>
-      <b-navbar-nav
         v-else
         class="ml-auto app">
         <b-nav-item
           id="main-login-button"
           right><LayoutLoginModal modalId="0" /></b-nav-item>
-        <LayoutSocialNav />
       </b-navbar-nav>
     </b-collapse>
-    <div id="overlay-menu" class="overlay-menu">
-      <b-button
-        variant="outline-white"
-        class="closebtn mt-4 p-1"
-        @click="closeOverlayMenu()">
-        <font-awesome-icon
-          class="close-menu-icon text-white"
-          size="3x"
-          :icon="['fa', 'times']"/>
-      </b-button>
-      <b-nav vertical class="w-100 mt-5 p-3 pt-5">
-        <b-nav-item
-          href="#"
-          v-scroll-to="'#why-section'"
-          class="text-white pt-2 d-inline-block"
-          @click="closeOverlayMenu()">
-          Why OpenBits
-        </b-nav-item>
-        <b-nav-item
-          href="#"
-          v-scroll-to="'#how-section'"
-          class="text-white pt-2 d-inline-block"
-          @click="closeOverlayMenu()">
-          How OpenBits Works
-        </b-nav-item>
-        <b-nav-item
-          href="#"
-          v-scroll-to="'#what-section'"
-          class="text-white pt-2 d-inline-block"
-          @click="closeOverlayMenu()">
-          Get Started
-        </b-nav-item>
-        <b-nav-item
-          @click="$router.push('explore-openbits'); closeOverlayMenu();"
-          class="text-white pt-2 d-inline-block">
-          Explore OpenBits
-        </b-nav-item>
-        <b-nav-item
-          id="main-login-button"
-          class="my-3 d-block"
-          @click="closeOverlayMenu()">
-          <LayoutLoginModal modalId="1" />
-        </b-nav-item>
-        <LayoutSocialNav />
-      </b-nav>
-    </div>
   </b-navbar>
 </template>
 
@@ -179,12 +74,6 @@ export default {
       this.setARDefaultWallet(null);
       this.$router.push('/');
     },
-    openOverlayMenu() {
-      document.getElementById('overlay-menu').style.width = '100%';
-    },
-    closeOverlayMenu() {
-      document.getElementById('overlay-menu').style.width = '0';
-    },
   },
 };
 </script>
@@ -197,7 +86,7 @@ export default {
     &:not(.Home){
       border-bottom: 2px solid $dark
     }
-    z-index: 10000;
+    z-index: 1;
     height: 58px;
     background: transparent!important;
     .navbar-nav {

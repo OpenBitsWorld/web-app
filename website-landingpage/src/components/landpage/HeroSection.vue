@@ -46,9 +46,9 @@
             d-md-inline d-lg-inline"
             icon="box-open" />
           <number
-            v-if="getOpenBits.length"
+            v-if="openBitsCount"
             ref="numberOfPackages"
-            :to="getOpenBits.length"
+            :to="openBitsCount"
             class="text-white display-1 my-5"
             />
           <span
@@ -112,7 +112,7 @@
             size="lg"
             variant="multiverse-color"
             class="mr-2"
-            @click="$router.push('explore-openbits')">
+            href="/#/explore-openbits" target="_blank">
               <b>Explore All OpenBits</b>
           </b-button>
           <b-button
@@ -126,7 +126,7 @@
           class="d-inline-block d-sm-inline-block d-md-none d-lg-none">
           <b-button
             variant="multiverse-color"
-            @click="$router.push('explore-openbits')">
+            href="/#/explore-openbits" target="_blank">
               <b>Explore All OpenBits</b>
           </b-button>
           <b-button
@@ -156,7 +156,6 @@
 
 <script>
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
 import { readContract } from 'smartweave';
 import config from '@/mixins/configs';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
@@ -169,21 +168,34 @@ export default {
   },
   async mounted() {
     window.scroll(0, 1);
-    // get the openbits PST Status
-    const OpenBitsPSTStatus = await readContract(
-      Vue.$arweave.node,
-      this.config.OPENBITS_CBVAC_STATUS,
-    );
-    this.pst = OpenBitsPSTStatus;
+    this.countOpenBits();
+    this.pstStatus();
   },
-  computed: {
-    ...mapGetters({
-      getOpenBits: 'openbits/getOpenBits',
-    }),
+  methods: {
+    async pstStatus() {
+      // get the openbits PST Status
+      const OpenBitsPSTStatus = await readContract(
+        Vue.$arweave.node,
+        this.config.OPENBITS_CBVAC_STATUS,
+      );
+      this.pst = OpenBitsPSTStatus;
+    },
+    async countOpenBits() {
+      // get openbits from the registry
+      const rs = await readContract(Vue.$arweave.node, this.config.OPENBITS_REGISTRY);
+      // get the openbits
+      const { OpenBits } = rs;
+      Object.values(OpenBits.nodePackages).forEach((v) => {
+        if (v.name !== '@theronin/solarweave') {
+          this.openBitsCount += 1;
+        }
+      });
+    },
   },
   data() {
     return {
       pst: null,
+      openBitsCount: 0,
     };
   },
 };

@@ -64,7 +64,7 @@ export default {
 
             const defWallet = this.$arGetDefaultWallet;
             this.setARDefaultWallet(defWallet);
-            this.$router.push('/explore-openbits');
+            // this.$router.push('/explore-openbits');
           };
           reader.readAsText(file);
           done();
