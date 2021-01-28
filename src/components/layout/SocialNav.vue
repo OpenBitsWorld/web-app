@@ -1,5 +1,5 @@
 <template>
-  <div class="social-nav pt-2 px-2">
+  <div class="social-nav">
     <b-nav-item
       target="_blank"
       href="https://discord.gg/ZYjAwXk"
@@ -51,6 +51,5 @@ export default {
   .communityxyz-logo-icon {
     height: 21px;
     padding-bottom:5px;
-    fill: #FF0000;;
   }
 </style>

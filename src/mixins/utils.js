@@ -96,7 +96,8 @@ const utils = {
           const converter = new showdown.Converter();
           converter.setOption('ghCodeBlocks', true);
           converter.setOption('emoji', true);
-          const html = converter.makeHtml(readme[0].readAsString());
+          const encodedString = new TextDecoder().decode(new Uint8Array(readme[0].buffer));
+          const html = converter.makeHtml(encodedString);
 
           // improve the generated HTML
           const $ = cheerio.load(html);

@@ -5,8 +5,10 @@
     toggleable="lg"
     text-variant="light"
     variant="white">
-    <LayoutSocialNav />
     <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav class="app">
+        <LayoutSocialNav />
+      </b-navbar-nav>
       <b-navbar-nav
         v-if="isLogged"
         class="ml-auto">
@@ -62,7 +64,7 @@ export default {
       if (this.isLogged) {
         return 'app-navbar';
       }
-      return `landpage-navbar ${this.$route.name}`;
+      return `app-navbar ${this.$route.name}`;
     },
   },
   methods: {
@@ -82,18 +84,16 @@ export default {
 @import '../../assets/styles/custom-theme.scss';
 
 #main-navbar {
-  &.landpage-navbar {
-    &:not(.Home){
-      border-bottom: 2px solid $dark
-    }
+  &.app-navbar {
     z-index: 1;
     height: 58px;
     background: transparent!important;
+    border-bottom: 2px solid $dark;
     .navbar-nav {
       .nav-item {
         &:not(#main-login-button) {
           a {
-            color:$white;
+            color:$dark;
             font-weight:bold;
             padding-bottom: 5px;
             &:hover{
@@ -102,24 +102,7 @@ export default {
           }
         }
       }
-      &.app {
-        .nav-item {
-          &:not(#main-login-button) {
-            a {
-              color:$dark;
-              font-weight:bold;
-              padding-bottom: 5px;
-              &:hover{
-                color: $secondary-color;
-              }
-            }
-          }
-        }
-      }
     }
-  }
-  &.app-navbar {
-    border-bottom: 2px solid $dark;
   }
   .navbar-logo {
     width:auto;
