@@ -49,14 +49,6 @@
             </b-badge>
             </template>
         </b-table>
-        <b-button
-          class="mt-2"
-          variant="main-color"
-          :to="{name: 'ExploreOpenBitShares'}">
-          <b>
-            More Info & invest
-          </b>
-        </b-button>
       </div>
             <div
         v-if="$route.name !== 'ExploreOpenBits'">

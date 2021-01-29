@@ -4,6 +4,16 @@
     <h5>{{$route.params.id}}</h5>
     <div v-if="getCurrentOpenBit()"
       class="readme-container">
+      <div>
+        <b-button v-b-toggle.collapse-1 class="mt-2" variant="main-color">
+          Shares info & invest ☰
+        </b-button>
+        <b-collapse id="collapse-1" class="mt-2">
+          <OpenBitCard
+            :openbit="getCurrentOpenBit()"
+          />
+        </b-collapse>
+      </div>
       <div
         v-if="readme"
         v-html="readme">
@@ -40,10 +50,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import utils from '@/mixins/utils';
+import OpenBitCard from '@/components/OpenBitCard.vue';
 
 export default {
   name: 'ExploreOpenBit',
   mixins: [utils],
+  components: {
+    OpenBitCard,
+  },
   watch: {
     async $route(to) {
       if (!to.hash) {

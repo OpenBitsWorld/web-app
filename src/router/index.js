@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import UserProfile from '@/views/UserProfile.vue';
 import ExploreOpenBits from '@/views/ExploreOpenBits.vue';
 import ExploreOpenBit from '@/views/ExploreOpenBit.vue';
-import ExploreOpenBitShares from '@/views/ExploreOpenBitShares.vue';
 import UserOpenBits from '@/views/UserOpenBits.vue';
 import PublishOpenBit from '@/views/PublishOpenBit.vue';
 
@@ -24,11 +23,6 @@ const routes = [
     path: '/explore-openbit/:id',
     name: 'ExploreOpenBit',
     component: ExploreOpenBit,
-  },
-  {
-    path: '/explore-openbit/:id/shares',
-    name: 'ExploreOpenBitShares',
-    component: ExploreOpenBitShares,
   },
   {
     path: '/user-openbits',
