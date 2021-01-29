@@ -8,48 +8,56 @@
       </h5>
       <div
         v-if="$route.name !== 'ExploreOpenBits'">
+        <h6>Target Rewards</h6>
+        <b-badge
+          class="mb-2"
+          variant="main-color">{{pst.targetProfit}} AR</b-badge>
+        <h6>Rewarded Installations</h6>
+        <b-badge
+          class="mb-2"
+          variant="main-color">
+          {{Math.round(pst.generatedProfit * 100)}}
+          ({{parseFloat(pst.generatedProfit).toFixed(2)}} AR)
+        </b-badge>
+        <h6>Next share relased to the multiverse in:</h6>
+        <b-badge
+          class="mb-2"
+          variant="main-color">{{pst.sharesReleaseIn}} Installations</b-badge>
+        <h6>Shares Distribution</h6>
+        <b-progress
+          show-progress
+          max="100" class="mb-3">
+          <b-progress-bar
+            v-for="(b, i) in Object.entries(pst.balances)"
+            :value="b[1]"
+            :key="i"
+            :variant="getProgressVariant(i, b)">
+          </b-progress-bar>
+        </b-progress>
+        <b-table
+          id="shares-distribution-table"
+          v-if="pst"
+          striped
+          :items="sharesDistributionItems"
+          :fields="sharesDistributionTable">
+            <template v-slot:cell(owner)="data">
+              <b-badge
+                class="d-inline-block w-100"
+                :variant="data.item.color"
+              >
+              {{data.value}}
+            </b-badge>
+            </template>
+        </b-table>
+        <b-button
+          class="mt-2"
+          variant="main-color"
+          :to="{name: 'ExploreOpenBitShares'}">
+          <b>
+            More Info & invest
+          </b>
+        </b-button>
       </div>
-      <h6>Target Rewards</h6>
-      <b-badge
-        class="mb-2"
-        variant="main-color">{{pst.targetProfit}} AR</b-badge>
-      <h6>Rewarded Installations</h6>
-      <b-badge
-        class="mb-2"
-        variant="main-color">
-        {{Math.round(pst.generatedProfit * 100)}}
-        ({{parseFloat(pst.generatedProfit).toFixed(2)}} AR)
-      </b-badge>
-      <h6>Next share relased to the multiverse in:</h6>
-      <b-badge
-        class="mb-2"
-        variant="main-color">{{pst.sharesReleaseIn}} Installations</b-badge>
-      <h6>Shares Distribution</h6>
-      <b-progress
-        show-progress
-        max="100" class="mb-3">
-        <b-progress-bar
-          v-for="(b, i) in Object.entries(pst.balances)"
-          :value="b[1]"
-          :key="i"
-          :variant="getProgressVariant(i, b)">
-        </b-progress-bar>
-      </b-progress>
-      <b-table
-        id="shares-distribution-table"
-        v-if="pst"
-        striped
-        :items="sharesDistributionItems"
-        :fields="sharesDistributionTable">
-          <template v-slot:cell(owner)="data">
-            <b-badge
-              class="d-inline-block w-100"
-              :variant="data.item.color"
-            >
-            {{data.value}}
-          </b-badge>
-          </template>
-      </b-table>
             <div
         v-if="$route.name !== 'ExploreOpenBits'">
         <h5 class="openbit-info-title p-1 pl-3 mt-5 mb-3 bg-secondary-color">

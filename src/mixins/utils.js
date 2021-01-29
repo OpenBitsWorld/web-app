@@ -35,7 +35,7 @@ const utils = {
       return this.$route.path;
     },
     getAllVersionsOfCurrentOpenBit() {
-      if (this.$route.name === 'ExploreOpenBit') {
+      if (this.$route.name === 'ExploreOpenBit' || this.$route.name === 'ExploreOpenBitShares') {
         const {
           name,
         } = parse(this.$route.params.id);
@@ -45,7 +45,7 @@ const utils = {
       return [];
     },
     getCurrentOpenBit() {
-      if (this.$route.name === 'ExploreOpenBit') {
+      if (this.$route.name === 'ExploreOpenBit' || this.$route.name === 'ExploreOpenBitShares') {
         const {
           version,
         } = parse(this.$route.params.id);
@@ -59,7 +59,7 @@ const utils = {
       return [];
     },
     getCurrentOpenBitAddress() {
-      if (this.$route.name === 'ExploreOpenBit') {
+      if (this.$route.name === 'ExploreOpenBit' || this.$route.name === 'ExploreOpenBitShares') {
         const current = this.getCurrentOpenBit();
         return current.pstId;
       }
