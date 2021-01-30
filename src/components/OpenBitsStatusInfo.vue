@@ -8,6 +8,7 @@
       </h5>
       <div
         v-if="$route.name !== 'ExploreOpenBits'">
+      </div>
         <h6>Target Rewards</h6>
         <b-badge
           class="mb-2"
@@ -49,7 +50,6 @@
             </b-badge>
             </template>
         </b-table>
-      </div>
             <div
         v-if="$route.name !== 'ExploreOpenBits'">
         <h5 class="openbit-info-title p-1 pl-3 mt-5 mb-3 bg-secondary-color">
