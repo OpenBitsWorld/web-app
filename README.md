@@ -1,17 +1,17 @@
 # OpenBits Web Application
 
 <div align="center">
-   <img align="center" src="src/assets/logo-black.png" width="250px" alt="OpenBits logo" title="OpenBits Logo">
+   <img align="center" src="src/assets/logo-black-new.png" width="250px" alt="OpenBits logo" title="OpenBits Logo">
 </div>
 
-This is the source code of the Web Application of OpenBits. The web application is a Vue.JS application and it includes both the landing page (the web site) and the actual application that allows to publish and invest in OpenBits. The following sections explain how to setup your own development environment to contribute to OpenBits or to run a fork of it. 
+This is the source code of the Web Application of OpenBits. The web application is a Vue.JS application and it includes the actual application that allows to publish and invest in OpenBits. The following sections explain how to setup your own development environment to contribute to OpenBits or to run a fork of it. 
 
 ## Project setup
 
 Firstly, clone this project by running: 
 
 ```
-git clone https://gitlab.com/cervoneluca/openbits-web.git
+git clone https://github.com/OpenBitsWorld/web-app.git
 ```
 
 Then install the needed node packages by running: 
